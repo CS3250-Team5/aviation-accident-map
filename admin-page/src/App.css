@@ -1,28 +1,541 @@
+
+/*
+
+initall css for backgrouns and body
+
+*/
 .App {
   text-align: center;
+  height:100%;
+  width: 100%;
+ 
+}
+.background{
+  z-index: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(#3333ff, #7ec0ee);
+}
+.clouds{
+  background:transparent url('./Clouds.png') repeat top center;
+  z-index:1;
+  position: absolute;
+  height: 100%;
+  width:100%;
+  animation:move 1500s linear infinite;
+ 
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+
+/*
+continer for inital welcome
+
+*/
+
+.allpannels{
+  opacity:1;
+position: fixed;
+height:20em;
+width:30em;
+top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.App-header {
+.p0cont.transitionIn{
+opacity: 1;
+}
+.p0cont.transitionOut{
+  opacity: 1;
+  }
+.p0cont{
+ 
+position: inherit;
+height:100%;
+width:100%;
+transition: 4.5s;
+
+}
+.pannel0{
+  height:100%;
+  width:100%;
+  position: inherit;
+  border-radius: 20px;
   background-color: #222;
-  height: 150px;
-  padding: 20px;
+  
+}
+
+.text0{
+  position: relative;
+  margin-top:5px;
+  margin-bottom: 10px;
+  color:white;
+  font-size: 5em;
+  font-style: italic;
+  font-family:"Agency FB";
+  text-decoration: underline;
+  cursor: default;
+  text-shadow: 3px 3px #000000;
+}
+.text0h{
+  position: relative;
+  margin-bottom: 10px;
+  color:white;
+  font-size: 2em;
+  font-style: italic;
+  font-family:"Agency FB";
+  cursor: default;
+  text-shadow: 2.5px 2.5px #000000;
+}
+.button0{
+  position: relative;
+  background: #2222ff;
+  opacity:0.6;
+  color:white;
+  height:5em;
+  width:15em;
+  cursor: pointer;
+  border-radius: 10px;
+  border-color:#ddd;
+  font-size: 1em;
+  box-shadow: 3px 3px 3px 2px #000000;
+  font-weight: 700;
+  font-style:italic;
+  outline: 0;
+}
+
+.button0:hover{
+  opacity:1;
+}
+
+
+/*
+
+Container for Step 1
+
+*/
+.p1cont{
+  
+  
+position: inherit;
+height:100%;
+width:100%;
+transition: 4.5s;
+
+}
+.pannel1{
+  height:100%;
+  width:100%;
+  position: inherit;
+  border-radius: 20px;
+  background-color: #222;
+  
+}
+
+.text1{
+  position: relative;
+  margin-top:5px;
+  margin-bottom: 10px;
+  color:white;
+  font-size: 5em;
+  font-style: italic;
+  font-family:"Agency FB";
+  cursor: default;
+  text-shadow: 3px 3px #000000;
+}
+.text1h{
+  position: relative;
+  margin-bottom: 10px;
+  color:white;
+  font-size: 2em;
+  font-style: italic;
+  font-family:"Agency FB";
+  cursor: default;
+  text-shadow: 2.5px 2.5px #000000;
+}
+.button1{
+  position: relative;
+  background: #2222ff;
+  opacity:0.6;
+  color:white;
+  height:5em;
+  width:15em;
+  cursor: pointer;
+  border-radius: 10px;
+  border-color:#ddd;
+  font-size: 1em;
+  box-shadow: 3px 3px 3px 2px #000000;
+  font-weight: 700;
+  font-style:italic;
+  outline: 0;
+}
+
+.button1:hover{
+  opacity:1;
+}
+
+/*
+
+step 2*/
+
+
+
+.p2cont{
+  
+  
+  position: inherit;
+  height:100%;
+  width:100%;
+  transition: 4.5s;
+  
+  }
+  .pannel2{
+    height:100%;
+    width:100%;
+    position: inherit;
+    border-radius: 20px;
+    background-color: #222;
+    
+  }
+  
+  .text2{
+    position: relative;
+    margin-top:5px;
+    margin-bottom: 10px;
+    color:white;
+    font-size: 5em;
+    font-style: italic;
+    font-family:"Agency FB";
+    cursor: default;
+    text-shadow: 3px 3px #000000;
+  }
+  .text2h{
+    position: relative;
+    margin-bottom: 10px;
+    color:white;
+    font-size: 2em;
+    font-style: italic;
+    font-family:"Agency FB";
+    cursor: default;
+    text-shadow: 2.5px 2.5px #000000;
+  }
+  .button2{
+    position: relative;
+    background: #2222ff;
+    opacity:0.6;
+    color:white;
+    height:5em;
+    width:15em;
+    cursor: pointer;
+    border-radius: 10px;
+    border-color:#ddd;
+    font-size: 1em;
+    box-shadow: 3px 3px 3px 2px #000000;
+    font-weight: 700;
+    font-style:italic;
+    outline: 0;
+  }
+  
+  .button2:hover{
+    opacity:1;
+  }
+
+/*
+Step 3
+
+*/
+
+.p3cont{
+  
+  
+  position: inherit;
+  height:100%;
+  width:100%;
+  transition: 4.5s;
+  
+  }
+  .pannel3{
+    height:100%;
+    width:100%;
+    position: inherit;
+    border-radius: 20px;
+    background-color: #222;
+    
+  }
+  
+  .text3{
+    position: relative;
+    margin-top:5px;
+    margin-bottom: 10px;
+    color:white;
+    font-size: 5em;
+    font-style: italic;
+    font-family:"Agency FB";
+    cursor: default;
+    text-shadow: 3px 3px #000000;
+  }
+  .text3h{
+    position: relative;
+    margin-bottom: 10px;
+    color:white;
+    font-size: 2em;
+    font-style: italic;
+    font-family:"Agency FB";
+    cursor: default;
+    text-shadow: 2.5px 2.5px #000000;
+  }
+  .button3{
+    position: relative;
+    background: #2222ff;
+    opacity:0.6;
+    color:white;
+    height:5em;
+    width:15em;
+    cursor: pointer;
+    border-radius: 10px;
+    border-color:#ddd;
+    font-size: 1em;
+    box-shadow: 3px 3px 3px 2px #000000;
+    font-weight: 700;
+    font-style:italic;
+    outline: 0;
+  }
+  
+  .button3:hover{
+    opacity:1;
+  }
+
+  /*
+Step 4
+
+*/
+
+.p4cont{
+  
+  
+  position: inherit;
+  height:100%;
+  width:100%;
+  transition: 4.5s;
+  
+  }
+  .pannel4{
+    height:100%;
+    width:100%;
+    position: inherit;
+    border-radius: 20px;
+    background-color: #222;
+    
+  }
+  
+  .text4{
+    position: relative;
+    margin-top:5px;
+    margin-bottom: 10px;
+    color:white;
+    font-size: 5em;
+    font-style: italic;
+    font-family:"Agency FB";
+    cursor: default;
+    text-shadow: 3px 3px #000000;
+  }
+  .text4h{
+    position: relative;
+    margin-bottom: 10px;
+    color:white;
+    font-size: 2em;
+    font-style: italic;
+    font-family:"Agency FB";
+    cursor: default;
+    text-shadow: 2.5px 2.5px #000000;
+  }
+  .button4{
+    position: relative;
+    background: #2222ff;
+    opacity:0.6;
+    color:white;
+    height:5em;
+    width:15em;
+    cursor: pointer;
+    border-radius: 10px;
+    border-color:#ddd;
+    font-size: 1em;
+    box-shadow: 3px 3px 3px 2px #000000;
+    font-weight: 700;
+    font-style:italic;
+    outline: 0;
+  }
+  
+  .button4:hover{
+    opacity:1;
+  }
+
+   /*
+Step 5
+
+*/
+
+.pfcont{
+  
+  
+  position: inherit;
+  height:100%;
+  width:100%;
+  transition: 4.5s;
+  
+  }
+  .pannelf{
+    height:100%;
+    width:100%;
+    position: inherit;
+    border-radius: 20px;
+    background-color: #222;
+    
+  }
+ 
+  .circle{
+    border-radius: 50%;
+    
+    width:40%;
+    height:50%;
+    left:50%;
+    top:30%;
+    transform: translate(-50%, -50%);
+    border:solid white;
+    border-width: 4px;
+    background-color: #00ff00;
+    position: relative;
+    margin-bottom: 10px;
+    cursor: default;
+    
+  }
+  .textf{
+    margin-bottom: 0;
+    position: relative;
+    margin-bottom: 10px;
+    color:white;
+    font-size: 2em;
+    font-style: italic;
+    font-family:"Agency FB";
+    cursor: default;
+    text-shadow: 2.5px 2.5px #000000;
+  }
+  .textfh{
+    text-shadow: 2.5px 2.5px #000000;
+    color: white;
+    font-size: 4em;
+    font-style: italic;
+    font-family: "Agency FB";
+    line-height: 0;
+    text-decoration: underline;
+
+
+  }
+
+.aircraft{
+  height: 15vh;
+}
+
+.upload{
+  height: 15vh;
+  vertical-align: -80%;
+  margin-left: 5%;
+  cursor: pointer;
+}
+
+.header {
+  background-color: #222;
+  height: 30%;
+  width: 100%;
   color: white;
 }
 
-.App-title {
-  font-size: 1.5em;
+.title {
+  font-size: 6vh;
 }
 
-.App-intro {
-  font-size: large;
+
+.dropdown{
+  vertical-align: middle;
+  height:6%;
+  width: 20%;
+  font-size: 3vh;
+  display: inline-block;
+  margin-left: 3%;
+  
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.text {
+  
+  font-size: 5vh;
+  text-align: left;
+  margin-left: 5%;
+  margin-top: 5%;
+  padding-bottom: 5%;
 }
+.dates{
+  vertical-align: middle;
+  height:100%;
+  width: 20%;
+  font-size: 3vh;
+  display: inline-block;
+  
+  
+}
+.checktext{
+  margin-right: 2%;
+  
+}
+input[type=checkbox]{
+  vertical-align:middle;
+  transform: scale(1.5);
+  margin-left: 5%;
+  margin-right: 1%;
+
+
+}
+
+
+.my-float{
+  position:fixed;
+	width:10vw;
+	height:5vw;
+	bottom:1vh;
+  right:2vw;
+  font-size: 2vh;
+  margin-top:22px;
+  text-align:center;
+  box-shadow: 2px 2px 3px #999;
+  background-color:#0C9;
+  cursor:pointer;
+}
+
+@keyframes move {
+  from {background-position:0 0;}
+  to {background-position:-10000px 0;}
+}
+@keyframes fadeOutLeft {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+	background:#fff;
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+.fadeOutLeft {
+  -webkit-animation-name: fadeOutLeft;
+  animation-name: fadeOutLeft;
+}
+	
+@keyframes fadeout{
+	from{ opacity:1;}
+	to{opacity:0;}
+	
+}
+
