@@ -42,37 +42,32 @@ continer for inital welcome
   transform: translate(-50%, -50%);
 }
 
-.p0cont.transitionIn {
-  opacity: 1;
-}
 
-.p0cont.transitionOut {
-  opacity: 1;
-}
 
 .p0cont {
-  position: inherit;
+  position: absolute;
   height: 100%;
   width: 100%;
-  transition: 4.5s;
+  -webkit-animation-fill-mode: forwards !important; /* Safari 4.0 - 8.0 */
+  animation-fill-mode: forwards !important;
 }
 
 .pannel0 {
   height: 100%;
   width: 100%;
-  position: inherit;
+  position: absolute;
   border-radius: 20px;
   background-color: #222;
 }
 
 .text0 {
   position: relative;
-  margin-top: 5px;
+  margin-top: 40px;
   margin-bottom: 10px;
   color: white;
-  font-size: 5em;
+  font-size: 3em;
   font-style: italic;
-  font-family: "Agency FB";
+  font-family: "Agency FB",Tahoma, Geneva, sans-serif;
   text-decoration: underline;
   cursor: default;
   text-shadow: 3px 3px #000000;
@@ -84,7 +79,7 @@ continer for inital welcome
   color: white;
   font-size: 2em;
   font-style: italic;
-  font-family: "Agency FB";
+  font-family: "Agency FB",Tahoma, Geneva, sans-serif;
   cursor: default;
   text-shadow: 2.5px 2.5px #000000;
 }
@@ -117,28 +112,32 @@ Container for Step 1
 */
 
 .p1cont {
-  position: inherit;
+  position: absolute;
   height: 100%;
   width: 100%;
-  transition: 4.5s;
+  -webkit-animation-fill-mode: forwards !important; /* Safari 4.0 - 8.0 */
+  animation-fill-mode: forwards !important;
+  
+  
+
 }
 
 .pannel1 {
   height: 100%;
   width: 100%;
-  position: inherit;
+  position: absolute;
   border-radius: 20px;
   background-color: #222;
 }
 
 .text1 {
   position: relative;
-  margin-top: 5px;
+  margin-top: 40px;
   margin-bottom: 10px;
   color: white;
-  font-size: 5em;
+  font-size: 3em;
   font-style: italic;
-  font-family: "Agency FB";
+  font-family: "Agency FB",Tahoma, Geneva, sans-serif;
   cursor: default;
   text-shadow: 3px 3px #000000;
 }
@@ -149,7 +148,7 @@ Container for Step 1
   color: white;
   font-size: 2em;
   font-style: italic;
-  font-family: "Agency FB";
+  font-family: "Agency FB",Tahoma, Geneva, sans-serif;
   cursor: default;
   text-shadow: 2.5px 2.5px #000000;
 }
@@ -180,28 +179,29 @@ Container for Step 1
 step 2*/
 
 .p2cont {
-  position: inherit;
+  position: absolute;
   height: 100%;
   width: 100%;
-  transition: 4.5s;
+  -webkit-animation-fill-mode: forwards !important; /* Safari 4.0 - 8.0 */
+  animation-fill-mode: forwards !important;
 }
 
 .pannel2 {
   height: 100%;
   width: 100%;
-  position: inherit;
+  position: absolute;
   border-radius: 20px;
   background-color: #222;
 }
 
 .text2 {
   position: relative;
-  margin-top: 5px;
+  margin-top: 40px;
   margin-bottom: 10px;
   color: white;
-  font-size: 5em;
+  font-size: 3em;
   font-style: italic;
-  font-family: "Agency FB";
+  font-family: "Agency FB",Tahoma, Geneva, sans-serif;
   cursor: default;
   text-shadow: 3px 3px #000000;
 }
@@ -212,7 +212,7 @@ step 2*/
   color: white;
   font-size: 2em;
   font-style: italic;
-  font-family: "Agency FB";
+  font-family: "Agency FB",Tahoma, Geneva, sans-serif;
   cursor: default;
   text-shadow: 2.5px 2.5px #000000;
 }
@@ -244,39 +244,39 @@ Step 3
 */
 
 .p3cont {
-  position: inherit;
+  position: absolute;
   height: 100%;
   width: 100%;
-  transition: 4.5s;
+  -webkit-animation-fill-mode: forwards !important; /* Safari 4.0 - 8.0 */
+  animation-fill-mode: forwards !important;
 }
 
 .pannel3 {
   height: 100%;
   width: 100%;
-  position: inherit;
+  position: absolute;
   border-radius: 20px;
   background-color: #222;
 }
 
 .text3 {
   position: relative;
-  margin-top: 5px;
+  margin-top: 40px;
   margin-bottom: 10px;
   color: white;
-  font-size: 5em;
+  font-size: 3em;
   font-style: italic;
-  font-family: "Agency FB";
+  font-family: "Agency FB",Tahoma, Geneva, sans-serif;
   cursor: default;
   text-shadow: 3px 3px #000000;
 }
-
 .text3h {
   position: relative;
   margin-bottom: 10px;
   color: white;
   font-size: 2em;
   font-style: italic;
-  font-family: "Agency FB";
+  font-family: "Agency FB",Tahoma, Geneva, sans-serif;
   cursor: default;
   text-shadow: 2.5px 2.5px #000000;
 }
@@ -308,28 +308,30 @@ Step 4
 */
 
 .p4cont {
-  position: inherit;
+  position: absolute;
   height: 100%;
   width: 100%;
-  transition: 4.5s;
+  -webkit-animation-fill-mode: forwards !important; /* Safari 4.0 - 8.0 */
+  animation-fill-mode: forwards !important;
+
 }
 
 .pannel4 {
   height: 100%;
   width: 100%;
-  position: inherit;
+  position: absolute;
   border-radius: 20px;
   background-color: #222;
 }
 
 .text4 {
   position: relative;
-  margin-top: 5px;
+  margin-top: 40px;
   margin-bottom: 10px;
   color: white;
-  font-size: 5em;
+  font-size: 3em;
   font-style: italic;
-  font-family: "Agency FB";
+  font-family: "Agency FB",Tahoma, Geneva, sans-serif;
   cursor: default;
   text-shadow: 3px 3px #000000;
 }
@@ -340,7 +342,7 @@ Step 4
   color: white;
   font-size: 2em;
   font-style: italic;
-  font-family: "Agency FB";
+  font-family: "Agency FB",Tahoma, Geneva, sans-serif;
   cursor: default;
   text-shadow: 2.5px 2.5px #000000;
 }
@@ -372,16 +374,18 @@ Step 5
 */
 
 .pfcont {
-  position: inherit;
+  position: absolute;
   height: 100%;
   width: 100%;
-  transition: 4.5s;
+  -webkit-animation-fill-mode: forwards !important; /* Safari 4.0 - 8.0 */
+  animation-fill-mode: forwards !important;
+
 }
 
 .pannelf {
   height: 100%;
   width: 100%;
-  position: inherit;
+  position: absolute;
   border-radius: 20px;
   background-color: #222;
 }
@@ -403,24 +407,26 @@ Step 5
 }
 
 .textf {
-  margin-bottom: 0;
   position: relative;
+  margin-top: 10px;
   margin-bottom: 10px;
   color: white;
   font-size: 2em;
   font-style: italic;
-  font-family: "Agency FB";
+  font-family: "Agency FB",Tahoma, Geneva, sans-serif;
   cursor: default;
-  text-shadow: 2.5px 2.5px #000000;
+  text-shadow: 3px 3px #000000;
 }
 
 .textfh {
-  text-shadow: 2.5px 2.5px #000000;
+  position: relative;
+  margin-bottom: 5px;
   color: white;
-  font-size: 4em;
+  font-size: 3em;
   font-style: italic;
-  font-family: "Agency FB";
-  line-height: 0;
+  font-family: "Agency FB",Tahoma, Geneva, sans-serif;
+  cursor: default;
+  text-shadow: 2.5px 2.5px #000000;
   text-decoration: underline;
 }
 
@@ -505,16 +511,46 @@ input[type="checkbox"] {
   }
 }
 
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    display: block;
+    -webkit-transform: translate3d(0%, 0, 0);
+    transform: translate3d(0%, 0, 0);
+  }
+}
+
+.fadeInLeft {
+  -webkit-animation-name: fadeInLeft;
+  animation-name: fadeInLeft;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @keyframes fadeOutLeft {
   from {
     opacity: 1;
+    
   }
 
   to {
     opacity: 0;
-    background: #fff;
-    -webkit-transform: translate3d(-100%, 0, 0);
-    transform: translate3d(-100%, 0, 0);
+    display:none;
+    -webkit-transform: translate3d(-200%, 0, 0);
+    transform: translate3d(-200%, 0, 0);
   }
 }
 

@@ -12,44 +12,55 @@ class App extends Component {
       p2: "none",
       p3: "none",
       p4: "none",
-      pf: "none"
+      pf: "none",
+      an1:"fadein 2s ease",
+      an2:"",
+      an3:"",
+      an4:"",
+      an5:"",
+      anf:""
     };
   }
 
   p0t1 = () => {
     console.log(this.state.display);
     this.setState({
-      p0: "none",
-      p1: "block"
+      an1:"fadeOutLeft 1.5s ease",
+      an2:"fadeInLeft 2s ease",
+      p1:"block"
     });
   };
 
   p1t2 = () => {
     console.log(this.state.display);
     this.setState({
-      p1: "none",
-      p2: "block"
+      an2:"fadeOutLeft 1.5s ease",
+      an3:"fadeInLeft 2s ease",
+      p2:"block"
     });
   };
   p2t3 = () => {
     console.log(this.state.display);
     this.setState({
-      p2: "none",
-      p3: "block"
+      an3:"fadeOutLeft 1.5s  ease",
+      an4:"fadeInLeft 2s ease",
+      p3:"block"
     });
   };
   p3t4 = () => {
     console.log(this.state.display);
     this.setState({
-      p3: "none",
-      p4: "block"
+      an4:"fadeOutLeft 1.5s  ease",
+      an5:"fadeInLeft 2s ease",
+      p4:"block"
     });
   };
   p4tf = () => {
     console.log(this.state.display);
     this.setState({
-      p4: "none",
-      pf: "block"
+      an5:"fadeOutLeft 1.5s  ease",
+      anf:"fadeInLeft 2s ease",
+      pf:"block"
     });
   };
 
@@ -61,7 +72,7 @@ class App extends Component {
         </div>
 
         <div className="allpannels">
-          <div className="p0cont" style={{ display: this.state.p0 }}>
+          <div className="p0cont" style={{ display: this.state.p0, animation: this.state.an1 }}>
             <div className="pannel0">
               <h3 className="text0">Welcome Admin</h3>
               <p className="text0h">Get Started!</p>
@@ -71,9 +82,9 @@ class App extends Component {
             </div>
           </div>
 
-          <div className="p1cont" style={{ display: this.state.p1 }}>
+          <div className="p1cont" style={{ display: this.state.p1, animation: this.state.an2 }}>
             <div className="pannel1">
-              <h3 className="text1">Step 1:</h3>
+              <h3 className="text1">Step 1 :</h3>
               <p className="text1h">Download Data from NTSB</p>
               <button className="button1" onClick={this.p1t2}>
                 Download
@@ -81,9 +92,9 @@ class App extends Component {
             </div>
           </div>
 
-          <div className="p2cont" style={{ display: this.state.p2 }}>
+          <div className="p2cont" style={{ display: this.state.p2, animation: this.state.an3 }}>
             <div className="pannel2">
-              <h3 className="text2">Step 2:</h3>
+              <h3 className="text2">Step 2 :</h3>
               <p className="text2h">
                 Choose State:
                 <select className="dropdown">
@@ -147,9 +158,9 @@ class App extends Component {
             </div>
           </div>
 
-          <div className="p3cont" style={{ display: this.state.p3 }}>
+          <div className="p3cont" style={{ display: this.state.p3, animation: this.state.an4 }}>
             <div className="pannel3">
-              <h3 className="text3">Step 3:</h3>
+              <h3 className="text3">Step 3 :</h3>
               <p className="text3h">Filtering Results...</p>
               <button className="button3" onClick={this.p3t4}>
                 Next
@@ -157,9 +168,9 @@ class App extends Component {
             </div>
           </div>
 
-          <div className="p4cont" style={{ display: this.state.p4 }}>
+          <div className="p4cont" style={{ display: this.state.p4,animation: this.state.an5 }}>
             <div className="pannel4">
-              <h3 className="text4">Step 4:</h3>
+              <h3 className="text4">Step 4 :</h3>
               <p className="text4h">Upload Data</p>
               <button className="button4" onClick={this.p4tf}>
                 Finish
@@ -167,7 +178,7 @@ class App extends Component {
             </div>
           </div>
 
-          <div className="pfcont" style={{ display: this.state.pf }}>
+          <div className="pfcont" style={{ display: this.state.pf, animation:this.state.anf }}>
             <div className="pannelf">
               <h3 className="textf">!(Congradulations your data is updated)</h3>
               <div className="circle">
