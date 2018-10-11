@@ -1,7 +1,7 @@
 ## Setup
 - Clone repository
-- Run npm install
-- Run npm install --save google-map-react
+- Run `npm install`
+- Run `npm install --save google-map-react`
 
 ## Tools Used
 - Create-React-App boilerplate

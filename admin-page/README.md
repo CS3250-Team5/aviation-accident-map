@@ -1,6 +1,6 @@
 ## Setup
 - Clone repository
-- Run npm install
+- Run `npm install` to install Node dependencies
 
 ## Tools Used
 - Create-React-App boilerplate
