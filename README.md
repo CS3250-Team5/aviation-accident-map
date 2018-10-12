@@ -20,11 +20,11 @@ This repository contains code for two web pages, located in the admin-page folde
 - In the terminal/command prompt, navigate to the admin-page or user-page folder, depending on what image you want to build
 - Run the following commands:
  - `docker build -t NAME-OF-DOCKER-IMAGE` (Edit NAME-OF-DOCKER-IMAGE to your image name of choosing)
- - `docker run -it \  
- -v ${PWD}:/usr/src/app \  
- -v /usr/src/app/node_modules \  
- -p 3000:3000 \  
- --rm \  
+ - `docker run -it \ <br />
+ -v ${PWD}:/usr/src/app \ <br />
+ -v /usr/src/app/node_modules \ <br />
+ -p 3000:3000 \ <br />
+ --rm \ <br />
  NAME-OF-DOCKER-IMAGE` (Enter the name you choose for the docker image)
 - These commands will build the docker image and then spin up a container
 - Once the container is running, open up http://localhost:3000/ in your browser
