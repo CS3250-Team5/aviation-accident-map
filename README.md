@@ -19,8 +19,8 @@ This repository contains code for two web pages, located in the admin-page folde
 ## Running with Docker
 - In the terminal/command prompt, navigate to the admin-page or user-page folder, depending on what image you want to build
 - Run the following commands: <br />
-`docker build -t NAME-OF-DOCKER-IMAGE` (Edit NAME-OF-DOCKER-IMAGE to your image name of choosing) <br />
 ```
+docker build -t NAME-OF-DOCKER-IMAGE (Edit NAME-OF-DOCKER-IMAGE to your image name of choosing)
 docker run -it \
 -v ${PWD}:/usr/src/app \
 -v /usr/src/app/node_modules \
