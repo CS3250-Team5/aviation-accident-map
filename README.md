@@ -18,7 +18,7 @@ This repository contains code for two web pages, located in the admin-page folde
 
 ## Running with Docker
 - In the terminal/command prompt, navigate to the admin-page or user-page folder, depending on what image you want to build
-- Run the following commands:
+- Run the following commands:  
 `docker build -t NAME-OF-DOCKER-IMAGE` (Edit NAME-OF-DOCKER-IMAGE to your image name of choosing)
 ```
 docker run -it \
@@ -28,7 +28,7 @@ docker run -it \
 --rm \
 NAME-OF-DOCKER-IMAGE
 ```
-(Enter the name you choose for the docker image)
+- (Enter the name you choose for the docker image)
 - These commands will build the docker image and then spin up a container
 - Once the container is running, open up http://localhost:3000/ in your browser
 - Changes to the web page can be seen live as the files are save
