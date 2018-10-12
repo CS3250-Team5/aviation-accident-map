@@ -22,6 +22,6 @@ This repository contains code for two web pages, located in the admin-page folde
 - Run `docker-compose up -d --build`
 - This command will build the docker image and then spin up a container. Note: Building the docker image will take a while
 - Once the container is running, open up http://localhost:3000/ in your browser
-- Changes to the web page can be seen live as the files are save
+- Changes to the web page can be seen live as the files are save  
 **Make sure to stop your docker container after you finish editing or viewing the page.  Exiting out of your browser will no stop the container**
 - To stop the container, run `docker-compose stop`
