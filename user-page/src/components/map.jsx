@@ -2,10 +2,13 @@ import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
 
 import plane from "../images/ge_crash.png";
+import awos from "../images/ge_Mt_AWOS.png";
+import mountain from "../images/ge_Mt_pass0.png";
+import banner from "../images/mountain_ja.JPG";
 
 //const AnyReactComponent
 //conts have to be uppercase
-const FatalAccidents = ({ text }) => <div className="fatal"><img src={plane}/>{text}</div>;
+const FatalAccidents = ({ text }) => <div><img src={plane}/>{text}</div>;
 
 class Map extends Component {
   static defaultProps = {
@@ -19,12 +22,48 @@ class Map extends Component {
   render() {
     return (
       // Important! Always set the container height explicitly
+    <div
+        style={{
+            backgroundColor: "#8C75DE",
+        }}
+        >
+        <center
+            style={{
+                padding: "15px 0 20px 0",
+            }}>
+            <a href="http://coloradopilots.org/">
+                <img src={banner}></img>
+            </a>
+        </center>
+        <center>
+            <span
+                style={{
+                    padding: "0 10px 0 0",
+                }}>
+                <input name="Fatal Accidents" type="checkbox"/><img src={plane} width="15" height="15"></img>Show Fatal Accidents
+            </span>
+            <span
+                style={{
+                    padding: "0 10px 0 0",
+                }}
+                >
+                <input name="CDOT Mountain AWOS" type="checkbox"/><img src={awos} width="15" height="15"></img>Show CDOT Mountain AWOS
+            </span>
+            <span
+                style={{
+                    padding: "0 10px 0 0",
+                }}
+                >
+                <input name="Mountain Passes" type="checkbox"/><img src={mountain} width="15" height="15"></img>Show Mountain Passes
+            </span>
+        </center>
+
       <div
         style={{
           height: "50vh",
           width: "60%",
           margin: "0 auto",
-          padding: "100px 0 0 0"
+          padding: "50px 0 0 0"
         }}
       >
         <GoogleMapReact
@@ -45,7 +84,7 @@ class Map extends Component {
           <FatalAccidents lat={38.830834} lng={-104.718334} />
 
         </GoogleMapReact>
-      </div>
+      </div></div>
     );
   }
 }
