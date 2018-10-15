@@ -10,10 +10,11 @@ import banner from "../images/mountain_ja.JPG";
 //const AnyReactComponent
 //conts have to be uppercase
 const FatalAccidents = ({ text }) => <div><img src={plane}/>{text}</div>;
+const MountainPasses = ({ text }) => <div><img src={mountain}/>{text}</div>;
 
 class Map extends Component {
   static defaultProps = {
-      markers: {
+      accidents: {
         one: {
           lat: 39.6290176,
           lng: -105.0920324
@@ -59,11 +60,35 @@ class Map extends Component {
           lng: -104.718334
         }
     },
-    center: {
-      lat: 39.73,
-      lng: -104.99
+
+    passes: {
+        one: {
+            lat: 39.798383,
+            lng: -105.777125
+        },
+        two: {
+            lat: 40.520833,
+            lng: -105.8925
+        },
+        three: {
+            lat: 38.163007,
+            lng: -106.600192
+        },
+        four: {
+            lat: 39.530278,
+            lng: -107.058889
+        },
+        five: {
+            lat: 38.826666,
+            lng: -106.408611
+        }
     },
-    zoom: 6.5
+
+    center: {
+      lat: 39.50,
+      lng: -105.10
+    },
+    zoom: 7
   };
 
   render() {
@@ -95,48 +120,69 @@ class Map extends Component {
         >
 
         <FatalAccidents
-          lat={this.props.markers.one.lat}
-          lng={this.props.markers.one.lng}
+          lat={this.props.accidents.one.lat}
+          lng={this.props.accidents.one.lng}
         />
         <FatalAccidents
-          lat={this.props.markers.two.lat}
-          lng={this.props.markers.two.lng}
+          lat={this.props.accidents.two.lat}
+          lng={this.props.accidents.two.lng}
         />
         <FatalAccidents
-          lat={this.props.markers.three.lat}
-          lng={this.props.markers.three.lng}
+          lat={this.props.accidents.three.lat}
+          lng={this.props.accidents.three.lng}
         />
         <FatalAccidents
-          lat={this.props.markers.four.lat}
-          lng={this.props.markers.four.lng}
+          lat={this.props.accidents.four.lat}
+          lng={this.props.accidents.four.lng}
         />
         <FatalAccidents
-          lat={this.props.markers.five.lat}
-          lng={this.props.markers.five.lng}
+          lat={this.props.accidents.five.lat}
+          lng={this.props.accidents.five.lng}
         />
         <FatalAccidents
-          lat={this.props.markers.six.lat}
-          lng={this.props.markers.six.lng}
+          lat={this.props.accidents.six.lat}
+          lng={this.props.accidents.six.lng}
         />
         <FatalAccidents
-          lat={this.props.markers.seven.lat}
-          lng={this.props.markers.seven.lng}
+          lat={this.props.accidents.seven.lat}
+          lng={this.props.accidents.seven.lng}
         />
         <FatalAccidents
-          lat={this.props.markers.eight.lat}
-          lng={this.props.markers.eight.lng}
+          lat={this.props.accidents.eight.lat}
+          lng={this.props.accidents.eight.lng}
         />
         <FatalAccidents
-          lat={this.props.markers.nine.lat}
-          lng={this.props.markers.nine.lng}
+          lat={this.props.accidents.nine.lat}
+          lng={this.props.accidents.nine.lng}
         />
         <FatalAccidents
-          lat={this.props.markers.ten.lat}
-          lng={this.props.markers.ten.lng}
+          lat={this.props.accidents.ten.lat}
+          lng={this.props.accidents.ten.lng}
         />
         <FatalAccidents
-          lat={this.props.markers.eleven.lat}
-          lng={this.props.markers.eleven.lng}
+          lat={this.props.accidents.eleven.lat}
+          lng={this.props.accidents.eleven.lng}
+        />
+
+        <MountainPasses
+          lat={this.props.passes.one.lat}
+          lng={this.props.passes.one.lng}
+        />
+        <MountainPasses
+          lat={this.props.passes.two.lat}
+          lng={this.props.passes.two.lng}
+        />
+        <MountainPasses
+          lat={this.props.passes.three.lat}
+          lng={this.props.passes.three.lng}
+        />
+        <MountainPasses
+          lat={this.props.passes.four.lat}
+          lng={this.props.passes.four.lng}
+        />
+        <MountainPasses
+          lat={this.props.passes.five.lat}
+          lng={this.props.passes.five.lng}
         />
 
         </GoogleMapReact>
