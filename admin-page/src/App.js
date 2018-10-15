@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Window from "./components/window.jsx";
 import "./style/App.css";
 
 void function p0t1() {};
