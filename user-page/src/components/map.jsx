@@ -85,6 +85,10 @@ class Map extends Component {
             }
         },
 
+        reset: {
+            none: {lat: null, lng: null}
+        },
+
         center: {
             lat: 39.00,
             lng: -105.15
@@ -92,8 +96,8 @@ class Map extends Component {
         zoom: 7
     };
 
-    handleAccidents() {
-        console.log("Accident filter on");
+    handleAccidents = () => {
+        console.log("Accident filter on", this );
     }
 
     render() {
