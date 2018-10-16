@@ -11,11 +11,11 @@ import banner from "../images/mountain_ja.JPG";
 //const AnyReactComponent
 //conts have to be uppercase
 const FatalAccidents = ({text}) => <div><img src={plane} alt="plane"/>{text}</div>;
-const MountainPasses = ({text}) => <div><img src={mountain} alt="mtnPass"/>{text}</div>;
+//const MountainPasses = ({text}) => <div><img src={mountain} alt="mtnPass"/>{text}</div>;
 
 class Map extends Component {
 
-    state={
+    state = {
         fatalOne: {
             lat: 39.6290176,
             lng: -105.0920324
@@ -71,8 +71,75 @@ class Map extends Component {
     };
 
     handleAccidents = () => {
-        console.log("Accident filter on", this );
-    }
+        this.setState(prevState => ({
+            fatalOne: {
+                ...prevState.fatalOne,
+                lat: null,
+                ...prevState.fatalOne,
+                lng: null
+            },
+            fatalTwo: {
+                ...prevState.fatalTwo,
+                lat: null,
+                ...prevState.fatalTwo,
+                lng: null
+            },
+            fatalThree: {
+                ...prevState.fatalThree,
+                lat: null,
+                ...prevState.fatalThree,
+                lng: null
+            },
+            fatalFour: {
+                ...prevState.fatalFour,
+                lat: null,
+                ...prevState.fatalFour,
+                lng: null
+            },
+            fatalFive: {
+                ...prevState.fatalFive,
+                lat: null,
+                ...prevState.fatalFive,
+                lng: null
+            },
+            fatalSix: {
+                ...prevState.fatalSix,
+                lat: null,
+                ...prevState.fatalSix,
+                lng: null
+            },
+            fatalSeven: {
+                ...prevState.fatalSeven,
+                lat: null,
+                ...prevState.fatalSeven,
+                lng: null
+            },
+            fatalEight: {
+                ...prevState.fatalEight,
+                lat: null,
+                ...prevState.fatalEight,
+                lng: null
+            },
+            fatalNine: {
+                ...prevState.fatalNine,
+                lat: null,
+                ...prevState.fatalNine,
+                lng: null
+            },
+            fatalTen: {
+                ...prevState.fatalTen,
+                lat: null,
+                ...prevState.fatalTen,
+                lng: null
+            },
+            fatalEleven: {
+                ...prevState.fatalEleven,
+                lat: null,
+                ...prevState.fatalEleven,
+                lng: null
+            }
+        }));
+    };
 
     render() {
         return (
