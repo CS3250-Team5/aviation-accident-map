@@ -17,8 +17,8 @@ class Map extends Component {
 
     state = {
         fatalOne: {
-            lat: 39.6290176,
-            lng: -105.0920324
+            lat: null,
+            lng: null
         },
         fatalTwo: {
             lat: 39.516111,
@@ -74,69 +74,13 @@ class Map extends Component {
         this.setState(prevState => ({
             fatalOne: {
                 ...prevState.fatalOne,
-                lat: null,
+                lat: 41.629017
+            }
+        }));
+        this.setState(prevState => ({
+            fatalOne: {
                 ...prevState.fatalOne,
-                lng: null
-            },
-            fatalTwo: {
-                ...prevState.fatalTwo,
-                lat: null,
-                ...prevState.fatalTwo,
-                lng: null
-            },
-            fatalThree: {
-                ...prevState.fatalThree,
-                lat: null,
-                ...prevState.fatalThree,
-                lng: null
-            },
-            fatalFour: {
-                ...prevState.fatalFour,
-                lat: null,
-                ...prevState.fatalFour,
-                lng: null
-            },
-            fatalFive: {
-                ...prevState.fatalFive,
-                lat: null,
-                ...prevState.fatalFive,
-                lng: null
-            },
-            fatalSix: {
-                ...prevState.fatalSix,
-                lat: null,
-                ...prevState.fatalSix,
-                lng: null
-            },
-            fatalSeven: {
-                ...prevState.fatalSeven,
-                lat: null,
-                ...prevState.fatalSeven,
-                lng: null
-            },
-            fatalEight: {
-                ...prevState.fatalEight,
-                lat: null,
-                ...prevState.fatalEight,
-                lng: null
-            },
-            fatalNine: {
-                ...prevState.fatalNine,
-                lat: null,
-                ...prevState.fatalNine,
-                lng: null
-            },
-            fatalTen: {
-                ...prevState.fatalTen,
-                lat: null,
-                ...prevState.fatalTen,
-                lng: null
-            },
-            fatalEleven: {
-                ...prevState.fatalEleven,
-                lat: null,
-                ...prevState.fatalEleven,
-                lng: null
+                lng: -106.51
             }
         }));
     };
