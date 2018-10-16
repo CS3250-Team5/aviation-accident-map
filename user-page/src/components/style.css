@@ -1,16 +1,16 @@
-.backGround{
+.backGround {
     background-color: #8C75DE;
 }
 
-.banner{
+.banner {
     padding: 5px 0 20px 0;
 }
 
-.filterBoxes{
+.filterBoxes {
     padding: 0 10px 0 0;
 }
 
-.mapStyle{
+.mapStyle {
     height: 50vh;
     width: 60%;
     margin: 0 auto;
