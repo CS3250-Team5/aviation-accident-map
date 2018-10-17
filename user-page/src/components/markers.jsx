@@ -1,11 +1,19 @@
 import React, { Component } from "react";
 import plane from "../images/ge_crash.png";
 
+<<<<<<< HEAD
 const FatalAccidents = props => <img src={plane} />;
 
 class FatalAccidentss extends Component {
   static defaultProps = {
     accident: {
+=======
+const Marker = props => <img src={plane} />;
+
+class Markers extends Component {
+  static defaultProps = {
+    markers: {
+>>>>>>> 948c7e2e240e9c9d1084285e384865a41b3bf614
       one: {
         lat: 39.6290176,
         lng: -105.0920324
@@ -56,6 +64,7 @@ class FatalAccidentss extends Component {
   render() {
     return (
       <React.Fragment>
+<<<<<<< HEAD
         <FatalAccidents
           lat={this.props.accident.one.lat}
           lng={this.props.accident.one.lng}
@@ -99,10 +108,59 @@ class FatalAccidentss extends Component {
         <FatalAccidents
           lat={this.props.accident.eleven.lat}
           lng={this.props.accident.eleven.lng}
+=======
+        <Marker
+          lat={this.props.markers.one.lat}
+          lng={this.props.markers.one.lng}
+        />
+        <Marker
+          lat={this.props.markers.two.lat}
+          lng={this.props.markers.two.lng}
+        />
+        <Marker
+          lat={this.props.markers.three.lat}
+          lng={this.props.markers.three.lng}
+        />
+        <Marker
+          lat={this.props.markers.four.lat}
+          lng={this.props.markers.four.lng}
+        />
+        <Marker
+          lat={this.props.markers.five.lat}
+          lng={this.props.markers.five.lng}
+        />
+        <Marker
+          lat={this.props.markers.six.lat}
+          lng={this.props.markers.six.lng}
+        />
+        <Marker
+          lat={this.props.markers.seven.lat}
+          lng={this.props.markers.seven.lng}
+        />
+        <Marker
+          lat={this.props.markers.eight.lat}
+          lng={this.props.markers.eight.lng}
+        />
+        <Marker
+          lat={this.props.markers.nine.lat}
+          lng={this.props.markers.nine.lng}
+        />
+        <Marker
+          lat={this.props.markers.ten.lat}
+          lng={this.props.markers.ten.lng}
+        />
+        <Marker
+          lat={this.props.markers.eleven.lat}
+          lng={this.props.markers.eleven.lng}
+>>>>>>> 948c7e2e240e9c9d1084285e384865a41b3bf614
         />
       </React.Fragment>
     );
   }
 }
 
+<<<<<<< HEAD
 export default FatalAccidentss;
+=======
+export default Markers;
+>>>>>>> 948c7e2e240e9c9d1084285e384865a41b3bf614
