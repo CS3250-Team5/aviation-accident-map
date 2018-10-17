@@ -1,0 +1,28 @@
+/*
+
+initall css for backgrounds and body
+
+*/
+
+.App {
+  text-align: center;
+  height: 100%;
+  width: 100%;
+}
+
+.background {
+  z-index: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(#3333ff, #7ec0ee);
+}
+
+.clouds {
+  background: transparent url("../img/Clouds.png") repeat top center;
+  z-index: 1;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  animation: move 1500s linear infinite;
+}
