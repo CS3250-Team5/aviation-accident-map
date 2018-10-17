@@ -21,44 +21,40 @@ class Map extends Component {
             lng: null
         },
         fatalTwo: {
-            lat: 39.516111,
-            lng: -104.833889
+            lat: null,
+            lng: null
         },
         fatalThree: {
-            lat: 39.46,
-            lng: -105.663333
+            lat: null,
+            lng: null
         },
         fatalFour: {
-            lat: 39.41,
-            lng: -107.21
+            lat: null,
+            lng: null
         },
         fatalFive: {
-            lat: 40.267223,
-            lng: -105.154167
+            lat: null,
+            lng: null
         },
         fatalSix: {
-            lat: 38.8625,
-            lng: -106.156944
+            lat: null,
+            lng: null
         },
         fatalSeven: {
-            lat: 37.822223,
-            lng: -106.906111
+            lat: null,
+            lng: null
         },
         fatalEight: {
-            lat: 38.495,
-            lng: -102.29
+            lat: null,
+            lng: null
         },
         fatalNine: {
-            lat: 39.1175,
-            lng: -104.718334
+            lat: null,
+            lng: null
         },
         fatalTen: {
-            lat: 40.052222,
-            lng: -108.278611
-        },
-        fatalEleven: {
-            lat: 38.830834,
-            lng: -104.718334
+            lat: null,
+            lng: null
         }
     };
 
@@ -74,13 +70,121 @@ class Map extends Component {
         this.setState(prevState => ({
             fatalOne: {
                 ...prevState.fatalOne,
-                lat: 41.629017
+                lat: 39.516111
             }
         }));
         this.setState(prevState => ({
             fatalOne: {
                 ...prevState.fatalOne,
-                lng: -106.51
+                lng: -104.833889
+            }
+        }));
+        this.setState(prevState => ({
+            fatalTwo: {
+                ...prevState.fatalTwo,
+                lat: 39.46
+            }
+        }));
+        this.setState(prevState => ({
+            fatalTwo: {
+                ...prevState.fatalTwo,
+                lng: -105.663333
+            }
+        }));
+        this.setState(prevState => ({
+            fatalThree: {
+                ...prevState.fatalThree,
+                lat: 39.41
+            }
+        }));
+        this.setState(prevState => ({
+            fatalThree: {
+                ...prevState.fatalThree,
+                lng: -107.21
+            }
+        }));
+        this.setState(prevState => ({
+            fatalFour: {
+                ...prevState.fatalFour,
+                lat: 40.267223
+            }
+        }));
+        this.setState(prevState => ({
+            fatalFour: {
+                ...prevState.fatalFour,
+                lng: -105.154167
+            }
+        }));
+        this.setState(prevState => ({
+            fatalFive: {
+                ...prevState.fatalFive,
+                lat: 38.8625
+            }
+        }));
+        this.setState(prevState => ({
+            fatalFive: {
+                ...prevState.fatalFive,
+                lng: -106.156944
+            }
+        }));
+        this.setState(prevState => ({
+            fatalSix: {
+                ...prevState.fatalSix,
+                lat: 37.822223
+            }
+        }));
+        this.setState(prevState => ({
+            fatalSix: {
+                ...prevState.fatalSix,
+                lng: -106.906111
+            }
+        }));
+        this.setState(prevState => ({
+            fatalSeven: {
+                ...prevState.fatalSeven,
+                lat: 38.495
+            }
+        }));
+        this.setState(prevState => ({
+            fatalSeven: {
+                ...prevState.fatalSeven,
+                lng: -102.29
+            }
+        }));
+        this.setState(prevState => ({
+            fatalEight: {
+                ...prevState.fatalEight,
+                lat: 39.1175
+            }
+        }));
+        this.setState(prevState => ({
+            fatalEight: {
+                ...prevState.fatalEight,
+                lng: -104.718334
+            }
+        }));
+        this.setState(prevState => ({
+            fatalNine: {
+                ...prevState.fatalNine,
+                lat: 40.052222
+            }
+        }));
+        this.setState(prevState => ({
+            fatalNine: {
+                ...prevState.fatalNine,
+                lng: -108.278611
+            }
+        }));
+        this.setState(prevState => ({
+            fatalTen: {
+                ...prevState.fatalTen,
+                lat: 38.830834
+            }
+        }));
+        this.setState(prevState => ({
+            fatalTen: {
+                ...prevState.fatalTen,
+                lng: -104.718334
             }
         }));
     };
@@ -111,7 +215,11 @@ class Map extends Component {
 
             <div className="mapStyle">
 
-                <GoogleMapReact defaultCenter={this.props.center} defaultZoom={this.props.zoom}>
+                <GoogleMapReact
+                    bootstrapURLKeys={{
+                            key: process.env.REACT_APP_API_KEY,
+                    }}
+                    defaultCenter={this.props.center} defaultZoom={this.props.zoom}>
 
                     <FatalAccidents lat={this.state.fatalOne.lat} lng={this.state.fatalOne.lng}/>
                     <FatalAccidents lat={this.state.fatalTwo.lat} lng={this.state.fatalTwo.lng}/>
@@ -123,7 +231,6 @@ class Map extends Component {
                     <FatalAccidents lat={this.state.fatalEight.lat} lng={this.state.fatalEight.lng}/>
                     <FatalAccidents lat={this.state.fatalNine.lat} lng={this.state.fatalNine.lng}/>
                     <FatalAccidents lat={this.state.fatalTen.lat} lng={this.state.fatalTen.lng}/>
-                    <FatalAccidents lat={this.state.fatalEleven.lat} lng={this.state.fatalEleven.lng}/>
 
                 </GoogleMapReact>
             </div>
