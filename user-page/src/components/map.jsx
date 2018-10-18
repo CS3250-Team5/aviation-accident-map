@@ -6,7 +6,7 @@ import "./style.css"
 import plane from "../images/ge_crash.png";
 import awos from "../images/ge_Mt_AWOS.png";
 import mountain from "../images/ge_Mt_pass0.png";
-import banner from "../images/mountain_ja.JPG";
+import banner from "../images/cpa_logo2.jpg";
 
 //const AnyReactComponent
 //conts have to be uppercase
@@ -195,7 +195,7 @@ class Map extends Component {
         <div className="backGround">
             <center className="banner">
                 <a href="http://coloradopilots.org/">
-                    <img src={banner} alt="banner"></img>
+                    <img src={banner} alt="banner" height="55%" width="55%"></img>
                 </a>
             </center>
             <center>
