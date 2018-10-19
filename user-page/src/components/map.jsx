@@ -16,6 +16,7 @@ const FatalAccidents = ({ text }) => (
 class Map extends Component {
   state = {
     fatalBox: false,
+    randomBox: false,
     fatalOne: {
       lat: null,
       lng: null
@@ -66,30 +67,81 @@ class Map extends Component {
     zoom: 7
   };
 
+  handleRandom = () => {
+    const latMin = 38;
+    const latMax = 41;
+    const lngMin = -108;
+    const lngMax = -103;
+    var randLat = [];
+    var randLng = [];
+
+    for (var i = 0; i < 9; i++) {
+      var coord = latMin + Math.random() * (latMax - latMin);
+      randLat[i] = coord;
+    }
+
+    for (i = 0; i < 5; i++) {
+      coord = lngMin + Math.random() * (lngMax - lngMin);
+      randLng[i] = coord;
+    }
+
+    if (this.state.randomBox === false) {
+      this.setState({
+        randomBox: true,
+        fatalOne: {
+          lat: randLat[0],
+          lng: randLng[0]
+        },
+        fatalTwo: {
+          lat: randLat[1],
+          lng: randLng[1]
+        },
+        fatalThree: {
+          lat: randLat[2],
+          lng: randLng[2]
+        },
+        fatalFour: {
+          lat: randLat[3],
+          lng: randLng[3]
+        },
+        fatalFive: {
+          lat: randLat[4],
+          lng: randLng[4]
+        }
+      });
+    }
+
+    if (this.state.randomBox === true) {
+      this.setState({
+        randomBox: false,
+        fatalOne: {
+          lat: null,
+          lng: null
+        },
+        fatalTwo: {
+          lat: null,
+          lng: null
+        },
+        fatalThree: {
+          lat: null,
+          lng: null
+        },
+        fatalFour: {
+          lat: null,
+          lng: null
+        },
+        fatalFive: {
+          lat: null,
+          lng: null
+        }
+      });
+    }
+  };
+
   handleAccidents = () => {
     if (this.state.fatalBox === false) {
       this.setState({
         fatalBox: true,
-        fatalOne: {
-          lat: 39.516111,
-          lng: -104.833889
-        },
-        fatalTwo: {
-          lat: 39.46,
-          lng: -105.663333
-        },
-        fatalThree: {
-          lat: 39.41,
-          lng: -107.21
-        },
-        fatalFour: {
-          lat: 40.267223,
-          lng: -105.154167
-        },
-        fatalFive: {
-          lat: 38.8625,
-          lng: -106.156944
-        },
         fatalSix: {
           lat: 37.822223,
           lng: -106.906111
@@ -116,26 +168,6 @@ class Map extends Component {
     if (this.state.fatalBox === true) {
       this.setState({
         fatalBox: false,
-        fatalOne: {
-          lng: null,
-          lat: null
-        },
-        fatalTwo: {
-          lng: null,
-          lat: null
-        },
-        fatalThree: {
-          lng: null,
-          lat: null
-        },
-        fatalFour: {
-          lng: null,
-          lat: null
-        },
-        fatalFive: {
-          lng: null,
-          lat: null
-        },
         fatalSix: {
           lng: null,
           lat: null
@@ -165,6 +197,15 @@ class Map extends Component {
       // Important! Always set the container height explicitly
       <div className="backGround">
         <center>
+          <span className="filterBoxes">
+            <input
+              onClick={this.handleRandom}
+              name="Random"
+              value="false"
+              type="checkbox"
+            />
+            <img src={plane} alt="plane" width="15" height="15" />Random
+          </span>
           <span className="filterBoxes">
             <input
               onClick={this.handleAccidents}
