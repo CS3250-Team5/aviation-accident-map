@@ -120,10 +120,6 @@ class Map extends Component {
           lng: null,
           lat: null
         },
-        fatalOne: {
-          lng: null,
-          lat: null
-        },
         fatalTwo: {
           lng: null,
           lat: null
