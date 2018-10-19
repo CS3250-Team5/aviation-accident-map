@@ -1,24 +1,21 @@
 import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
 import "../style/map.css";
-//import Markers from "./accidents"
 
 import plane from "../images/ge_crash.png";
 import awos from "../images/ge_Mt_AWOS.png";
 import mountain from "../images/ge_Mt_pass0.png";
 
-//const AnyReactComponent
-//conts have to be uppercase
 const FatalAccidents = ({ text }) => (
   <div>
     <img src={plane} alt="plane" />
     {text}
   </div>
 );
-//const MountainPasses = ({text}) => <div><img src={mountain} alt="mtnPass"/>{text}</div>;
 
 class Map extends Component {
   state = {
+    fatalBox: false,
     fatalOne: {
       lat: null,
       lng: null
@@ -70,126 +67,101 @@ class Map extends Component {
   };
 
   handleAccidents = () => {
-    this.setState(prevState => ({
-      fatalOne: {
-        ...prevState.fatalOne,
-        lat: 39.516111
-      }
-    }));
-    this.setState(prevState => ({
-      fatalOne: {
-        ...prevState.fatalOne,
-        lng: -104.833889
-      }
-    }));
-    this.setState(prevState => ({
-      fatalTwo: {
-        ...prevState.fatalTwo,
-        lat: 39.46
-      }
-    }));
-    this.setState(prevState => ({
-      fatalTwo: {
-        ...prevState.fatalTwo,
-        lng: -105.663333
-      }
-    }));
-    this.setState(prevState => ({
-      fatalThree: {
-        ...prevState.fatalThree,
-        lat: 39.41
-      }
-    }));
-    this.setState(prevState => ({
-      fatalThree: {
-        ...prevState.fatalThree,
-        lng: -107.21
-      }
-    }));
-    this.setState(prevState => ({
-      fatalFour: {
-        ...prevState.fatalFour,
-        lat: 40.267223
-      }
-    }));
-    this.setState(prevState => ({
-      fatalFour: {
-        ...prevState.fatalFour,
-        lng: -105.154167
-      }
-    }));
-    this.setState(prevState => ({
-      fatalFive: {
-        ...prevState.fatalFive,
-        lat: 38.8625
-      }
-    }));
-    this.setState(prevState => ({
-      fatalFive: {
-        ...prevState.fatalFive,
-        lng: -106.156944
-      }
-    }));
-    this.setState(prevState => ({
-      fatalSix: {
-        ...prevState.fatalSix,
-        lat: 37.822223
-      }
-    }));
-    this.setState(prevState => ({
-      fatalSix: {
-        ...prevState.fatalSix,
-        lng: -106.906111
-      }
-    }));
-    this.setState(prevState => ({
-      fatalSeven: {
-        ...prevState.fatalSeven,
-        lat: 38.495
-      }
-    }));
-    this.setState(prevState => ({
-      fatalSeven: {
-        ...prevState.fatalSeven,
-        lng: -102.29
-      }
-    }));
-    this.setState(prevState => ({
-      fatalEight: {
-        ...prevState.fatalEight,
-        lat: 39.1175
-      }
-    }));
-    this.setState(prevState => ({
-      fatalEight: {
-        ...prevState.fatalEight,
-        lng: -104.718334
-      }
-    }));
-    this.setState(prevState => ({
-      fatalNine: {
-        ...prevState.fatalNine,
-        lat: 40.052222
-      }
-    }));
-    this.setState(prevState => ({
-      fatalNine: {
-        ...prevState.fatalNine,
-        lng: -108.278611
-      }
-    }));
-    this.setState(prevState => ({
-      fatalTen: {
-        ...prevState.fatalTen,
-        lat: 38.830834
-      }
-    }));
-    this.setState(prevState => ({
-      fatalTen: {
-        ...prevState.fatalTen,
-        lng: -104.718334
-      }
-    }));
+    if (this.state.fatalBox === false) {
+      this.setState({
+        fatalBox: true,
+        fatalOne: {
+          lat: 39.516111,
+          lng: -104.833889
+        },
+        fatalTwo: {
+          lat: 39.46,
+          lng: -105.663333
+        },
+        fatalThree: {
+          lat: 39.41,
+          lng: -107.21
+        },
+        fatalFour: {
+          lat: 40.267223,
+          lng: -105.154167
+        },
+        fatalFive: {
+          lat: 38.8625,
+          lng: -106.156944
+        },
+        fatalSix: {
+          lat: 37.822223,
+          lng: -106.906111
+        },
+        fatalSeven: {
+          lat: 38.495,
+          lng: -102.29
+        },
+        fatalEight: {
+          lat: 39.1175,
+          lng: -104.718334
+        },
+        fatalNine: {
+          lat: 40.052222,
+          lng: -108.278611
+        },
+        fatalTen: {
+          lat: 38.830834,
+          lng: -104.718334
+        }
+      });
+    }
+
+    if (this.state.fatalBox === true) {
+      this.setState({
+        fatalBox: false,
+        fatalOne: {
+          lng: null,
+          lat: null
+        },
+        fatalOne: {
+          lng: null,
+          lat: null
+        },
+        fatalTwo: {
+          lng: null,
+          lat: null
+        },
+        fatalThree: {
+          lng: null,
+          lat: null
+        },
+        fatalFour: {
+          lng: null,
+          lat: null
+        },
+        fatalFive: {
+          lng: null,
+          lat: null
+        },
+        fatalSix: {
+          lng: null,
+          lat: null
+        },
+        fatalSeven: {
+          lng: null,
+          lat: null
+        },
+        fatalEight: {
+          lng: null,
+          lat: null
+        },
+        fatalNine: {
+          lng: null,
+          lat: null
+        },
+        fatalTen: {
+          lng: null,
+          lat: null
+        }
+      });
+    }
   };
 
   render() {
