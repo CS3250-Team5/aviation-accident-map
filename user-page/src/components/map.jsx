@@ -17,6 +17,7 @@ class Map extends Component {
   state = {
     fatalBox: false,
     randomBox: false,
+    parse: 0,
     fatalOne: {
       lat: null,
       lng: null
@@ -74,6 +75,7 @@ class Map extends Component {
     const lngMax = -103;
     var randLat = [];
     var randLng = [];
+    var parser = 0;
 
     for (var i = 0; i < 9; i++) {
       var coord = latMin + Math.random() * (latMax - latMin);
@@ -86,33 +88,44 @@ class Map extends Component {
     }
 
     if (this.state.randomBox === false) {
+      parser = 0;
       this.setState({
+        parse: 0,
         randomBox: true,
         fatalOne: {
-          lat: randLat[0],
-          lng: randLng[0]
+          lat: randLat[parser],
+          lng: randLng[parser]
         },
+        // eslint-disable-next-line
+        parse: parser++,
         fatalTwo: {
-          lat: randLat[1],
-          lng: randLng[1]
+          lat: randLat[parser],
+          lng: randLng[parser]
         },
+        // eslint-disable-next-line
+        parse: parser++,
         fatalThree: {
-          lat: randLat[2],
-          lng: randLng[2]
+          lat: randLat[parser],
+          lng: randLng[parser]
         },
+        // eslint-disable-next-line
+        parse: parser++,
         fatalFour: {
-          lat: randLat[3],
-          lng: randLng[3]
+          lat: randLat[parser],
+          lng: randLng[parser]
         },
+        // eslint-disable-next-line
+        parse: parser++,
         fatalFive: {
-          lat: randLat[4],
-          lng: randLng[4]
+          lat: randLat[parser],
+          lng: randLng[parser]
         }
       });
     }
 
     if (this.state.randomBox === true) {
       this.setState({
+        parser: 0,
         randomBox: false,
         fatalOne: {
           lat: null,
