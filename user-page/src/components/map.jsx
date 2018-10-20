@@ -6,15 +6,16 @@ import plane from "../images/ge_crash.png";
 import awos from "../images/ge_Mt_AWOS.png";
 import mountain from "../images/ge_Mt_pass0.png";
 
-//testing popups with javascrip(jsx) and css
-const FatalAccidents = ({ text, text2, link }) => (
+const FatalAccidents = ({ lat, lng, link }) => (
   <div className="tooltip">
     <img src={plane} alt="plane" />
     <span className="tooltiptext">
-        Accident Information: <br />
-        Lat: {text} <br/>
-        Lng: {text2} <br />
-        NTSB Link: <a href="https://www.Google.com" target="_blank">{link}</a>
+      Accident Information: <br />
+      Lat: {lat} <br />
+      Lng: {lng} <br />
+      <a href="https://www.Google.com" target="_blank">
+        {link}
+      </a>
     </span>
   </div>
 );
@@ -258,63 +259,43 @@ class Map extends Component {
             <FatalAccidents
               lat={this.state.fatalOne.lat}
               lng={this.state.fatalOne.lng}
-              text={this.state.fatalOne.lat}
-              text2={this.state.fatalOne.lng}
             />
             <FatalAccidents
               lat={this.state.fatalTwo.lat}
               lng={this.state.fatalTwo.lng}
-              text={this.state.fatalTwo.lat}
-              text2={this.state.fatalTwo.lng}
             />
             <FatalAccidents
               lat={this.state.fatalThree.lat}
               lng={this.state.fatalThree.lng}
-              text={this.state.fatalThree.lat}
-              text2={this.state.fatalThree.lng}
             />
             <FatalAccidents
               lat={this.state.fatalFour.lat}
               lng={this.state.fatalFour.lng}
-              text={this.state.fatalFour.lat}
-              text2={this.state.fatalFour.lng}
             />
             <FatalAccidents
               lat={this.state.fatalFive.lat}
               lng={this.state.fatalFive.lng}
-              text={this.state.fatalFive.lat}
-              text2={this.state.fatalFive.lng}
             />
             <FatalAccidents
               lat={this.state.fatalSix.lat}
               lng={this.state.fatalSix.lng}
-              text={this.state.fatalSix.lat}
-              text2={this.state.fatalSix.lng}
             />
             <FatalAccidents
               lat={this.state.fatalSeven.lat}
               lng={this.state.fatalSeven.lng}
-              text={this.state.fatalSeven.lat}
-              text2={this.state.fatalSeven.lng}
             />
             <FatalAccidents
               lat={this.state.fatalEight.lat}
               lng={this.state.fatalEight.lng}
-              text={this.state.fatalEight.lat}
-              text2={this.state.fatalEight.lng}
             />
             <FatalAccidents
               lat={this.state.fatalNine.lat}
               lng={this.state.fatalNine.lng}
-              text={this.state.fatalNine.lat}
-              text2={this.state.fatalNine.lng}
             />
             <FatalAccidents
               lat={this.state.fatalTen.lat}
               lng={this.state.fatalTen.lng}
-              text={this.state.fatalTen.lat}
-              text2={this.state.fatalTen.lng}
-              link={"Click Me"}
+              link={"NTSB Database Link"}
             />
           </GoogleMapReact>
         </div>

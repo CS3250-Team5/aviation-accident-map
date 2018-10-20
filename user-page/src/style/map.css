@@ -9,7 +9,17 @@
     padding: 50px 0 0 0;
 }
 
-/* tooltips? */
+.filterBoxes {
+    padding: 0 10px 0 0;
+}
+
+.mapStyle {
+    height: 50vh;
+    width: 60%;
+    margin: 0 auto;
+    padding: 50px 0 0 0;
+}
+
 /* Tooltip container */
 .tooltip {
     position: relative;
@@ -17,17 +27,18 @@
 }
 
 .tooltip .tooltiptext {
+    font-size: 13px;
     visibility: hidden;
-    width: 120px;
-    background-color: white;
-    color: black;
+    width: 160px;
+    background-color: black;
+    color: white;
     text-align: center;
     border-radius: 6px;
     padding: 5px 0;
     position: absolute;
     z-index: 1;
     bottom: 120%;
-    left: 50%;
+    left: -10%;
     margin-left: -60px;
     opacity: 0;
     transition: opacity 1s;
@@ -38,8 +49,8 @@
     position: absolute;
     top: 100%;
     left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
+    margin-left: -10px;
+    border-width: 10px;
     border-style: solid;
     border-color: black transparent transparent transparent;
 }
