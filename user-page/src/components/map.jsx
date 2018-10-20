@@ -13,13 +13,14 @@ const FatalAccidents = ({ lat, lng, link }) => (
       Accident Information: <br />
       Lat: {lat} <br />
       Lng: {lng} <br />
-      <a href="https://www.Google.com" target="_blank">
-        {link}
+      <a href={link} target="_blank">
+        {"NTSB Database Link"}
       </a>
     </span>
   </div>
 );
 
+// only fatalSix has the link sub State
 class Map extends Component {
   state = {
     fatalBox: false,
@@ -47,7 +48,8 @@ class Map extends Component {
     },
     fatalSix: {
       lat: null,
-      lng: null
+      lng: null,
+      link: null
     },
     fatalSeven: {
       lat: null,
@@ -164,7 +166,9 @@ class Map extends Component {
         fatalBox: true,
         fatalSix: {
           lat: 37.822223,
-          lng: -106.906111
+          lng: -106.906111,
+          link:
+            "https://app.ntsb.gov/pdfgenerator/ReportGeneratorFile.ashx?EventID=20160620X21154&AKey=1&RType=HTML&IType=FA"
         },
         fatalSeven: {
           lat: 38.495,
@@ -190,7 +194,8 @@ class Map extends Component {
         fatalBox: false,
         fatalSix: {
           lng: null,
-          lat: null
+          lat: null,
+          link: null
         },
         fatalSeven: {
           lng: null,
@@ -279,6 +284,7 @@ class Map extends Component {
             <FatalAccidents
               lat={this.state.fatalSix.lat}
               lng={this.state.fatalSix.lng}
+              link={this.state.fatalSix.link}
             />
             <FatalAccidents
               lat={this.state.fatalSeven.lat}
@@ -295,7 +301,6 @@ class Map extends Component {
             <FatalAccidents
               lat={this.state.fatalTen.lat}
               lng={this.state.fatalTen.lng}
-              link={"NTSB Database Link"}
             />
           </GoogleMapReact>
         </div>
