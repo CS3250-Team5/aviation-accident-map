@@ -183,22 +183,26 @@ class Map extends Component {
         parser: parser++,
         fatalSeven: {
           lat: 38.495,
-          lng: -102.29
+          lng: -102.29,
+          link: beginUrl + ids[parser] + endUrl
         },
         parser: parser++,
         fatalEight: {
           lat: 39.1175,
-          lng: -104.718334
+          lng: -104.91,
+          link: beginUrl + ids[parser] + endUrl
         },
         parser: parser++,
         fatalNine: {
           lat: 40.052222,
-          lng: -108.278611
+          lng: -108.278611,
+          link: beginUrl + ids[parser] + endUrl
         },
         parser: parser++,
         fatalTen: {
           lat: 38.830834,
-          lng: -104.718334
+          lng: -104.718334,
+          link: beginUrl + ids[parser] + endUrl
         }
       });
     }
@@ -303,18 +307,22 @@ class Map extends Component {
             <FatalAccidents
               lat={this.state.fatalSeven.lat}
               lng={this.state.fatalSeven.lng}
+              link={this.state.fatalSeven.link}
             />
             <FatalAccidents
               lat={this.state.fatalEight.lat}
               lng={this.state.fatalEight.lng}
+              link={this.state.fatalEight.link}
             />
             <FatalAccidents
               lat={this.state.fatalNine.lat}
               lng={this.state.fatalNine.lng}
+              link={this.state.fatalNine.link}
             />
             <FatalAccidents
               lat={this.state.fatalTen.lat}
               lng={this.state.fatalTen.lng}
+              link={this.state.fatalTen.link}
             />
           </GoogleMapReact>
         </div>
