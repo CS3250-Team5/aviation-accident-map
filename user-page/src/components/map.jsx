@@ -53,19 +53,23 @@ class Map extends Component {
     },
     fatalSeven: {
       lat: null,
-      lng: null
+      lng: null,
+      link: null
     },
     fatalEight: {
       lat: null,
-      lng: null
+      lng: null,
+      link: null
     },
     fatalNine: {
       lat: null,
-      lng: null
+      lng: null,
+      link: null
     },
     fatalTen: {
       lat: null,
-      lng: null
+      lng: null,
+      link: null
     }
   };
 
@@ -161,27 +165,37 @@ class Map extends Component {
   };
 
   handleAccidents = () => {
+    let beginUrl = "https://app.ntsb.gov/pdfgenerator/ReportGeneratorFile.ashx?EventID=";
+    let endUrl = "&AKey=1&RType=HTML&IType=FA";
+    var ids = ["20160620X21154", "20160518X42840", "20160302X14248", "20160115X22543", "20151109X40213"];
+    var parser = 0;
+
     if (this.state.fatalBox === false) {
+      parser = 0;
       this.setState({
         fatalBox: true,
+        parser: 0,
         fatalSix: {
           lat: 37.822223,
           lng: -106.906111,
-          link:
-            "https://app.ntsb.gov/pdfgenerator/ReportGeneratorFile.ashx?EventID=20160620X21154&AKey=1&RType=HTML&IType=FA"
+          link: beginUrl + ids[parser] + endUrl
         },
+        parser: parser++,
         fatalSeven: {
           lat: 38.495,
           lng: -102.29
         },
+        parser: parser++,
         fatalEight: {
           lat: 39.1175,
           lng: -104.718334
         },
+        parser: parser++,
         fatalNine: {
           lat: 40.052222,
           lng: -108.278611
         },
+        parser: parser++,
         fatalTen: {
           lat: 38.830834,
           lng: -104.718334
