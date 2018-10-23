@@ -20,7 +20,7 @@ const FatalAccidents = ({ lat, lng, link }) => (
   </div>
 );
 
-// only fatalSix has the link sub State
+// only fatalSix to fatalTen have the link sub State
 class Map extends Component {
   state = {
     fatalBox: false,
@@ -165,9 +165,14 @@ class Map extends Component {
   };
 
   handleAccidents = () => {
+    // Url split in two, EventID=ids[] is then used to complete the url
+    // If NTSB website ever changes this link, the following variables should be changed
     let beginUrl = "https://app.ntsb.gov/pdfgenerator/ReportGeneratorFile.ashx?EventID=";
     let endUrl = "&AKey=1&RType=HTML&IType=FA";
+
+    // This array will be populated from the data of a file in the future
     var ids = ["20160620X21154", "20160518X42840", "20160302X14248", "20160115X22543", "20151109X40213"];
+    // parser increments between each state change
     var parser = 0;
 
     if (this.state.fatalBox === false) {
@@ -217,19 +222,23 @@ class Map extends Component {
         },
         fatalSeven: {
           lng: null,
-          lat: null
+          lat: null,
+          link: null
         },
         fatalEight: {
           lng: null,
-          lat: null
+          lat: null,
+          link: null
         },
         fatalNine: {
           lng: null,
-          lat: null
+          lat: null,
+          link: null
         },
         fatalTen: {
           lng: null,
-          lat: null
+          lat: null,
+          link: null
         }
       });
     }
