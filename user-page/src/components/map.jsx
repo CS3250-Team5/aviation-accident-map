@@ -179,31 +179,35 @@ class Map extends Component {
       parser = 0;
       this.setState({
         fatalBox: true,
-        parser: 0,
+        parse: 0,
         fatalSix: {
           lat: 37.822223,
           lng: -106.906111,
           link: beginUrl + ids[parser] + endUrl
         },
-        parser: parser++,
+        // eslint-disable-next-line
+        parse: parser++,
         fatalSeven: {
           lat: 38.495,
           lng: -102.29,
           link: beginUrl + ids[parser] + endUrl
         },
-        parser: parser++,
+        // eslint-disable-next-line
+        parse: parser++,
         fatalEight: {
           lat: 39.1175,
           lng: -104.91,
           link: beginUrl + ids[parser] + endUrl
         },
-        parser: parser++,
+        // eslint-disable-next-line
+        parse: parser++,
         fatalNine: {
           lat: 40.052222,
           lng: -108.278611,
           link: beginUrl + ids[parser] + endUrl
         },
-        parser: parser++,
+        // eslint-disable-next-line
+        parse: parser++,
         fatalTen: {
           lat: 38.830834,
           lng: -104.718334,
