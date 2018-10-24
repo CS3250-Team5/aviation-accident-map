@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
+import Testing from "../reader.js";
 import "../style/map.css";
 
 import plane from "../images/ge_crash.png";
@@ -167,11 +168,21 @@ class Map extends Component {
   handleAccidents = () => {
     // Url split in two, EventID=ids[] is then used to complete the url
     // If NTSB website ever changes this link, the following variables should be changed
-    let beginUrl = "https://app.ntsb.gov/pdfgenerator/ReportGeneratorFile.ashx?EventID=";
+    let beginUrl =
+      "https://app.ntsb.gov/pdfgenerator/ReportGeneratorFile.ashx?EventID=";
     let endUrl = "&AKey=1&RType=HTML&IType=FA";
 
+    /*
     // This array will be populated from the data of a file in the future
-    var ids = ["20160620X21154", "20160518X42840", "20160302X14248", "20160115X22543", "20151109X40213"];
+    var ids = [
+      "20160620X21154",
+      "20160518X42840",
+      "20160302X14248",
+      "20160115X22543",
+      "20151109X40213"
+    ];
+    */
+
     // parser increments between each state change
     var parser = 0;
 
@@ -183,35 +194,35 @@ class Map extends Component {
         fatalSix: {
           lat: 37.822223,
           lng: -106.906111,
-          link: beginUrl + ids[parser] + endUrl
+          link: beginUrl + Testing[parser] + endUrl
         },
         // eslint-disable-next-line
         parse: parser++,
         fatalSeven: {
           lat: 38.495,
           lng: -102.29,
-          link: beginUrl + ids[parser] + endUrl
+          link: beginUrl + Testing[parser] + endUrl
         },
         // eslint-disable-next-line
         parse: parser++,
         fatalEight: {
           lat: 39.1175,
           lng: -104.91,
-          link: beginUrl + ids[parser] + endUrl
+          link: beginUrl + Testing[parser] + endUrl
         },
         // eslint-disable-next-line
         parse: parser++,
         fatalNine: {
           lat: 40.052222,
           lng: -108.278611,
-          link: beginUrl + ids[parser] + endUrl
+          link: beginUrl + Testing[parser] + endUrl
         },
         // eslint-disable-next-line
         parse: parser++,
         fatalTen: {
           lat: 38.830834,
           lng: -104.718334,
-          link: beginUrl + ids[parser] + endUrl
+          link: beginUrl + Testing[parser] + endUrl
         }
       });
     }
@@ -260,7 +271,8 @@ class Map extends Component {
               value="false"
               type="checkbox"
             />
-            <img src={plane} alt="plane" width="15" height="15" />Random
+            <img src={plane} alt="plane" width="15" height="15" />
+            Random
           </span>
           <span className="filterBoxes">
             <input
@@ -269,18 +281,18 @@ class Map extends Component {
               value="true"
               type="checkbox"
             />
-            <img src={plane} alt="plane" width="15" height="15" />Show Fatal
-            Accidents
+            <img src={plane} alt="plane" width="15" height="15" />
+            Show Fatal Accidents
           </span>
           <span className="filterBoxes">
             <input name="CDOT Mountain AWOS" type="checkbox" />
-            <img src={awos} alt="awos" width="15" height="15" />Show CDOT
-            Mountain AWOS
+            <img src={awos} alt="awos" width="15" height="15" />
+            Show CDOT Mountain AWOS
           </span>
           <span className="filterBoxes">
             <input name="Mountain Passes" type="checkbox" />
-            <img src={mountain} alt="mountain" width="15" height="15" />Show
-            Mountain Passes
+            <img src={mountain} alt="mountain" width="15" height="15" />
+            Show Mountain Passes
           </span>
         </center>
 
