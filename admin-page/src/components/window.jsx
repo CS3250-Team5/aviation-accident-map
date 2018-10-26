@@ -16,7 +16,8 @@ class Window extends Component {
     an3: "",
     an4: "",
     an5: "",
-    anf: ""
+    anf: "",
+    selectValue:""
   };
 
   p0t1 = () => {
@@ -36,13 +37,29 @@ class Window extends Component {
       p2: "block"
     });
   };
+
+
+  handleChange = (e) => {
+    this.setState({selectValue:e.target.value});
+  }
   p2t3 = () => {
-    console.log(this.state.display);
-    this.setState({
-      an3: "fadeOutLeft 1.5s  ease",
-      an4: "fadeInLeft 2s ease",
-      p3: "block"
-    });
+    console.log(this.state.selectValue);
+    if (this.state.selectValue == "CO") {
+      this.setState({
+
+
+     
+        an3: "fadeOutLeft 1.5s  ease",
+        an4: "fadeInLeft 2s ease",
+        p3: "block"
+  
+        
+      }); 
+    } else{
+      window.alert("Psst* Try Colorado");
+    }
+    
+    
   };
   p3t4 = () => {
     console.log(this.state.display);
@@ -84,9 +101,18 @@ class Window extends Component {
             <div className="pannel1">
               <h3 className="text1">Step 1 :</h3>
               <p className="text1h">Download Data from NTSB</p>
+              <div className="progCont">
+              <div className="progBar"></div>
+              </div>
+            <div style={{display:'flex',justifyContent:'center'}} >
               <button className="button1" onClick={this.p1t2}>
                 Download
               </button>
+             {/* <p style ={{color:'white',marginRight:'20px'}}>Or</p>
+              
+              <input style={{color:'white'}}ref={(ref) => { this.uploadInput = ref; }} type="file" />*/}
+              
+              </div>
             </div>
           </div>
 
@@ -98,7 +124,7 @@ class Window extends Component {
               <h3 className="text2">Step 2 :</h3>
               <p className="text2h">
                 Choose State:
-                <select className="dropdown">
+                <select value={this.state.selectValue} onChange={this.handleChange} className="dropdown">
                   <option value="" />
                   <option value="AL">Alabama</option>
                   <option value="AK">Alaska</option>
