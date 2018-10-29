@@ -28,7 +28,7 @@ class Window extends Component {
 
 
 
-  
+
   p0t1 = () => {
     console.log(this.state.display);
     this.setState({
@@ -38,7 +38,15 @@ class Window extends Component {
     });
   };
 
+  b1t0 = () =>{
 
+    this.setState({
+      an1: "fadeInRight 1.5s ease",
+      an2: "fadeOutRight 2s ease",
+      p0: "block"
+    });
+
+  };
 
 
  
@@ -181,6 +189,7 @@ window.alert("Data downloaded from NTSB");
             className="p1cont"
             style={{ display: this.state.p1, animation: this.state.an2 }}>
             <div className="pannel1">
+            <button id= "back" onClick={this.b1t0}>Back</button>
               <h3 className="text1">Step 1 :</h3>
               <p className="text1h">Download Data from NTSB</p>
               <div className="progCont" style={{display:this.state.progDisp}}>
