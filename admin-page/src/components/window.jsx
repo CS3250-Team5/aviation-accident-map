@@ -17,7 +17,7 @@ class Window extends Component {
     an4: "",
     an5: "",
     anf: "",
-    uploadName:"Upload File",
+    uploadName:"Upload local file",
     selectValue:"",
     downUpDis:true,
     dis:"not-allowed",
@@ -105,6 +105,7 @@ class Window extends Component {
   download = (event) =>{
 
 this.setState({downUpDis:false,dis:"pointer"})
+window.alert("Data downloaded from NTSB");
 
   }
  uploadStuff = (event) => { 
@@ -112,6 +113,7 @@ this.setState({downUpDis:false,dis:"pointer"})
     return
   }else{
   this.setState({uploadName:event.target.files[0].name, downUpDis:false, dis:"pointer"});
+  window.alert("Local file chosen");
   }
  }
 
@@ -157,7 +159,7 @@ this.setState({downUpDis:false,dis:"pointer"})
               </div>
             <div style={{display:'flex',justifyContent:'center'}} >
               <button className="button1" onClick={this.download}>
-                Download
+                Download from NTSB
               </button>
              <p style ={{color:'white',marginRight:'20px'}}>Or</p>
   
@@ -166,7 +168,7 @@ this.setState({downUpDis:false,dis:"pointer"})
               <input type="file" id="myuniqueid" onChange={this.uploadStuff} /></label>
               </div>
               <div>
-              <button className="button1"  onClick={this.p1t2} style={{marginTop:'10px', cursor:this.state.dis}}>Continue</button>
+              <button className="button1"  onClick={this.p1t2} style={{marginTop:'18px', cursor:this.state.dis, width:'13em'}}>Continue & upload data</button>
               </div>
             </div>
           </div>
