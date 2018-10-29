@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "../style/window.css";
 
-void function p0t1() {};
+
 
 class Window extends Component {
   state = {
@@ -17,7 +17,12 @@ class Window extends Component {
     an4: "",
     an5: "",
     anf: "",
-    selectValue:""
+    uploadName:"Upload File",
+    selectValue:"",
+    downUpDis:true,
+    dis:"not-allowed",
+    progWidth:0,
+    progDisp:"none"
   };
 
   p0t1 = () => {
@@ -29,13 +34,34 @@ class Window extends Component {
     });
   };
 
+ 
+  interval = () =>{
+    
+    if(this.state.progWidth !== 100 && this.state.downUpDis === false ){
+      
+      this.setState({progDisp:"block"});
+
+      this.interval = setInterval(() =>{
+        if(this.state.progWidth !==99){
+        this.setState({
+          progWidth:this.state.progWidth + 1})
+        }
+      },100);
+    }
+    
+    
+
+  };
+
   p1t2 = () => {
+    
     console.log(this.state.display);
-    this.setState({
-      an2: "fadeOutLeft 1.5s ease",
-      an3: "fadeInLeft 2s ease",
-      p2: "block"
-    });
+    
+    this.interval();
+
+    if(this.state.downUpDis === true){
+      window.alert("*You must upload NTSB data first*");
+    }
   };
 
 
@@ -47,8 +73,6 @@ class Window extends Component {
     if (this.state.selectValue == "CO") {
       this.setState({
 
-
-     
         an3: "fadeOutLeft 1.5s  ease",
         an4: "fadeInLeft 2s ease",
         p3: "block"
@@ -77,7 +101,33 @@ class Window extends Component {
       pf: "block"
     });
   };
+
+  download = (event) =>{
+
+this.setState({downUpDis:false,dis:"pointer"})
+
+  }
+ uploadStuff = (event) => { 
+  if (!event.target.files[0]) {
+    return
+  }else{
+  this.setState({uploadName:event.target.files[0].name, downUpDis:false, dis:"pointer"});
+  }
+ }
+
   render() {
+
+    console.log(this.state.progWidth)
+    if(this.state.progWidth === 99){
+        
+      this.setState({
+        an2: "fadeOutLeft 1.5s ease",
+        an3: "fadeInLeft 2s ease",
+        p2: "block",
+        progWidth:100,
+      });
+      clearInterval(this.interval);
+    }
     return (
       <React.Fragment>
         <div className="allpannels">
@@ -96,22 +146,27 @@ class Window extends Component {
 
           <div
             className="p1cont"
-            style={{ display: this.state.p1, animation: this.state.an2 }}
-          >
+            style={{ display: this.state.p1, animation: this.state.an2 }}>
             <div className="pannel1">
               <h3 className="text1">Step 1 :</h3>
               <p className="text1h">Download Data from NTSB</p>
-              <div className="progCont">
-              <div className="progBar"></div>
+              <div className="progCont" style={{display:this.state.progDisp}}>
+              <label style={{color:'white', left:'47%', position:'absolute'}}>{this.state.progWidth}%</label>
+              <div className="progBar" style={{width:String(this.state.progWidth + "%")}}></div>
+              
               </div>
             <div style={{display:'flex',justifyContent:'center'}} >
-              <button className="button1" onClick={this.p1t2}>
+              <button className="button1" onClick={this.download}>
                 Download
               </button>
-             {/* <p style ={{color:'white',marginRight:'20px'}}>Or</p>
-              
-              <input style={{color:'white'}}ref={(ref) => { this.uploadInput = ref; }} type="file" />*/}
-              
+             <p style ={{color:'white',marginRight:'20px'}}>Or</p>
+  
+
+              <label id ="label" htmlFor="myuniqueid">{this.state.uploadName}
+              <input type="file" id="myuniqueid" onChange={this.uploadStuff} /></label>
+              </div>
+              <div>
+              <button className="button1"  onClick={this.p1t2} style={{marginTop:'10px', cursor:this.state.dis}}>Continue</button>
               </div>
             </div>
           </div>
