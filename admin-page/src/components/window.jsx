@@ -25,6 +25,10 @@ class Window extends Component {
     progDisp:"none"
   };
 
+
+
+
+  
   p0t1 = () => {
     console.log(this.state.display);
     this.setState({
@@ -33,6 +37,9 @@ class Window extends Component {
       p1: "block"
     });
   };
+
+
+
 
  
   interval = () =>{
@@ -53,6 +60,9 @@ class Window extends Component {
 
   };
 
+
+
+
   p1t2 = () => {
     
     console.log(this.state.display);
@@ -68,6 +78,10 @@ class Window extends Component {
   handleChange = (e) => {
     this.setState({selectValue:e.target.value});
   }
+
+
+
+
   p2t3 = () => {
     console.log(this.state.selectValue);
     if (this.state.selectValue == "CO") {
@@ -85,6 +99,11 @@ class Window extends Component {
     
     
   };
+
+
+
+
+
   p3t4 = () => {
     console.log(this.state.display);
     this.setState({
@@ -93,6 +112,10 @@ class Window extends Component {
       p4: "block"
     });
   };
+
+
+
+
   p4tf = () => {
     console.log(this.state.display);
     this.setState({
@@ -102,12 +125,17 @@ class Window extends Component {
     });
   };
 
+
+
   download = (event) =>{
 
 this.setState({downUpDis:false,dis:"pointer"})
 window.alert("Data downloaded from NTSB");
 
   }
+
+
+
  uploadStuff = (event) => { 
   if (!event.target.files[0]) {
     return
@@ -116,6 +144,9 @@ window.alert("Data downloaded from NTSB");
   window.alert("Local file chosen");
   }
  }
+
+
+
 
   render() {
 
