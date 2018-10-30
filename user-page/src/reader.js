@@ -29,7 +29,7 @@ setIDs();
 import * as firebase from "firebase";
 
 var config = {
-  apiKey: "AIzaSyAq40sdfJBLTMyzTa1vTle2CahMVM_f-No",
+  apiKey: process.env.FIREBASE_API_KEY,
   authDomain: "state-aviation-m-1538090440532.firebaseapp.com",
   databaseURL: "https://state-aviation-m-1538090440532.firebaseio.com",
   projectId: "state-aviation-m-1538090440532",
