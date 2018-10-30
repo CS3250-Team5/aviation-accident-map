@@ -30,11 +30,11 @@ import * as firebase from "firebase";
 
 var config = {
   apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: "state-aviation-m-1538090440532.firebaseapp.com",
-  databaseURL: "https://state-aviation-m-1538090440532.firebaseio.com",
-  projectId: "state-aviation-m-1538090440532",
-  storageBucket: "state-aviation-m-1538090440532.appspot.com",
-  messagingSenderId: "510612508615"
+  authDomain: "test-project-cfcd0.firebaseapp.com",
+  databaseURL: "https://test-project-cfcd0.firebaseio.com",
+  projectId: "test-project-cfcd0",
+  storageBucket: "test-project-cfcd0.appspot.com",
+  messagingSenderId: "470912223206"
 };
 firebase.initializeApp(config);
 
