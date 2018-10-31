@@ -82,6 +82,21 @@ class Map extends Component {
     zoom: 7
   };
 
+  creatingElements() {
+    return <div>Testing Stuff</div>;
+  }
+
+  testingStuff() {
+    console.log("Entered testingStuff");
+    let testing = [];
+
+    for (var i = 0; i < 10; i++) {
+      testing.push(<div>Testing</div>);
+    }
+
+    return testing;
+  }
+
   handleRandom = () => {
     const latMin = 38;
     const latMax = 41;
@@ -251,6 +266,8 @@ class Map extends Component {
       // Important! Always set the container height explicitly
       <div className="backGround">
         <center>
+          {this.creatingElements()}
+          {this.testingStuff()}
           <span className="filterBoxes">
             <input
               onClick={this.handleRandom}
