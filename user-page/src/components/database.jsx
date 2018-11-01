@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import * as firebase from "firebase";
+// eslint-disable-next-line
 import ids from "../reader.js";
 
 class Base extends Component {
@@ -27,6 +28,7 @@ class Base extends Component {
 
     for (var i = 0; i < 3; i++) {
       testRef = rootRef.child(iterate).child("EventId");
+      // eslint-disable-next-line
       testRef.on("value", snap => {
         event[i] = snap.val();
       });

@@ -42,14 +42,26 @@ var ids = [];
 
 function setIDs() {
   let iterate = 0;
+  var testRef = null;
   const rootRef = firebase
     .database()
     .ref()
     .child("ROWS")
     .child("ROW");
 
-  for (var i = 0; i < 3; i++) {
-    const testRef = rootRef.child(iterate).child("EventId");
+  for (var i = 0; i < 1000; i++) {
+    testRef = rootRef.child(iterate).child("EventId");
+    // eslint-disable-next-line
+    testRef.on("value", snap => {
+      ids[i] = snap.val();
+    });
+    testRef = rootRef.child(iterate).child("Latitude");
+    // eslint-disable-next-line
+    testRef.on("value", snap => {
+      ids[i] = snap.val();
+    });
+    testRef = rootRef.child(iterate).child("Longitude");
+    // eslint-disable-next-line
     testRef.on("value", snap => {
       ids[i] = snap.val();
     });

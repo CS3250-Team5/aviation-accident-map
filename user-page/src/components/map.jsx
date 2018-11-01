@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
+import * as firebase from "firebase";
 import ids from "../reader.js";
 import "../style/map.css";
 
@@ -27,6 +28,9 @@ class Map extends Component {
     fatalBox: false,
     randomBox: false,
     parse: 0,
+    parser: 0,
+    longitude: null,
+    latitude: null,
     fatalOne: {
       lat: null,
       lng: null
@@ -82,87 +86,67 @@ class Map extends Component {
     zoom: 7
   };
 
-  handleRandom = () => {
-    const latMin = 38;
-    const latMax = 41;
-    const lngMin = -108;
-    const lngMax = -103;
-    var randLat = [];
-    var randLng = [];
-    var parser = 0;
+  creatingElements = () => {
+    var j = 0;
+    var latP = [];
+    var lngP = [];
+    let points = [];
+    var testRef = null;
 
-    for (var i = 0; i < 9; i++) {
-      var coord = latMin + Math.random() * (latMax - latMin);
-      randLat[i] = coord;
+    const rootRef = firebase
+      .database()
+      .ref()
+      .child("ROWS")
+      .child("ROW");
+
+    for (var i = 0; i < 10; i++) {
+      testRef = rootRef.child(i).child("Latitude");
+      // eslint-disable-next-line
+      testRef.on("value", snap => {
+        latP[i] = snap.val();
+      });
+      //console.log(latP[i]);
     }
 
-    for (i = 0; i < 5; i++) {
-      coord = lngMin + Math.random() * (lngMax - lngMin);
-      randLng[i] = coord;
-    }
-
-    if (this.state.randomBox === false) {
-      parser = 0;
-      this.setState({
-        parse: 0,
-        randomBox: true,
-        fatalOne: {
-          lat: randLat[parser],
-          lng: randLng[parser]
-        },
-        // eslint-disable-next-line
-        parse: parser++,
-        fatalTwo: {
-          lat: randLat[parser],
-          lng: randLng[parser]
-        },
-        // eslint-disable-next-line
-        parse: parser++,
-        fatalThree: {
-          lat: randLat[parser],
-          lng: randLng[parser]
-        },
-        // eslint-disable-next-line
-        parse: parser++,
-        fatalFour: {
-          lat: randLat[parser],
-          lng: randLng[parser]
-        },
-        // eslint-disable-next-line
-        parse: parser++,
-        fatalFive: {
-          lat: randLat[parser],
-          lng: randLng[parser]
-        }
+    for (i = 0; i < 10; i++) {
+      testRef = rootRef.child(i).child("Longitude");
+      // eslint-disable-next-line
+      testRef.on("value", snap => {
+        lngP[i] = snap.val();
+        //console.log(lngP[i]);
       });
     }
 
-    if (this.state.randomBox === true) {
-      this.setState({
-        parser: 0,
-        randomBox: false,
-        fatalOne: {
-          lat: null,
-          lng: null
+    for (i = 0; i < 10; i++) {
+      var temp1 = lngP[i];
+      var temp2 = latP[i];
+      //console.log(lngP[j]);
+      //this.state.longitude = lngP[i];
+      //this.state.latitude = latP[i];
+
+      this.setState(
+        {
+          longitude: temp1,
+          latitude: temp2,
+          parser: j++
         },
-        fatalTwo: {
-          lat: null,
-          lng: null
-        },
-        fatalThree: {
-          lat: null,
-          lng: null
-        },
-        fatalFour: {
-          lat: null,
-          lng: null
-        },
-        fatalFive: {
-          lat: null,
-          lng: null
+        function() {
+          console.log(this.state.longitude);
         }
-      });
+      );
+      console.log(this.state.longitude);
+      //var lati = latP[i].toString();
+      //var long = lngP[i].toString();
+      points.push(
+        <FatalAccidents lat={this.state.latitude} lng={this.state.longitude} />
+      );
+      //console.log(latP[i]);
+      //console.log(lngP[i]);
+      //console.log(typeof lngP[i]);
+      //console.log(typeof latP[i]);
     }
+
+    return points;
   };
 
   handleAccidents = () => {
@@ -253,13 +237,13 @@ class Map extends Component {
         <center>
           <span className="filterBoxes">
             <input
-              onClick={this.handleRandom}
-              name="Random"
-              value="false"
+              onClick={this.creatingElements}
+              name="Fatal Accidents"
+              value="true"
               type="checkbox"
             />
             <img src={plane} alt="plane" width="15" height="15" />
-            Random
+            Firebase Points
           </span>
           <span className="filterBoxes">
             <input
