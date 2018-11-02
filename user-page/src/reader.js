@@ -1,31 +1,3 @@
-/*
-
--------------------------FOR STATIC DATA-------------------------
-
-import "./eventIDs.txt";
-
-// Testing purposes only
-var eventIDs = [
-  "20160620X21154",
-  "20160518X42840",
-  "20160302X14248",
-  "20160115X22543",
-  "20151109X40213"
-];
-
-// How can you read a file and put data from file to this array?
-var ids = [];
-
-function setIDs() {
-  // i < 5 for this specific case, while loop may be used in the end
-  for (var i = 0; i < 5; i++) {
-    ids[i] = eventIDs[i];
-  }
-}
-
-setIDs();
-*/
-
 import * as firebase from "firebase";
 
 var config = {
@@ -42,14 +14,26 @@ var ids = [];
 
 function setIDs() {
   let iterate = 0;
+  var testRef = null;
   const rootRef = firebase
     .database()
     .ref()
     .child("ROWS")
     .child("ROW");
 
-  for (var i = 0; i < 3; i++) {
-    const testRef = rootRef.child(iterate).child("EventId");
+  for (var i = 0; i < 1000; i++) {
+    testRef = rootRef.child(iterate).child("EventId");
+    // eslint-disable-next-line
+    testRef.on("value", snap => {
+      ids[i] = snap.val();
+    });
+    testRef = rootRef.child(iterate).child("Latitude");
+    // eslint-disable-next-line
+    testRef.on("value", snap => {
+      ids[i] = snap.val();
+    });
+    testRef = rootRef.child(iterate).child("Longitude");
+    // eslint-disable-next-line
     testRef.on("value", snap => {
       ids[i] = snap.val();
     });

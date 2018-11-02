@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import Map from "./components/map";
 import Banner from "./components/banner";
-import Base from "./components/database";
 import "./style/App.css";
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Base />
+        <Banner />
+        <Map />
       </div>
     );
   }
