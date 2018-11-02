@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
+import ids from "../reader.js";
 import "../style/map.css";
 
 import plane from "../images/ge_crash.png";
@@ -20,7 +21,7 @@ const FatalAccidents = ({ lat, lng, link }) => (
   </div>
 );
 
-// only fatalSix has the link sub State
+// only fatalSix to fatalTen have the link sub State
 class Map extends Component {
   state = {
     fatalBox: false,
@@ -53,19 +54,23 @@ class Map extends Component {
     },
     fatalSeven: {
       lat: null,
-      lng: null
+      lng: null,
+      link: null
     },
     fatalEight: {
       lat: null,
-      lng: null
+      lng: null,
+      link: null
     },
     fatalNine: {
       lat: null,
-      lng: null
+      lng: null,
+      link: null
     },
     fatalTen: {
       lat: null,
-      lng: null
+      lng: null,
+      link: null
     }
   };
 
@@ -161,30 +166,50 @@ class Map extends Component {
   };
 
   handleAccidents = () => {
+    // Url split in two, EventID=ids[] is then used to complete the url
+    // If NTSB website ever changes this link, the following variables should be changed
+    let beginUrl =
+      "https://app.ntsb.gov/pdfgenerator/ReportGeneratorFile.ashx?EventID=";
+    let endUrl = "&AKey=1&RType=HTML&IType=FA";
+    var parser = 0;
+
     if (this.state.fatalBox === false) {
+      parser = 0;
       this.setState({
         fatalBox: true,
+        parse: 0,
         fatalSix: {
           lat: 37.822223,
           lng: -106.906111,
-          link:
-            "https://app.ntsb.gov/pdfgenerator/ReportGeneratorFile.ashx?EventID=20160620X21154&AKey=1&RType=HTML&IType=FA"
+          link: beginUrl + ids[parser] + endUrl
         },
+        // eslint-disable-next-line
+        parse: parser++,
         fatalSeven: {
           lat: 38.495,
-          lng: -102.29
+          lng: -102.29,
+          link: beginUrl + ids[parser] + endUrl
         },
+        // eslint-disable-next-line
+        parse: parser++,
         fatalEight: {
           lat: 39.1175,
-          lng: -104.718334
+          lng: -104.91,
+          link: beginUrl + ids[parser] + endUrl
         },
+        // eslint-disable-next-line
+        parse: parser++,
         fatalNine: {
           lat: 40.052222,
-          lng: -108.278611
+          lng: -108.278611,
+          link: beginUrl + ids[parser] + endUrl
         },
+        // eslint-disable-next-line
+        parse: parser++,
         fatalTen: {
           lat: 38.830834,
-          lng: -104.718334
+          lng: -104.718334,
+          link: beginUrl + ids[parser] + endUrl
         }
       });
     }
@@ -199,19 +224,23 @@ class Map extends Component {
         },
         fatalSeven: {
           lng: null,
-          lat: null
+          lat: null,
+          link: null
         },
         fatalEight: {
           lng: null,
-          lat: null
+          lat: null,
+          link: null
         },
         fatalNine: {
           lng: null,
-          lat: null
+          lat: null,
+          link: null
         },
         fatalTen: {
           lng: null,
-          lat: null
+          lat: null,
+          link: null
         }
       });
     }
@@ -229,7 +258,8 @@ class Map extends Component {
               value="false"
               type="checkbox"
             />
-            <img src={plane} alt="plane" width="15" height="15" />Random
+            <img src={plane} alt="plane" width="15" height="15" />
+            Random
           </span>
           <span className="filterBoxes">
             <input
@@ -238,18 +268,18 @@ class Map extends Component {
               value="true"
               type="checkbox"
             />
-            <img src={plane} alt="plane" width="15" height="15" />Show Fatal
-            Accidents
+            <img src={plane} alt="plane" width="15" height="15" />
+            Show Fatal Accidents
           </span>
           <span className="filterBoxes">
             <input name="CDOT Mountain AWOS" type="checkbox" />
-            <img src={awos} alt="awos" width="15" height="15" />Show CDOT
-            Mountain AWOS
+            <img src={awos} alt="awos" width="15" height="15" />
+            Show CDOT Mountain AWOS
           </span>
           <span className="filterBoxes">
             <input name="Mountain Passes" type="checkbox" />
-            <img src={mountain} alt="mountain" width="15" height="15" />Show
-            Mountain Passes
+            <img src={mountain} alt="mountain" width="15" height="15" />
+            Show Mountain Passes
           </span>
         </center>
 
@@ -289,18 +319,22 @@ class Map extends Component {
             <FatalAccidents
               lat={this.state.fatalSeven.lat}
               lng={this.state.fatalSeven.lng}
+              link={this.state.fatalSeven.link}
             />
             <FatalAccidents
               lat={this.state.fatalEight.lat}
               lng={this.state.fatalEight.lng}
+              link={this.state.fatalEight.link}
             />
             <FatalAccidents
               lat={this.state.fatalNine.lat}
               lng={this.state.fatalNine.lng}
+              link={this.state.fatalNine.link}
             />
             <FatalAccidents
               lat={this.state.fatalTen.lat}
               lng={this.state.fatalTen.lng}
+              link={this.state.fatalTen.link}
             />
           </GoogleMapReact>
         </div>
