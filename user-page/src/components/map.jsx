@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
 import * as firebase from "firebase";
+// eslint-disable-next-line
 import ids from "../reader.js";
 import "../style/map.css";
 
@@ -36,7 +37,6 @@ class Map extends Component {
   };
 
   createFatalPoints = () => {
-    var j = 0;
     var latP = [];
     var lngP = [];
     var eventID = [];
