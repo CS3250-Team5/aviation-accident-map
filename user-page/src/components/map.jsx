@@ -24,8 +24,7 @@ const FatalAccidents = ({ lat, lng, link }) => (
 
 class Map extends Component {
   state = {
-    fatalBox: false,
-    randomBox: false
+    fatalBox: false
   };
 
   static defaultProps = {
@@ -36,7 +35,7 @@ class Map extends Component {
     zoom: 7
   };
 
-  creatingElements = () => {
+  createFatalPoints = () => {
     var j = 0;
     var latP = [];
     var lngP = [];
@@ -77,25 +76,19 @@ class Map extends Component {
       });
     }
 
-    for (i = 0; i < 100; i++) {
-      points.push(
-        <FatalAccidents lat={latP[i]} lng={lngP[i]} link={eventID[i]} />
-      );
+    if (this.state.fatalBox === true) {
+      for (i = 0; i < 100; i++) {
+        points.push(
+          <FatalAccidents lat={latP[i]} lng={lngP[i]} link={eventID[i]} />
+        );
+      }
     }
 
     return points;
   };
 
   handleAccidents = () => {
-    // Url split in two, EventID=ids[] is then used to complete the url
-    // If NTSB website ever changes this link, the following variables should be changed
-    let beginUrl =
-      "https://app.ntsb.gov/pdfgenerator/ReportGeneratorFile.ashx?EventID=";
-    let endUrl = "&AKey=1&RType=HTML&IType=FA";
-    var parser = 0;
-
     if (this.state.fatalBox === false) {
-      parser = 0;
       this.setState({
         fatalBox: true
       });
@@ -113,16 +106,6 @@ class Map extends Component {
       // Important! Always set the container height explicitly
       <div className="backGround">
         <center>
-          <span className="filterBoxes">
-            <input
-              onClick={this.creatingElements}
-              name="Fatal Accidents"
-              value="true"
-              type="checkbox"
-            />
-            <img src={plane} alt="plane" width="15" height="15" />
-            Firebase Points
-          </span>
           <span className="filterBoxes">
             <input
               onClick={this.handleAccidents}
@@ -155,7 +138,7 @@ class Map extends Component {
             defaultCenter={this.props.center}
             defaultZoom={this.props.zoom}
           >
-            {this.creatingElements()}
+            {this.createFatalPoints()}
           </GoogleMapReact>
         </div>
       </div>
