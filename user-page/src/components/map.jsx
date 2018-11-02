@@ -41,6 +41,7 @@ class Map extends Component {
     var lngP = [];
     var eventID = [];
     let points = [];
+    var libSize = 0;
     var testRef = null;
 
     const rootRef = firebase
@@ -49,7 +50,11 @@ class Map extends Component {
       .child("ROWS")
       .child("ROW");
 
-    for (var i = 0; i < 100; i++) {
+    rootRef.on("value", snap => {
+      libSize = snap.numChildren();
+    });
+
+    for (var i = 0; i < libSize; i++) {
       testRef = rootRef.child(i).child("Latitude");
       // eslint-disable-next-line
       testRef.on("value", snap => {
@@ -57,7 +62,7 @@ class Map extends Component {
       });
     }
 
-    for (i = 0; i < 100; i++) {
+    for (i = 0; i < libSize; i++) {
       testRef = rootRef.child(i).child("Longitude");
       // eslint-disable-next-line
       testRef.on("value", snap => {
@@ -65,7 +70,7 @@ class Map extends Component {
       });
     }
 
-    for (i = 0; i < 100; i++) {
+    for (i = 0; i < libSize; i++) {
       testRef = rootRef.child(i).child("EventId");
       // eslint-disable-next-line
       testRef.on("value", snap => {
