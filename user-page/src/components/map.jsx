@@ -35,10 +35,24 @@ const MountainPasses = ({ lat, lng, pass }) => (
   </div>
 );
 
+const AWOS = ({ lat, lng, loc, freq }) => (
+  <div className="tooltip">
+    <img src={awos} alt="Mountain AWOS" />
+    <span className="tooltiptext">
+      Mountain AWOS site: <br />
+      {loc} <br />
+      Lat: {lat} <br />
+      Lng: {lng} <br />
+      Freq: {freq}
+    </span>
+  </div>
+);
+
 class Map extends Component {
   state = {
     fatalBox: false,
-    passBox: false
+    passBox: false,
+    awosBox: false
   };
 
   static defaultProps = {
@@ -110,23 +124,26 @@ class Map extends Component {
       .ref()
       .child("MountainPasses");
 
-    for (var i = 0; i < libSize; i++) {
+    for (var i = 1; i < libSize; i++) {
       var longRef = rootRef.child(i).child("Longitude");
+      // eslint-disable-next-line
       longRef.on("value", snap => {
         lngP[i] = snap.val();
       });
       var latRef = rootRef.child(i).child("Latitude");
+      // eslint-disable-next-line
       latRef.on("value", snap => {
         latP[i] = snap.val();
       });
       var passRef = rootRef.child(i).child("Pass");
+      // eslint-disable-next-line
       passRef.on("value", snap => {
         pass[i] = snap.val();
       });
     }
 
     if (this.state.passBox === true) {
-      for (var i = 0; i < libSize; i++) {
+      for (i = 0; i < libSize; i++) {
         passPoints.push(
           <MountainPasses lat={latP[i]} lng={lngP[i]} pass={pass[i]} />
         );
@@ -134,6 +151,53 @@ class Map extends Component {
     }
 
     return passPoints;
+  };
+
+  createAwos = () => {
+    var latP = [];
+    var lngP = [];
+    var awos = [];
+    var freq = [];
+    let awosPoints = [];
+    var libSize = 12;
+
+    const rootRef = firebase
+      .database()
+      .ref()
+      .child("AWOS");
+
+    for (var i = 0; i < libSize; i++) {
+      var longRef = rootRef.child(i).child("Longitude");
+      // eslint-disable-next-line
+      longRef.on("value", snap => {
+        lngP[i] = snap.val();
+      });
+      var latRef = rootRef.child(i).child("Latitude");
+      // eslint-disable-next-line
+      latRef.on("value", snap => {
+        latP[i] = snap.val();
+      });
+      var awosRef = rootRef.child(i).child("Location");
+      // eslint-disable-next-line
+      awosRef.on("value", snap => {
+        awos[i] = snap.val();
+      });
+      var freqRef = rootRef.child(i).child("Frequency");
+      // eslint-disable-next-line
+      freqRef.on("value", snap => {
+        freq[i] = snap.val();
+      });
+    }
+
+    if (this.state.awosBox === true) {
+      for (i = 0; i < libSize; i++) {
+        awosPoints.push(
+          <AWOS lat={latP[i]} lng={lngP[i]} loc={awos[i]} freq={freq[i]} />
+        );
+      }
+    }
+
+    return awosPoints;
   };
 
   handleAccidents = () => {
@@ -164,6 +228,20 @@ class Map extends Component {
     }
   };
 
+  handleAwos = () => {
+    if (this.state.awosBox === false) {
+      this.setState({
+        awosBox: true
+      });
+    }
+
+    if (this.state.awosBox === true) {
+      this.setState({
+        awosBox: false
+      });
+    }
+  };
+
   render() {
     return (
       // Important! Always set the container height explicitly
@@ -180,7 +258,11 @@ class Map extends Component {
             Show Fatal Accidents
           </span>
           <span className="filterBoxes">
-            <input name="CDOT Mountain AWOS" type="checkbox" />
+            <input
+              onClick={this.handleAwos}
+              name="CDOT Mountain AWOS"
+              type="checkbox"
+            />
             <img src={awos} alt="awos" width="15" height="15" />
             Show CDOT Mountain AWOS
           </span>
@@ -197,16 +279,15 @@ class Map extends Component {
 
         <div className="mapStyle">
           <GoogleMapReact
-            bootstrapURLKeys={
-              {
-                //key: process.env.REACT_APP_API_KEY
-              }
-            }
+            bootstrapURLKeys={{
+              key: "AIzaSyD-vzgtNUpbsNbSgipj0gflcT3Gokqia-U"
+            }}
             defaultCenter={this.props.center}
             defaultZoom={this.props.zoom}
           >
             {this.createFatalPoints()}
             {this.createPasses()}
+            {this.createAwos()}
           </GoogleMapReact>
         </div>
       </div>
