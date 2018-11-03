@@ -42,7 +42,7 @@ class Map extends Component {
     var eventID = [];
     let points = [];
     var libSize = 0;
-    var testRef = null;
+    var longRange = -106;
 
     const rootRef = firebase
       .database()
@@ -54,26 +54,21 @@ class Map extends Component {
       libSize = snap.numChildren();
     });
 
-    for (var i = 0; i < libSize; i++) {
-      testRef = rootRef.child(i).child("Latitude");
-      // eslint-disable-next-line
-      testRef.on("value", snap => {
-        latP[i] = snap.val();
-      });
+    for(var i = 0; i < libSize; i++){
+        var longRef = rootRef.child(i).child("Longitude");
+        longRef.on("value", snap => {
+            lngP[i] = snap.val();
+        })
+        var latRef = rootRef.child(i).child("Latitude");
+        latRef.on("value", snap => {
+            latP[i] = snap.val();
+        })
     }
 
     for (i = 0; i < libSize; i++) {
-      testRef = rootRef.child(i).child("Longitude");
+      var idRef = rootRef.child(i).child("EventId");
       // eslint-disable-next-line
-      testRef.on("value", snap => {
-        lngP[i] = snap.val();
-      });
-    }
-
-    for (i = 0; i < libSize; i++) {
-      testRef = rootRef.child(i).child("EventId");
-      // eslint-disable-next-line
-      testRef.on("value", snap => {
+      idRef.on("value", snap => {
         eventID[i] =
           "https://app.ntsb.gov/pdfgenerator/ReportGeneratorFile.ashx?EventID=" +
           snap.val() +
