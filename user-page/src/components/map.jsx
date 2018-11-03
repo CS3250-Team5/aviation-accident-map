@@ -23,9 +23,22 @@ const FatalAccidents = ({ lat, lng, link }) => (
   </div>
 );
 
+const MountainPasses = ({ lat, lng, pass }) => (
+  <div className="tooltip">
+    <img src={mountain} alt="mountain pass" />
+    <span className="tooltiptext">
+      Mountain Pass: <br />
+      {pass} <br />
+      Lat: {lat} <br />
+      Lng: {lng} <br />
+    </span>
+  </div>
+);
+
 class Map extends Component {
   state = {
-    fatalBox: false
+    fatalBox: false,
+    passBox: false
   };
 
   static defaultProps = {
@@ -42,7 +55,6 @@ class Map extends Component {
     var eventID = [];
     let points = [];
     var libSize = 0;
-    var longRange = -106;
 
     const rootRef = firebase
       .database()
@@ -54,18 +66,17 @@ class Map extends Component {
       libSize = snap.numChildren();
     });
 
-    for(var i = 0; i < libSize; i++){
-        var longRef = rootRef.child(i).child("Longitude");
-        longRef.on("value", snap => {
-            lngP[i] = snap.val();
-        })
-        var latRef = rootRef.child(i).child("Latitude");
-        latRef.on("value", snap => {
-            latP[i] = snap.val();
-        })
-    }
-
-    for (i = 0; i < libSize; i++) {
+    for (var i = 0; i < libSize; i++) {
+      var longRef = rootRef.child(i).child("Longitude");
+      // eslint-disable-next-line
+      longRef.on("value", snap => {
+        lngP[i] = snap.val();
+      });
+      var latRef = rootRef.child(i).child("Latitude");
+      // eslint-disable-next-line
+      latRef.on("value", snap => {
+        latP[i] = snap.val();
+      });
       var idRef = rootRef.child(i).child("EventId");
       // eslint-disable-next-line
       idRef.on("value", snap => {
@@ -87,6 +98,44 @@ class Map extends Component {
     return points;
   };
 
+  createPasses = () => {
+    var latP = [];
+    var lngP = [];
+    var pass = [];
+    let passPoints = [];
+    var libSize = 37;
+
+    const rootRef = firebase
+      .database()
+      .ref()
+      .child("MountainPasses");
+
+    for (var i = 0; i < libSize; i++) {
+      var longRef = rootRef.child(i).child("Longitude");
+      longRef.on("value", snap => {
+        lngP[i] = snap.val();
+      });
+      var latRef = rootRef.child(i).child("Latitude");
+      latRef.on("value", snap => {
+        latP[i] = snap.val();
+      });
+      var passRef = rootRef.child(i).child("Pass");
+      passRef.on("value", snap => {
+        pass[i] = snap.val();
+      });
+    }
+
+    if (this.state.passBox === true) {
+      for (var i = 0; i < libSize; i++) {
+        passPoints.push(
+          <MountainPasses lat={latP[i]} lng={lngP[i]} pass={pass[i]} />
+        );
+      }
+    }
+
+    return passPoints;
+  };
+
   handleAccidents = () => {
     if (this.state.fatalBox === false) {
       this.setState({
@@ -97,6 +146,20 @@ class Map extends Component {
     if (this.state.fatalBox === true) {
       this.setState({
         fatalBox: false
+      });
+    }
+  };
+
+  handlePasses = () => {
+    if (this.state.passBox === false) {
+      this.setState({
+        passBox: true
+      });
+    }
+
+    if (this.state.passBox === true) {
+      this.setState({
+        passBox: false
       });
     }
   };
@@ -122,7 +185,11 @@ class Map extends Component {
             Show CDOT Mountain AWOS
           </span>
           <span className="filterBoxes">
-            <input name="Mountain Passes" type="checkbox" />
+            <input
+              onClick={this.handlePasses}
+              name="Mountain Passes"
+              type="checkbox"
+            />
             <img src={mountain} alt="mountain" width="15" height="15" />
             Show Mountain Passes
           </span>
@@ -139,6 +206,7 @@ class Map extends Component {
             defaultZoom={this.props.zoom}
           >
             {this.createFatalPoints()}
+            {this.createPasses()}
           </GoogleMapReact>
         </div>
       </div>
