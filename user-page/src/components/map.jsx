@@ -149,7 +149,6 @@ class Map extends Component {
         );
       }
     }
-
     return passPoints;
   };
 
@@ -196,7 +195,6 @@ class Map extends Component {
         );
       }
     }
-
     return awosPoints;
   };
 
