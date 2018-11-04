@@ -11,6 +11,7 @@
 
 # api keys
 .env
+/src/keys.js
 
 # misc
 .DS_Store

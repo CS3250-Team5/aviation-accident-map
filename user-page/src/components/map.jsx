@@ -4,6 +4,7 @@ import * as firebase from "firebase";
 // eslint-disable-next-line
 import ids from "../reader.js";
 import "../style/map.css";
+import keys from "../keys.js";
 
 import plane from "../images/ge_crash.png";
 import awos from "../images/ge_Mt_AWOS.png";
@@ -278,7 +279,7 @@ class Map extends Component {
         <div className="mapStyle">
           <GoogleMapReact
             bootstrapURLKeys={{
-              //key: process.env.MAP_API_KEY
+              key: keys[0]
             }}
             defaultCenter={this.props.center}
             defaultZoom={this.props.zoom}
