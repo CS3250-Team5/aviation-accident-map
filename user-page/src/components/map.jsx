@@ -65,11 +65,12 @@ class Map extends Component {
   };
 
   createFatalPoints = () => {
+    let points = [];
     var latP = [];
     var lngP = [];
     var eventID = [];
-    let points = [];
     var libSize = 0;
+    var distKey = null;
 
     const rootRef = firebase
       .database()
@@ -104,26 +105,36 @@ class Map extends Component {
 
     if (this.state.fatalBox === true) {
       for (i = 0; i < 100; i++) {
+        distKey = "Fatal: " + i;
         points.push(
-          <FatalAccidents lat={latP[i]} lng={lngP[i]} link={eventID[i]} />
+          <FatalAccidents
+            key={distKey}
+            lat={latP[i]}
+            lng={lngP[i]}
+            link={eventID[i]}
+          />
         );
       }
     }
-
     return points;
   };
 
   createPasses = () => {
+    let passPoints = [];
     var latP = [];
     var lngP = [];
     var pass = [];
-    let passPoints = [];
-    var libSize = 37;
+    var libSize = 0;
+    var distKey = null;
 
     const rootRef = firebase
       .database()
       .ref()
       .child("MountainPasses");
+
+    rootRef.on("value", snap => {
+      libSize = snap.numChildren();
+    });
 
     for (var i = 1; i < libSize; i++) {
       var longRef = rootRef.child(i).child("Longitude");
@@ -145,8 +156,14 @@ class Map extends Component {
 
     if (this.state.passBox === true) {
       for (i = 0; i < libSize; i++) {
+        distKey = "Pass: " + i;
         passPoints.push(
-          <MountainPasses lat={latP[i]} lng={lngP[i]} pass={pass[i]} />
+          <MountainPasses
+            key={distKey}
+            lat={latP[i]}
+            lng={lngP[i]}
+            pass={pass[i]}
+          />
         );
       }
     }
@@ -154,17 +171,22 @@ class Map extends Component {
   };
 
   createAwos = () => {
+    let awosPoints = [];
     var latP = [];
     var lngP = [];
     var awos = [];
     var freq = [];
-    let awosPoints = [];
-    var libSize = 12;
+    var libSize = 0;
+    var distKey = null;
 
     const rootRef = firebase
       .database()
       .ref()
       .child("AWOS");
+
+    rootRef.on("value", snap => {
+      libSize = snap.numChildren();
+    });
 
     for (var i = 0; i < libSize; i++) {
       var longRef = rootRef.child(i).child("Longitude");
@@ -191,8 +213,15 @@ class Map extends Component {
 
     if (this.state.awosBox === true) {
       for (i = 0; i < libSize; i++) {
+        distKey = "AWOS: " + i;
         awosPoints.push(
-          <AWOS lat={latP[i]} lng={lngP[i]} loc={awos[i]} freq={freq[i]} />
+          <AWOS
+            key={distKey}
+            lat={latP[i]}
+            lng={lngP[i]}
+            loc={awos[i]}
+            freq={freq[i]}
+          />
         );
       }
     }
