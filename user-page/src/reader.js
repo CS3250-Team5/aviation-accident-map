@@ -1,7 +1,8 @@
 import * as firebase from "firebase";
+import keys from "./keys.js";
 
 var config = {
-  apiKey: process.env.FIREBASE_API_KEY,
+  apiKey: keys[1],
   authDomain: "test-project-cfcd0.firebaseapp.com",
   databaseURL: "https://test-project-cfcd0.firebaseio.com",
   projectId: "test-project-cfcd0",

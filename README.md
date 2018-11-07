@@ -8,10 +8,13 @@ This repository contains code for two web pages, located in the admin-page folde
 - In the terminal/command prompt, navigate to the user-page folder of the project
 - Run `npm install`
 - Run `npm install --save google-map-react`
+- Run `npm install --save firebase`
 
 ## Tools Used
 - Create-React-App boilerplate
 - Google-map-react dependencies
+- Firebase database
+- CSS Tooltips
 
 ## Spinning Up a Development Server
 - In the "user-page" or "admin-page" directory, run `npm start` in the terminal/command prompt.  This will start a development server, useful for viewing live edits made to code.  The page that pops up will depend on what directory you're in
@@ -23,5 +26,5 @@ This repository contains code for two web pages, located in the admin-page folde
 - This command will build the docker image and then spin up a container. Note: Building the docker image will take a while
 - Once the container is running, open up http://localhost:3000/ in your browser
 - Changes to the web page can be seen live as the files are save  
-**Make sure to stop your docker container after you finish editing or viewing the page.  Exiting out of your browser will no stop the container**
+**Make sure to stop your docker container after you finish editing or viewing the page.  Exiting out of your browser will not stop the container**
 - To stop the container, run `docker-compose stop`

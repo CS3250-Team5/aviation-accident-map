@@ -4,6 +4,7 @@ import * as firebase from "firebase";
 // eslint-disable-next-line
 import ids from "../reader.js";
 import "../style/map.css";
+import keys from "../keys.js";
 
 import plane from "../images/ge_crash.png";
 import awos from "../images/ge_Mt_AWOS.png";
@@ -23,9 +24,36 @@ const FatalAccidents = ({ lat, lng, link }) => (
   </div>
 );
 
+const MountainPasses = ({ lat, lng, pass }) => (
+  <div className="tooltip">
+    <img src={mountain} alt="mountain pass" />
+    <span className="tooltiptext">
+      Mountain Pass: <br />
+      {pass} <br />
+      Lat: {lat} <br />
+      Lng: {lng} <br />
+    </span>
+  </div>
+);
+
+const AWOS = ({ lat, lng, loc, freq }) => (
+  <div className="tooltip">
+    <img src={awos} alt="Mountain AWOS" />
+    <span className="tooltiptext">
+      Mountain AWOS site: <br />
+      {loc} <br />
+      Lat: {lat} <br />
+      Lng: {lng} <br />
+      Freq: {freq}
+    </span>
+  </div>
+);
+
 class Map extends Component {
   state = {
-    fatalBox: false
+    fatalBox: false,
+    passBox: false,
+    awosBox: false
   };
 
   static defaultProps = {
@@ -37,12 +65,12 @@ class Map extends Component {
   };
 
   createFatalPoints = () => {
+    let points = [];
     var latP = [];
     var lngP = [];
     var eventID = [];
-    let points = [];
     var libSize = 0;
-    var testRef = null;
+    var distKey = null;
 
     const rootRef = firebase
       .database()
@@ -55,25 +83,19 @@ class Map extends Component {
     });
 
     for (var i = 0; i < libSize; i++) {
-      testRef = rootRef.child(i).child("Latitude");
+      var longRef = rootRef.child(i).child("Longitude");
       // eslint-disable-next-line
-      testRef.on("value", snap => {
-        latP[i] = snap.val();
-      });
-    }
-
-    for (i = 0; i < libSize; i++) {
-      testRef = rootRef.child(i).child("Longitude");
-      // eslint-disable-next-line
-      testRef.on("value", snap => {
+      longRef.on("value", snap => {
         lngP[i] = snap.val();
       });
-    }
-
-    for (i = 0; i < libSize; i++) {
-      testRef = rootRef.child(i).child("EventId");
+      var latRef = rootRef.child(i).child("Latitude");
       // eslint-disable-next-line
-      testRef.on("value", snap => {
+      latRef.on("value", snap => {
+        latP[i] = snap.val();
+      });
+      var idRef = rootRef.child(i).child("EventId");
+      // eslint-disable-next-line
+      idRef.on("value", snap => {
         eventID[i] =
           "https://app.ntsb.gov/pdfgenerator/ReportGeneratorFile.ashx?EventID=" +
           snap.val() +
@@ -83,13 +105,127 @@ class Map extends Component {
 
     if (this.state.fatalBox === true) {
       for (i = 0; i < 100; i++) {
+        distKey = "Fatal: " + i;
         points.push(
-          <FatalAccidents lat={latP[i]} lng={lngP[i]} link={eventID[i]} />
+          <FatalAccidents
+            key={distKey}
+            lat={latP[i]}
+            lng={lngP[i]}
+            link={eventID[i]}
+          />
         );
       }
     }
-
     return points;
+  };
+
+  createPasses = () => {
+    let passPoints = [];
+    var latP = [];
+    var lngP = [];
+    var pass = [];
+    var libSize = 0;
+    var distKey = null;
+
+    const rootRef = firebase
+      .database()
+      .ref()
+      .child("MountainPasses");
+
+    rootRef.on("value", snap => {
+      libSize = snap.numChildren();
+    });
+
+    for (var i = 1; i < libSize; i++) {
+      var longRef = rootRef.child(i).child("Longitude");
+      // eslint-disable-next-line
+      longRef.on("value", snap => {
+        lngP[i] = snap.val();
+      });
+      var latRef = rootRef.child(i).child("Latitude");
+      // eslint-disable-next-line
+      latRef.on("value", snap => {
+        latP[i] = snap.val();
+      });
+      var passRef = rootRef.child(i).child("Pass");
+      // eslint-disable-next-line
+      passRef.on("value", snap => {
+        pass[i] = snap.val();
+      });
+    }
+
+    if (this.state.passBox === true) {
+      for (i = 0; i < libSize; i++) {
+        distKey = "Pass: " + i;
+        passPoints.push(
+          <MountainPasses
+            key={distKey}
+            lat={latP[i]}
+            lng={lngP[i]}
+            pass={pass[i]}
+          />
+        );
+      }
+    }
+    return passPoints;
+  };
+
+  createAwos = () => {
+    let awosPoints = [];
+    var latP = [];
+    var lngP = [];
+    var awos = [];
+    var freq = [];
+    var libSize = 0;
+    var distKey = null;
+
+    const rootRef = firebase
+      .database()
+      .ref()
+      .child("AWOS");
+
+    rootRef.on("value", snap => {
+      libSize = snap.numChildren();
+    });
+
+    for (var i = 0; i < libSize; i++) {
+      var longRef = rootRef.child(i).child("Longitude");
+      // eslint-disable-next-line
+      longRef.on("value", snap => {
+        lngP[i] = snap.val();
+      });
+      var latRef = rootRef.child(i).child("Latitude");
+      // eslint-disable-next-line
+      latRef.on("value", snap => {
+        latP[i] = snap.val();
+      });
+      var awosRef = rootRef.child(i).child("Location");
+      // eslint-disable-next-line
+      awosRef.on("value", snap => {
+        awos[i] = snap.val();
+      });
+      var freqRef = rootRef.child(i).child("Frequency");
+      // eslint-disable-next-line
+      freqRef.on("value", snap => {
+        freq[i] = snap.val();
+      });
+    }
+
+    if (this.state.awosBox === true) {
+      for (i = 0; i < libSize; i++) {
+        distKey = "AWOS: " + i;
+        awosPoints.push(
+          <AWOS
+            key={distKey}
+            lat={latP[i]}
+            lng={lngP[i]}
+            loc={awos[i]}
+            freq={freq[i]}
+          />
+        );
+      }
+    }
+    return awosPoints;
   };
 
   handleAccidents = () => {
@@ -102,6 +238,34 @@ class Map extends Component {
     if (this.state.fatalBox === true) {
       this.setState({
         fatalBox: false
+      });
+    }
+  };
+
+  handlePasses = () => {
+    if (this.state.passBox === false) {
+      this.setState({
+        passBox: true
+      });
+    }
+
+    if (this.state.passBox === true) {
+      this.setState({
+        passBox: false
+      });
+    }
+  };
+
+  handleAwos = () => {
+    if (this.state.awosBox === false) {
+      this.setState({
+        awosBox: true
+      });
+    }
+
+    if (this.state.awosBox === true) {
+      this.setState({
+        awosBox: false
       });
     }
   };
@@ -122,12 +286,20 @@ class Map extends Component {
             Show Fatal Accidents
           </span>
           <span className="filterBoxes">
-            <input name="CDOT Mountain AWOS" type="checkbox" />
+            <input
+              onClick={this.handleAwos}
+              name="CDOT Mountain AWOS"
+              type="checkbox"
+            />
             <img src={awos} alt="awos" width="15" height="15" />
             Show CDOT Mountain AWOS
           </span>
           <span className="filterBoxes">
-            <input name="Mountain Passes" type="checkbox" />
+            <input
+              onClick={this.handlePasses}
+              name="Mountain Passes"
+              type="checkbox"
+            />
             <img src={mountain} alt="mountain" width="15" height="15" />
             Show Mountain Passes
           </span>
@@ -135,15 +307,15 @@ class Map extends Component {
 
         <div className="mapStyle">
           <GoogleMapReact
-            bootstrapURLKeys={
-              {
-                //key: process.env.REACT_APP_API_KEY
-              }
-            }
+            bootstrapURLKeys={{
+              key: keys[0]
+            }}
             defaultCenter={this.props.center}
             defaultZoom={this.props.zoom}
           >
             {this.createFatalPoints()}
+            {this.createPasses()}
+            {this.createAwos()}
           </GoogleMapReact>
         </div>
       </div>
