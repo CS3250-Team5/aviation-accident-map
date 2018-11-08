@@ -7,10 +7,11 @@ continer for inital welcome
   opacity: 1;
   position: fixed;
   height: 20em;
-  width: 30em;
+  width: 35em;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  
 }
 
 .p0cont {
@@ -74,6 +75,7 @@ continer for inital welcome
 
 .button0:hover {
   opacity: 1;
+  background: blue;
 }
 
 /*
@@ -81,6 +83,30 @@ continer for inital welcome
 Container for Step 1
 
 */
+#link{
+  background-color: #f44336;
+  color: white;
+  padding: 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 0.5em;
+  border-color: #ddd;
+  border-style: solid;
+  border-width: 0.1em;
+  width: 10.5em;
+  opacity:0.8;
+  font-size: 1em;
+  -webkit-box-shadow: 3px 3px 3px 2px #000000;
+  box-shadow: 3px 3px 3px 2px #000000;
+  font-weight: 700;
+  font-style: italic;
+  outline: 0;
+}
+#link:hover, #link:active {
+  background-color: red;
+  opacity:1;
+}
 
 #back{
   position: relative;
@@ -103,11 +129,12 @@ Container for Step 1
   font-weight: 700;
   font-style: italic;
   outline: 0;
-  
+  z-index: 100;
   
 }
 #back:hover{
-  opacity:1;
+  opacity: 1;
+  background: blue;
 }
 
 .p1cont {
@@ -129,9 +156,8 @@ Container for Step 1
 .text1 {
   
   position: relative;
-  margin-top: 40px;
+  margin-top: 50px;
   margin-bottom: 10px;
-  margin-right: 15%;
   color: white;
   font-size: 3em;
   font-style: italic;
@@ -141,6 +167,7 @@ Container for Step 1
 }
 
 .text1h {
+  text-align: center;
   position: relative;
   margin-bottom: 10px;
   margin-top: 0px;
@@ -177,6 +204,7 @@ Container for Step 1
 
 .button1:hover {
   opacity: 1;
+  background: blue;
 }
 
 input[type="file"] {
@@ -188,30 +216,38 @@ input[type="file"] {
   display:none;
 }
 
-#label{
+#labelcont{
   position: relative;
-    background: #2222ff;
-    opacity: 0.6;
-    color: white;
-    height: 3em;
-    width: 12em;
-    line-height: 50px;
-    border-radius: 0.5em;
-    border-color: #ddd;
-    border-style: solid;
-    border-width: 0.1em;
-    cursor: pointer;
-    font-size: 1em;
-    -webkit-box-shadow: 3px 3px 3px 2px #000000;
-    box-shadow: 3px 3px 3px 2px #000000;
-    font-weight: 700;
-    font-style: italic;
-    outline: 0;
-    margin-right: 20px;
+  background: #f44336;;
+  opacity: 0.8;
+  color: white;
+  height: 3em;
+  width: 12em;
+  border-radius: 0.5em;
+  border-color: #ddd;
+  border-style: solid;
+  border-width: thin;
+  cursor: pointer;
+  font-size: 1em;
+  -webkit-box-shadow: 3px 3px 3px 2px #000000;
+  box-shadow: 3px 3px 3px 2px #000000;
+  font-weight: 700;
+  font-style: italic;
+  outline: 0;
   
 }
-#label:hover {
+
+#label{
+  height: 100%;
+  width: 100%;
+  position: relative;
+  top: 25%;
+  word-break: break-word;
+  
+}
+#labelcont:hover {
   opacity: 1;
+  background: red;
 } 
 
 
@@ -264,14 +300,15 @@ step 2
 
 .text2 {
   position: relative;
-  margin-top: 40px;
-  margin-bottom: 10px;
-  color: white;
-  font-size: 3em;
-  font-style: italic;
-  font-family: "Agency FB", Tahoma, Geneva, sans-serif;
-  cursor: default;
-  text-shadow: 3px 3px #000000;
+    margin-top: 40px;
+    margin-bottom: 25px;
+    margin-right: 15%;
+    color: white;
+    font-size: 3em;
+    font-style: italic;
+    font-family: "Agency FB", Tahoma, Geneva, sans-serif;
+    cursor: default;
+    text-shadow: 3px 3px #000000;
 }
 
 .text2h {
@@ -282,6 +319,7 @@ step 2
   font-style: italic;
   font-family: "Agency FB", Tahoma, Geneva, sans-serif;
   cursor: default;
+  margin-top: 0;
   text-shadow: 2.5px 2.5px #000000;
 }
 
@@ -306,6 +344,7 @@ step 2
 
 .button2:hover {
   opacity: 1;
+  background: blue;
 }
 
 /*
@@ -331,14 +370,15 @@ Step 3
 
 .text3 {
   position: relative;
-  margin-top: 40px;
-  margin-bottom: 10px;
-  color: white;
-  font-size: 3em;
-  font-style: italic;
-  font-family: "Agency FB", Tahoma, Geneva, sans-serif;
-  cursor: default;
-  text-shadow: 3px 3px #000000;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    margin-right: 15%;
+    color: white;
+    font-size: 3em;
+    font-style: italic;
+    font-family: "Agency FB", Tahoma, Geneva, sans-serif;
+    cursor: default;
+    text-shadow: 3px 3px #000000;
 }
 .text3h {
   position: relative;
@@ -372,6 +412,7 @@ Step 3
 
 .button3:hover {
   opacity: 1;
+  background: blue;
 }
 
 /*
@@ -397,14 +438,15 @@ Step 4
 
 .text4 {
   position: relative;
-  margin-top: 40px;
-  margin-bottom: 10px;
-  color: white;
-  font-size: 3em;
-  font-style: italic;
-  font-family: "Agency FB", Tahoma, Geneva, sans-serif;
-  cursor: default;
-  text-shadow: 3px 3px #000000;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    margin-right: 15%;
+    color: white;
+    font-size: 3em;
+    font-style: italic;
+    font-family: "Agency FB", Tahoma, Geneva, sans-serif;
+    cursor: default;
+    text-shadow: 3px 3px #000000;
 }
 
 .text4h {
@@ -439,6 +481,7 @@ Step 4
 
 .button4:hover {
   opacity: 1;
+  background: blue;
 }
 
 /*
@@ -480,14 +523,17 @@ Step 5
 
 .textf {
   position: relative;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  color: white;
-  font-size: 2em;
-  font-style: italic;
-  font-family: "Agency FB", Tahoma, Geneva, sans-serif;
-  cursor: default;
-  text-shadow: 3px 3px #000000;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    color: white;
+    font-size: 2em;
+    font-style: italic;
+    font-family: "Agency FB", Tahoma, Geneva, sans-serif;
+    cursor: default;
+    text-shadow: 3px 3px #000000;
+    width: 100%;
+    word-break: break-all;
+
 }
 
 .textfh {
@@ -526,9 +572,9 @@ Step 5
 
 .dropdown {
   vertical-align: middle;
-  height: 6%;
-  width: 20%;
-  font-size: 3vh;
+  size:2;
+  width: 25%;
+  font-size: 50%;
   display: inline-block;
   margin-left: 3%;
 }

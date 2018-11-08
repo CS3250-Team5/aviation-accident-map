@@ -22,7 +22,10 @@ class Window extends Component {
     downUpDis:true,
     dis:"not-allowed",
     progWidth:0,
-    progDisp:"none"
+    progDisp:"none",
+    progWidth2:0,
+    progDisp2:"none",
+    data:null
   };
 
 
@@ -43,12 +46,54 @@ class Window extends Component {
     this.setState({
       an1: "fadeInRight 1.5s ease",
       an2: "fadeOutRight 2s ease",
-      p0: "block"
+      p0: "block",
+      
     });
 
   };
+  b2t1 = () =>{
 
+    this.setState({
+      an2: "fadeInRight 1.5s ease",
+      an3: "fadeOutRight 2s ease",
+      p1: "block",
+      
+    });
+    console.log(this.state.progWidth)
+  }
+  
+   b3t2 = () =>{
 
+    this.setState({
+      an3: "fadeInRight 1.5s ease",
+      an4: "fadeOutRight 2s ease",
+      p2: "block",
+      
+    });
+    
+  }
+
+  b4t3 = () =>{
+
+    this.setState({
+      an4: "fadeInRight 1.5s ease",
+      an5: "fadeOutRight 2s ease",
+      p3: "block",
+      
+    });
+    
+  }
+
+  bft4 = () =>{
+
+    this.setState({
+      an5: "fadeInRight 1.5s ease",
+      anf: "fadeOutRight 2s ease",
+      p4: "block",
+      
+    });
+    
+  }
  
   interval = () =>{
     
@@ -56,10 +101,25 @@ class Window extends Component {
       
       this.setState({progDisp:"block"});
 
-      this.interval = setInterval(() =>{
+      this.intervals = setInterval(() =>{
         if(this.state.progWidth !==99){
         this.setState({
           progWidth:this.state.progWidth + 1})
+        }
+      },100);
+    }
+    
+    
+
+  };
+  interval2 = () =>{
+    
+    if(this.state.progWidth2 !== 100 ){
+      this.setState({progDisp2:"block"});
+      this.intervals = setInterval(() =>{
+        if(this.state.progWidth2 !==99){
+        this.setState({
+          progWidth2:this.state.progWidth2 + 1})
         }
       },100);
     }
@@ -79,6 +139,14 @@ class Window extends Component {
 
     if(this.state.downUpDis === true){
       window.alert("*You must upload NTSB data first*");
+    }if(this.state.progWidth === 100){
+      this.setState({progWidth:0});
+      this.intervals = setInterval(() =>{
+        if(this.state.progWidth !==99){
+        this.setState({
+          progWidth:this.state.progWidth + 1})
+        }
+      },100);
     }
   };
 
@@ -93,14 +161,19 @@ class Window extends Component {
   p2t3 = () => {
     console.log(this.state.selectValue);
     if (this.state.selectValue == "CO") {
-      this.setState({
+      
+      if(this.state.progWidth2 === 100){
+        this.setState({progWidth2:0});
+        this.intervals = setInterval(() =>{
+          if(this.state.progWidth2 !==99){
+          this.setState({
+            progWidth2:this.state.progWidth2 + 1})
+          }
+        },100);
+      }
+      this.interval2();
+      
 
-        an3: "fadeOutLeft 1.5s  ease",
-        an4: "fadeInLeft 2s ease",
-        p3: "block"
-  
-        
-      }); 
     } else{
       window.alert("Psst* Try Colorado");
     }
@@ -133,17 +206,6 @@ class Window extends Component {
     });
   };
 
-
-
-  download = (event) =>{
-
-this.setState({downUpDis:false,dis:"pointer"})
-window.alert("Data downloaded from NTSB");
-
-  }
-
-
-
  uploadStuff = (event) => { 
   if (!event.target.files[0]) {
     return
@@ -167,8 +229,24 @@ window.alert("Data downloaded from NTSB");
         p2: "block",
         progWidth:100,
       });
-      clearInterval(this.interval);
+      clearInterval(this.intervals);
+      console.log(this.state.progWidth)
     }
+
+    if(this.state.progWidth2 === 99){
+        
+      this.setState({
+
+        an3: "fadeOutLeft 1.5s  ease",
+        an4: "fadeInLeft 2s ease",
+        p3: "block",
+        progWidth2:100,
+      }); 
+      clearInterval(this.intervals);
+      console.log(this.state.progWidth)
+    }
+
+
     return (
       <React.Fragment>
         <div className="allpannels">
@@ -191,24 +269,24 @@ window.alert("Data downloaded from NTSB");
             <div className="pannel1">
             <button id= "back" onClick={this.b1t0}>Back</button>
               <h3 className="text1">Step 1 :</h3>
-              <p className="text1h">Download Data from NTSB</p>
+              <p className="text1h">Upload Data from NTSB</p>
               <div className="progCont" style={{display:this.state.progDisp}}>
               <label style={{color:'white', left:'47%', position:'absolute'}}>{this.state.progWidth}%</label>
               <div className="progBar" style={{width:String(this.state.progWidth + "%")}}></div>
               
               </div>
-            <div style={{display:'flex',justifyContent:'center'}} >
-              <button className="button1" onClick={this.download}>
-                Download from NTSB
-              </button>
-             <p style ={{color:'white',marginRight:'20px'}}>Or</p>
+            <div style={{position: 'relative',display: 'flex',justifyContent: 'space-around'}} >
+              <a href="https://www.ntsb.gov/_layouts/ntsb.aviation/index.aspx" target="_blank" id="link">
+                Link to NTSB data
+              </a>
   
-
+              <div id="labelcont">
               <label id ="label" htmlFor="myuniqueid">{this.state.uploadName}
               <input type="file" id="myuniqueid" onChange={this.uploadStuff} /></label>
               </div>
+              </div>
               <div>
-              <button className="button1"  onClick={this.p1t2} style={{marginTop:'18px', cursor:this.state.dis, width:'13em'}}>Continue & upload data</button>
+              <button className="button1"  onClick={this.p1t2} style={{marginTop:'18px', cursor:this.state.dis, width:'15em', height:'3em'}}>Continue & upload data</button>
               </div>
             </div>
           </div>
@@ -218,7 +296,14 @@ window.alert("Data downloaded from NTSB");
             style={{ display: this.state.p2, animation: this.state.an3 }}
           >
             <div className="pannel2">
+            <button id= "back" onClick={this.b2t1}>Back</button>
+            
+            
               <h3 className="text2">Step 2 :</h3>
+              <div className="progCont" style={{display:this.state.progDisp2}}>
+              <label style={{color:'white', left:'47%', position:'absolute'}}>{this.state.progWidth2}%</label>
+              <div className="progBar" style={{width:String(this.state.progWidth2 + "%")}}></div>
+              </div>
               <p className="text2h">
                 Choose State:
                 <select value={this.state.selectValue} onChange={this.handleChange} className="dropdown">
@@ -277,7 +362,7 @@ window.alert("Data downloaded from NTSB");
                 </select>{" "}
               </p>
               <button className="button2" onClick={this.p2t3}>
-                Next
+                Filter by state
               </button>
             </div>
           </div>
@@ -287,8 +372,10 @@ window.alert("Data downloaded from NTSB");
             style={{ display: this.state.p3, animation: this.state.an4 }}
           >
             <div className="pannel3">
+            <button id= "back" onClick={this.b3t2}>Back</button>
               <h3 className="text3">Step 3 :</h3>
               <p className="text3h">Filtering Results...</p>
+             
               <button className="button3" onClick={this.p3t4}>
                 Next
               </button>
@@ -300,6 +387,7 @@ window.alert("Data downloaded from NTSB");
             style={{ display: this.state.p4, animation: this.state.an5 }}
           >
             <div className="pannel4">
+            <button id= "back" onClick={this.b4t3}>Back</button>
               <h3 className="text4">Step 4 :</h3>
               <p className="text4h">Upload Data</p>
               <button className="button4" onClick={this.p4tf}>
@@ -312,7 +400,10 @@ window.alert("Data downloaded from NTSB");
             className="pfcont"
             style={{ display: this.state.pf, animation: this.state.anf }}
           >
+        
             <div className="pannelf">
+            <button id= "back" onClick={this.bft4}>Back</button>
+            <br/>
               <h3 className="textf">!(Congradulations your data is updated)</h3>
               <div className="circle">
                 <p className="textfh">Done!</p>
