@@ -18,7 +18,7 @@ const FatalAccidents = ({ lat, lng, link }) => (
       Accident Information: <br />
       Lat: {lat} <br />
       Lng: {lng} <br />
-      <a href={link} target="_blank">
+      <a href={link} target="_blank" rel="noopener noreferrer">
         {"NTSB Database Link"}
       </a>
     </span>
