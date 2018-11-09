@@ -62,9 +62,9 @@ continer for inital welcome
   width: 15em;
   cursor: pointer;
   border-radius: 0.5em;
-    border-color: #ddd;
-    border-style: solid;
-    border-width: 0.1em;
+  border-color: #ddd;
+  border-style: solid;
+  border-width: 0.1em;
   font-size: 1em;
   box-shadow: 3px 3px 3px 2px #000000;
   font-weight: 700;
@@ -102,7 +102,7 @@ Container for Step 1
   position: relative;
   margin-top: 40px;
   margin-bottom: 10px;
-  
+
   color: white;
   font-size: 3em;
   font-style: italic;
@@ -122,8 +122,8 @@ Container for Step 1
   cursor: default;
   text-shadow: 2.5px 2.5px #000000;
 }
-.buttonCont{
-  display:inline-flex;
+.buttonCont {
+  display: inline-flex;
 }
 .button1 {
   position: relative;
@@ -156,37 +156,33 @@ input[type="file"] {
   pointer-events: none;
   width: 0.1px;
   height: 0.1px;
-  display:none;
+  display: none;
 }
 
-#label{
+#label {
   position: relative;
-    background: #2222ff;
-    opacity: 0.6;
-    color: white;
-    height: 3em;
-    width: 12em;
-    line-height: 50px;
-    border-radius: 0.5em;
-    border-color: #ddd;
-    border-style: solid;
-    border-width: 0.1em;
-    cursor: pointer;
-    font-size: 1em;
-    -webkit-box-shadow: 3px 3px 3px 2px #000000;
-    box-shadow: 3px 3px 3px 2px #000000;
-    font-weight: 700;
-    font-style: italic;
-    outline: 0;
-    margin-right: 20px;
-  
+  background: #2222ff;
+  opacity: 0.6;
+  color: white;
+  height: 3em;
+  width: 12em;
+  line-height: 50px;
+  border-radius: 0.5em;
+  border-color: #ddd;
+  border-style: solid;
+  border-width: 0.1em;
+  cursor: pointer;
+  font-size: 1em;
+  -webkit-box-shadow: 3px 3px 3px 2px #000000;
+  box-shadow: 3px 3px 3px 2px #000000;
+  font-weight: 700;
+  font-style: italic;
+  outline: 0;
+  margin-right: 20px;
 }
 #label:hover {
   opacity: 1;
-} 
-
-
-
+}
 
 /*.inputfile + label {
   font-size: 1.25em;
@@ -331,9 +327,9 @@ Step 3
   width: 15em;
   cursor: pointer;
   border-radius: 0.5em;
-    border-color: #ddd;
-    border-style: solid;
-    border-width: 0.1em;
+  border-color: #ddd;
+  border-style: solid;
+  border-width: 0.1em;
   font-size: 1em;
   box-shadow: 3px 3px 3px 2px #000000;
   font-weight: 700;
@@ -545,24 +541,22 @@ input[type="checkbox"] {
   cursor: pointer;
 }
 
-.progCont{
+.progCont {
   margin-left: 10%;
   margin-bottom: 10px;
-  background-color:transparent;
+  background-color: transparent;
   height: 20px;
   width: 80%;
   border-width: 0.2em;
   border-radius: 0.6em;
   border-color: #ddd;
   border-style: solid;
-  
-  
 }
-.progBar{
+.progBar {
   border-radius: 0.2em;
 
-height:101%;
-background-color: #00ff00;
+  height: 101%;
+  background-color: #00ff00;
 }
 
 @keyframes move {

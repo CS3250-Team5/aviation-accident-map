@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import "../style/window.css";
 
-
-
 class Window extends Component {
   state = {
     p0: "block",
@@ -17,18 +15,14 @@ class Window extends Component {
     an4: "",
     an5: "",
     anf: "",
-    uploadName:"Upload local file",
-    selectValue:"",
-    downUpDis:true,
-    dis:"not-allowed",
-    progWidth:0,
-    progDisp:"none"
+    uploadName: "Upload local file",
+    selectValue: "",
+    downUpDis: true,
+    dis: "not-allowed",
+    progWidth: 0,
+    progDisp: "none"
   };
 
-
-
-
-  
   p0t1 = () => {
     console.log(this.state.display);
     this.setState({
@@ -38,71 +32,46 @@ class Window extends Component {
     });
   };
 
+  interval = () => {
+    if (this.state.progWidth !== 100 && this.state.downUpDis === false) {
+      this.setState({ progDisp: "block" });
 
-
-
- 
-  interval = () =>{
-    
-    if(this.state.progWidth !== 100 && this.state.downUpDis === false ){
-      
-      this.setState({progDisp:"block"});
-
-      this.interval = setInterval(() =>{
-        if(this.state.progWidth !==99){
-        this.setState({
-          progWidth:this.state.progWidth + 1})
+      this.interval = setInterval(() => {
+        if (this.state.progWidth !== 99) {
+          this.setState({
+            progWidth: this.state.progWidth + 1
+          });
         }
-      },100);
+      }, 100);
     }
-    
-    
-
   };
 
-
-
-
   p1t2 = () => {
-    
     console.log(this.state.display);
-    
+
     this.interval();
 
-    if(this.state.downUpDis === true){
+    if (this.state.downUpDis === true) {
       window.alert("*You must upload NTSB data first*");
     }
   };
 
-
-  handleChange = (e) => {
-    this.setState({selectValue:e.target.value});
-  }
-
-
-
+  handleChange = e => {
+    this.setState({ selectValue: e.target.value });
+  };
 
   p2t3 = () => {
     console.log(this.state.selectValue);
     if (this.state.selectValue == "CO") {
       this.setState({
-
         an3: "fadeOutLeft 1.5s  ease",
         an4: "fadeInLeft 2s ease",
         p3: "block"
-  
-        
-      }); 
-    } else{
+      });
+    } else {
       window.alert("Psst* Try Colorado");
     }
-    
-    
   };
-
-
-
-
 
   p3t4 = () => {
     console.log(this.state.display);
@@ -113,9 +82,6 @@ class Window extends Component {
     });
   };
 
-
-
-
   p4tf = () => {
     console.log(this.state.display);
     this.setState({
@@ -125,39 +91,32 @@ class Window extends Component {
     });
   };
 
+  download = event => {
+    this.setState({ downUpDis: false, dis: "pointer" });
+    window.alert("Data downloaded from NTSB");
+  };
 
-
-  download = (event) =>{
-
-this.setState({downUpDis:false,dis:"pointer"})
-window.alert("Data downloaded from NTSB");
-
-  }
-
-
-
- uploadStuff = (event) => { 
-  if (!event.target.files[0]) {
-    return
-  }else{
-  this.setState({uploadName:event.target.files[0].name, downUpDis:false, dis:"pointer"});
-  window.alert("Local file chosen");
-  }
- }
-
-
-
+  uploadStuff = event => {
+    if (!event.target.files[0]) {
+      return;
+    } else {
+      this.setState({
+        uploadName: event.target.files[0].name,
+        downUpDis: false,
+        dis: "pointer"
+      });
+      window.alert("Local file chosen");
+    }
+  };
 
   render() {
-
-    console.log(this.state.progWidth)
-    if(this.state.progWidth === 99){
-        
+    console.log(this.state.progWidth);
+    if (this.state.progWidth === 99) {
       this.setState({
         an2: "fadeOutLeft 1.5s ease",
         an3: "fadeInLeft 2s ease",
         p2: "block",
-        progWidth:100,
+        progWidth: 100
       });
       clearInterval(this.interval);
     }
@@ -179,27 +138,52 @@ window.alert("Data downloaded from NTSB");
 
           <div
             className="p1cont"
-            style={{ display: this.state.p1, animation: this.state.an2 }}>
+            style={{ display: this.state.p1, animation: this.state.an2 }}
+          >
             <div className="pannel1">
               <h3 className="text1">Step 1 :</h3>
               <p className="text1h">Download Data from NTSB</p>
-              <div className="progCont" style={{display:this.state.progDisp}}>
-              <label style={{color:'white', left:'47%', position:'absolute'}}>{this.state.progWidth}%</label>
-              <div className="progBar" style={{width:String(this.state.progWidth + "%")}}></div>
-              
+              <div
+                className="progCont"
+                style={{ display: this.state.progDisp }}
+              >
+                <label
+                  style={{ color: "white", left: "47%", position: "absolute" }}
+                >
+                  {this.state.progWidth}%
+                </label>
+                <div
+                  className="progBar"
+                  style={{ width: String(this.state.progWidth + "%") }}
+                />
               </div>
-            <div style={{display:'flex',justifyContent:'center'}} >
-              <button className="button1" onClick={this.download}>
-                Download from NTSB
-              </button>
-             <p style ={{color:'white',marginRight:'20px'}}>Or</p>
-  
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <button className="button1" onClick={this.download}>
+                  Download from NTSB
+                </button>
+                <p style={{ color: "white", marginRight: "20px" }}>Or</p>
 
-              <label id ="label" htmlFor="myuniqueid">{this.state.uploadName}
-              <input type="file" id="myuniqueid" onChange={this.uploadStuff} /></label>
+                <label id="label" htmlFor="myuniqueid">
+                  {this.state.uploadName}
+                  <input
+                    type="file"
+                    id="myuniqueid"
+                    onChange={this.uploadStuff}
+                  />
+                </label>
               </div>
               <div>
-              <button className="button1"  onClick={this.p1t2} style={{marginTop:'18px', cursor:this.state.dis, width:'13em'}}>Continue & upload data</button>
+                <button
+                  className="button1"
+                  onClick={this.p1t2}
+                  style={{
+                    marginTop: "18px",
+                    cursor: this.state.dis,
+                    width: "13em"
+                  }}
+                >
+                  Continue & upload data
+                </button>
               </div>
             </div>
           </div>
@@ -212,7 +196,11 @@ window.alert("Data downloaded from NTSB");
               <h3 className="text2">Step 2 :</h3>
               <p className="text2h">
                 Choose State:
-                <select value={this.state.selectValue} onChange={this.handleChange} className="dropdown">
+                <select
+                  value={this.state.selectValue}
+                  onChange={this.handleChange}
+                  className="dropdown"
+                >
                   <option value="" />
                   <option value="AL">Alabama</option>
                   <option value="AK">Alaska</option>

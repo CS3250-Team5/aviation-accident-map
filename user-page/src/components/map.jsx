@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
-import * as firebase from "firebase";
+import * as firebase from "firebase/app";
+import "firebase/database";
 // eslint-disable-next-line
 import ids from "../reader.js";
 import "../style/map.css";
@@ -17,7 +18,7 @@ const FatalAccidents = ({ lat, lng, link }) => (
       Accident Information: <br />
       Lat: {lat} <br />
       Lng: {lng} <br />
-      <a href={link} target="_blank">
+      <a href={link} target="_blank" rel="noopener noreferrer">
         {"NTSB Database Link"}
       </a>
     </span>
