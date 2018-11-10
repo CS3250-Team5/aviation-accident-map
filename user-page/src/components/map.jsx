@@ -5,6 +5,7 @@ import "firebase/database";
 // eslint-disable-next-line
 import ids from "../reader.js";
 import "../style/map.css";
+import "../style/button.css";
 import keys from "../keys.js";
 
 import plane from "../images/ge_crash.png";
@@ -275,7 +276,7 @@ class Map extends Component {
     return (
       // Important! Always set the container height explicitly
       <div className="backGround">
-        <center>
+        <center className="filterGroup">
           <span className="filterBoxes">
             <input
               onClick={this.handleAccidents}
