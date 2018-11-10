@@ -8,7 +8,7 @@ import "../style/map.css";
 import "../style/button.css";
 import keys from "../keys.js";
 
-import plane from "../images/ge_crash.png";
+import plane from "../images/new_crash.png";
 import awos from "../images/ge_Mt_AWOS.png";
 import mountain from "../images/ge_Mt_pass0.png";
 
@@ -284,7 +284,7 @@ class Map extends Component {
               value="true"
               type="checkbox"
             />
-            <img src={plane} alt="plane" width="15" height="15" />
+        <img src={plane} alt="plane" width="25" height="25" />
             Show Fatal Accidents
           </span>
           <span className="filterBoxes">
