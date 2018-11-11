@@ -22,6 +22,7 @@ const FatalAccidents = ({ lat, lng, link }) => (
       <a href={link} target="_blank" rel="noopener noreferrer">
         {"NTSB Database Link"}
       </a>
+      <i></i>
     </span>
   </div>
 );
@@ -34,6 +35,7 @@ const MountainPasses = ({ lat, lng, pass }) => (
       {pass} <br />
       Lat: {lat} <br />
       Lng: {lng} <br />
+      <i></i>
     </span>
   </div>
 );
@@ -47,6 +49,7 @@ const AWOS = ({ lat, lng, loc, freq }) => (
       Lat: {lat} <br />
       Lng: {lng} <br />
       Freq: {freq}
+      <i></i>
     </span>
   </div>
 );
