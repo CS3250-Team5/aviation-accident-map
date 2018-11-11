@@ -10,7 +10,7 @@ import keys from "../keys.js";
 
 import plane from "../images/new_crash.png";
 import awos from "../images/ge_Mt_AWOS.png";
-import mountain from "../images/ge_Mt_pass0.png";
+import mountain from "../images/new_Mt_pass.png";
 
 const FatalAccidents = ({ lat, lng, link }) => (
   <div className="tooltip">
@@ -302,7 +302,7 @@ class Map extends Component {
               name="Mountain Passes"
               type="checkbox"
             />
-            <img src={mountain} alt="mountain" width="15" height="15" />
+        <img src={mountain} alt="mountain" width="20" height="20" />
             Show Mountain Passes
           </span>
         </center>
