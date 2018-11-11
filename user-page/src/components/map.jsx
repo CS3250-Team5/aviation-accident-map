@@ -22,7 +22,7 @@ const FatalAccidents = ({ lat, lng, link }) => (
       <a href={link} target="_blank" rel="noopener noreferrer">
         {"NTSB Database Link"}
       </a>
-      <i></i>
+      <i />
     </span>
   </div>
 );
@@ -35,7 +35,7 @@ const MountainPasses = ({ lat, lng, pass }) => (
       {pass} <br />
       Lat: {lat} <br />
       Lng: {lng} <br />
-      <i></i>
+      <i />
     </span>
   </div>
 );
@@ -49,7 +49,7 @@ const AWOS = ({ lat, lng, loc, freq }) => (
       Lat: {lat} <br />
       Lng: {lng} <br />
       Freq: {freq}
-      <i></i>
+      <i />
     </span>
   </div>
 );
@@ -287,7 +287,7 @@ class Map extends Component {
               value="true"
               type="checkbox"
             />
-        <img src={plane} alt="plane" width="25" height="25" />
+            <img src={plane} alt="plane" width="25" height="25" />
             Show Fatal Accidents
           </span>
           <span className="filterBoxes">
@@ -305,7 +305,7 @@ class Map extends Component {
               name="Mountain Passes"
               type="checkbox"
             />
-        <img src={mountain} alt="mountain" width="20" height="20" />
+            <img src={mountain} alt="mountain" width="20" height="20" />
             Show Mountain Passes
           </span>
         </center>
