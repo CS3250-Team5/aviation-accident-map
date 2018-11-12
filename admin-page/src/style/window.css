@@ -154,7 +154,6 @@ Container for Step 1
 }
 
 .text1 {
-  
   position: relative;
   margin-top: 50px;
   margin-bottom: 10px;
@@ -238,11 +237,14 @@ input[type="file"] {
 }
 
 #label{
-  height: 100%;
-  width: 100%;
-  position: relative;
-  top: 25%;
-  word-break: break-word;
+  position: absolute;
+    height: 100%;
+    left: 0;
+    width: 100%;
+    top: 0%;
+    word-break: break-word;
+    line-height: 40px;
+    cursor: pointer;
   
 }
 #labelcont:hover {

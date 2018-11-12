@@ -1,9 +1,14 @@
 import React, { Component } from "react";
 import "../style/window.css";
-
+import Papa from "papaparse";
 
 
 class Window extends Component {
+  constructor(props) {
+    // Call super class
+    super(props);
+    this.updateData = this.updateData.bind(this);
+  }
   state = {
     p0: "block",
     p1: "none",
@@ -25,7 +30,10 @@ class Window extends Component {
     progDisp:"none",
     progWidth2:0,
     progDisp2:"none",
-    data:null
+    data:null,
+    selectedFile: null,
+    jsonResults: null,
+    jasonFiltered:[]
   };
 
 
@@ -33,7 +41,7 @@ class Window extends Component {
 
 
   p0t1 = () => {
-    console.log(this.state.display);
+    
     this.setState({
       an1: "fadeOutLeft 1.5s ease",
       an2: "fadeInLeft 2s ease",
@@ -59,7 +67,7 @@ class Window extends Component {
       p1: "block",
       
     });
-    console.log(this.state.progWidth)
+    
   }
   
    b3t2 = () =>{
@@ -106,7 +114,7 @@ class Window extends Component {
         this.setState({
           progWidth:this.state.progWidth + 1})
         }
-      },100);
+      },50);
     }
     
     
@@ -121,7 +129,7 @@ class Window extends Component {
         this.setState({
           progWidth2:this.state.progWidth2 + 1})
         }
-      },100);
+      },50);
     }
     
     
@@ -129,38 +137,69 @@ class Window extends Component {
   };
 
 
-
+  updateData(result) {
+    const data = result.data;
+    this.setState({jsonResults: data});
+  }
 
   p1t2 = () => {
     
-    console.log(this.state.display);
+    
     
     this.interval();
 
     if(this.state.downUpDis === true){
       window.alert("*You must upload NTSB data first*");
-    }if(this.state.progWidth === 100){
+    }else{
+      var ext = this.state.selectedFile.name;
+      ext = ext.split(".");
+      ext = ext[1];
+      
+      if(ext === "txt"){
+      Papa.parse(this.state.selectedFile, {
+        skipEmptyLines:true,
+        complete: this.updateData,
+      });
+    }
+    }
+    if(this.state.progWidth === 100){
       this.setState({progWidth:0});
       this.intervals = setInterval(() =>{
         if(this.state.progWidth !==99){
         this.setState({
           progWidth:this.state.progWidth + 1})
         }
-      },100);
+      },50);
     }
   };
 
+
+  searchingFor(term){
+    return (x) => {
+      if(x[4] == "Location" || x[4].includes(term)){
+        this.state.jasonFiltered.push(x);
+      }
+      return;
+    }
+  }
+
+  filter = () =>{
+    var st = ", " + this.state.selectValue;
+    this.state.jsonResults.filter(this.searchingFor(", " + this.state.selectValue)).map(loc => {
+     
+    });
+
+  }
 
   handleChange = (e) => {
     this.setState({selectValue:e.target.value});
   }
 
-
-
-
   p2t3 = () => {
-    console.log(this.state.selectValue);
+    
     if (this.state.selectValue == "CO") {
+
+      this.filter();
       
       if(this.state.progWidth2 === 100){
         this.setState({progWidth2:0});
@@ -169,7 +208,7 @@ class Window extends Component {
           this.setState({
             progWidth2:this.state.progWidth2 + 1})
           }
-        },100);
+        },50);
       }
       this.interval2();
       
@@ -186,7 +225,7 @@ class Window extends Component {
 
 
   p3t4 = () => {
-    console.log(this.state.display);
+    
     this.setState({
       an4: "fadeOutLeft 1.5s  ease",
       an5: "fadeInLeft 2s ease",
@@ -198,7 +237,7 @@ class Window extends Component {
 
 
   p4tf = () => {
-    console.log(this.state.display);
+    
     this.setState({
       an5: "fadeOutLeft 1.5s  ease",
       anf: "fadeInLeft 2s ease",
@@ -210,7 +249,12 @@ class Window extends Component {
   if (!event.target.files[0]) {
     return
   }else{
-  this.setState({uploadName:event.target.files[0].name, downUpDis:false, dis:"pointer"});
+    
+  this.setState({
+    uploadName:event.target.files[0].name,
+     downUpDis:false,
+      dis:"pointer",
+    selectedFile:event.target.files[0]});
   window.alert("Local file chosen");
   }
  }
@@ -220,7 +264,7 @@ class Window extends Component {
 
   render() {
 
-    console.log(this.state.progWidth)
+    
     if(this.state.progWidth === 99){
         
       this.setState({
@@ -230,11 +274,12 @@ class Window extends Component {
         progWidth:100,
       });
       clearInterval(this.intervals);
-      console.log(this.state.progWidth)
+      
+
     }
 
     if(this.state.progWidth2 === 99){
-        
+        console.log(this.state.jasonFiltered);
       this.setState({
 
         an3: "fadeOutLeft 1.5s  ease",
@@ -243,7 +288,7 @@ class Window extends Component {
         progWidth2:100,
       }); 
       clearInterval(this.intervals);
-      console.log(this.state.progWidth)
+      
     }
 
 
@@ -286,9 +331,11 @@ class Window extends Component {
               </div>
               </div>
               <div>
-              <button className="button1"  onClick={this.p1t2} style={{marginTop:'18px', cursor:this.state.dis, width:'15em', height:'3em'}}>Continue & upload data</button>
+              <button className="button1"  onClick={this.p1t2} style={{marginTop:'10px', cursor:this.state.dis, width:'15em', height:'3em'}}>Continue & upload data</button>
+              
               </div>
             </div>
+            
           </div>
 
           <div
