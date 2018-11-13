@@ -66,7 +66,7 @@ class Map extends Component {
       lat: 39.0,
       lng: -105.15
     },
-    zoom: 7
+    zoom: 7.5
   };
 
   createFatalPoints = () => {
