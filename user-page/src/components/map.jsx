@@ -5,11 +5,12 @@ import "firebase/database";
 // eslint-disable-next-line
 import ids from "../reader.js";
 import "../style/map.css";
+import "../style/button.css";
 import keys from "../keys.js";
 
-import plane from "../images/ge_crash.png";
+import plane from "../images/new_crash.png";
 import awos from "../images/ge_Mt_AWOS.png";
-import mountain from "../images/ge_Mt_pass0.png";
+import mountain from "../images/new_Mt_pass.png";
 
 const FatalAccidents = ({ lat, lng, link }) => (
   <div className="tooltip">
@@ -21,6 +22,7 @@ const FatalAccidents = ({ lat, lng, link }) => (
       <a href={link} target="_blank" rel="noopener noreferrer">
         {"NTSB Database Link"}
       </a>
+      <i />
     </span>
   </div>
 );
@@ -33,6 +35,7 @@ const MountainPasses = ({ lat, lng, pass }) => (
       {pass} <br />
       Lat: {lat} <br />
       Lng: {lng} <br />
+      <i />
     </span>
   </div>
 );
@@ -46,6 +49,7 @@ const AWOS = ({ lat, lng, loc, freq }) => (
       Lat: {lat} <br />
       Lng: {lng} <br />
       Freq: {freq}
+      <i />
     </span>
   </div>
 );
@@ -62,7 +66,7 @@ class Map extends Component {
       lat: 39.0,
       lng: -105.15
     },
-    zoom: 7
+    zoom: 8
   };
 
   createFatalPoints = () => {
@@ -275,7 +279,7 @@ class Map extends Component {
     return (
       // Important! Always set the container height explicitly
       <div className="backGround">
-        <center>
+        <center className="filterGroup">
           <span className="filterBoxes">
             <input
               onClick={this.handleAccidents}
@@ -283,7 +287,7 @@ class Map extends Component {
               value="true"
               type="checkbox"
             />
-            <img src={plane} alt="plane" width="15" height="15" />
+            <img src={plane} alt="plane" width="25" height="25" />
             Show Fatal Accidents
           </span>
           <span className="filterBoxes">
@@ -301,7 +305,7 @@ class Map extends Component {
               name="Mountain Passes"
               type="checkbox"
             />
-            <img src={mountain} alt="mountain" width="15" height="15" />
+            <img src={mountain} alt="mountain" width="20" height="20" />
             Show Mountain Passes
           </span>
         </center>

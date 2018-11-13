@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Logo from "../images/cpa_logo2.jpg";
+import Logo from "../images/coloAviation.png";
 import "../style/banner.css";
 
 class Banner extends Component {
