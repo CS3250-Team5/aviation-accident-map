@@ -385,6 +385,7 @@ Step 3
 .text3h {
   position: relative;
   margin-bottom: 10px;
+  margin-top:5px;
   color: white;
   font-size: 2em;
   font-style: italic;
@@ -639,7 +640,7 @@ input[type="checkbox"] {
   border-radius: 0.2em;
 
 height:101%;
-background-color: #00ff00;
+background-color: #009900;
 }
 
 @keyframes move {

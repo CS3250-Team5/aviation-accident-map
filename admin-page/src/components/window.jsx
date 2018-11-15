@@ -33,7 +33,10 @@ class Window extends Component {
     data:null,
     selectedFile: null,
     jsonResults: null,
-    jasonFiltered:[]
+    jsonFiltered:[],
+    headers:[],
+    fullJson:[],
+    first:true,
   };
 
 
@@ -176,8 +179,12 @@ class Window extends Component {
 
   searchingFor(term){
     return (x) => {
-      if(x[4] == "Location" || x[4].includes(term)){
-        this.state.jasonFiltered.push(x);
+      
+      if(this.state.first === true){
+        this.state.headers.push(x);
+        this.state.first = false;
+      }if(x[4].includes(term) && parseInt(x[7], 10) <= -105 && parseInt(x[7], 10) >= -108 && !x[10].includes("Non")){
+        this.state.jsonFiltered.push(x);
       }
       return;
     }
@@ -188,7 +195,22 @@ class Window extends Component {
     this.state.jsonResults.filter(this.searchingFor(", " + this.state.selectValue)).map(loc => {
      
     });
+   
+  }
 
+  jasonify = () =>{
+    var object = this.state.fullJson;
+    
+    
+    for(var a = 0;a<this.state.jsonFiltered.length;a++){
+      var total = {};
+      for(var b=0;b<this.state.jsonFiltered[a].length;b++){
+
+      total[this.state.headers[0][b]] = this.state.jsonFiltered[a][b];
+      }
+      object.push(total);
+  }
+  this.state.fullJson= JSON.stringify(this.state.fullJson);
   }
 
   handleChange = (e) => {
@@ -200,7 +222,7 @@ class Window extends Component {
     if (this.state.selectValue == "CO") {
 
       this.filter();
-      
+      this.jasonify();
       if(this.state.progWidth2 === 100){
         this.setState({progWidth2:0});
         this.intervals = setInterval(() =>{
@@ -279,7 +301,9 @@ class Window extends Component {
     }
 
     if(this.state.progWidth2 === 99){
-        console.log(this.state.jasonFiltered);
+        
+       
+        
       this.setState({
 
         an3: "fadeOutLeft 1.5s  ease",
@@ -288,7 +312,7 @@ class Window extends Component {
         progWidth2:100,
       }); 
       clearInterval(this.intervals);
-      
+      console.log(this.state.fullJson);
     }
 
 
@@ -316,7 +340,7 @@ class Window extends Component {
               <h3 className="text1">Step 1 :</h3>
               <p className="text1h">Upload Data from NTSB</p>
               <div className="progCont" style={{display:this.state.progDisp}}>
-              <label style={{color:'white', left:'47%', position:'absolute'}}>{this.state.progWidth}%</label>
+              <label style={{color:'white', left:'47%', position:'absolute',textShadow: '1px 1px #000000'}}>{this.state.progWidth}%</label>
               <div className="progBar" style={{width:String(this.state.progWidth + "%")}}></div>
               
               </div>
@@ -348,7 +372,7 @@ class Window extends Component {
             
               <h3 className="text2">Step 2 :</h3>
               <div className="progCont" style={{display:this.state.progDisp2}}>
-              <label style={{color:'white', left:'47%', position:'absolute'}}>{this.state.progWidth2}%</label>
+              <label style={{color:'white', left:'47%', position:'absolute',textShadow: '1px 1px #000000'}}>{this.state.progWidth2}%</label>
               <div className="progBar" style={{width:String(this.state.progWidth2 + "%")}}></div>
               </div>
               <p className="text2h">
@@ -421,7 +445,7 @@ class Window extends Component {
             <div className="pannel3">
             <button id= "back" onClick={this.b3t2}>Back</button>
               <h3 className="text3">Step 3 :</h3>
-              <p className="text3h">Filtering Results...</p>
+              <p className="text3h">Filtered by state, longitide between(-108,-105), and fatal accidents</p>
              
               <button className="button3" onClick={this.p3t4}>
                 Next
