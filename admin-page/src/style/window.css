@@ -11,7 +11,7 @@ continer for inital welcome
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  
+
 }
 
 .p0cont {
@@ -63,9 +63,9 @@ continer for inital welcome
   width: 15em;
   cursor: pointer;
   border-radius: 0.5em;
-    border-color: #ddd;
-    border-style: solid;
-    border-width: 0.1em;
+  border-color: #ddd;
+  border-style: solid;
+  border-width: 0.1em;
   font-size: 1em;
   box-shadow: 3px 3px 3px 2px #000000;
   font-weight: 700;
@@ -130,7 +130,7 @@ Container for Step 1
   font-style: italic;
   outline: 0;
   z-index: 100;
-  
+
 }
 #back:hover{
   opacity: 1;
@@ -177,8 +177,8 @@ Container for Step 1
   cursor: default;
   text-shadow: 2.5px 2.5px #000000;
 }
-.buttonCont{
-  display:inline-flex;
+.buttonCont {
+  display: inline-flex;
 }
 .button1 {
   position: relative;
@@ -212,7 +212,7 @@ input[type="file"] {
   pointer-events: none;
   width: 0.1px;
   height: 0.1px;
-  display:none;
+  display: none;
 }
 
 #labelcont{
@@ -233,10 +233,9 @@ input[type="file"] {
   font-weight: 700;
   font-style: italic;
   outline: 0;
-  
 }
 
-#label{
+#label {
   position: absolute;
     height: 100%;
     left: 0;
@@ -245,39 +244,24 @@ input[type="file"] {
     word-break: break-word;
     line-height: 40px;
     cursor: pointer;
-  
 }
+
+#label{
+    position: absolute;
+    height: 100%;
+    left: 0;
+    width: 100%;
+    top: 0%;
+    word-break: break-word;
+    line-height: 40px;
+    cursor: pointer;
+}
+
 #labelcont:hover {
   opacity: 1;
   background: red;
-} 
-
-
-
-
-/*.inputfile + label {
-  font-size: 1.25em;
-  font-weight: 700;
-  color: white;
-  background-color: black;
-  display: inline-block;
-  cursor: pointer;
 }
 
-.inputfile:focus + label,
-.inputfile + label:hover {
-  background-color: red;
-}
-
-.inputfile {
-	width: 0.1px;
-	height: 0.1px;
-	opacity: 0;
-	overflow: hidden;
-	position: absolute;
-	z-index: -1;
-}
-*/
 /*
 
 step 2
@@ -403,9 +387,9 @@ Step 3
   width: 15em;
   cursor: pointer;
   border-radius: 0.5em;
-    border-color: #ddd;
-    border-style: solid;
-    border-width: 0.1em;
+  border-color: #ddd;
+  border-style: solid;
+  border-width: 0.1em;
   font-size: 1em;
   box-shadow: 3px 3px 3px 2px #000000;
   font-weight: 700;
@@ -623,24 +607,21 @@ input[type="checkbox"] {
   cursor: pointer;
 }
 
-.progCont{
+.progCont {
   margin-left: 10%;
   margin-bottom: 10px;
-  background-color:transparent;
+  background-color: transparent;
   height: 20px;
   width: 80%;
   border-width: 0.2em;
   border-radius: 0.6em;
   border-color: #ddd;
   border-style: solid;
-  
-  
 }
-.progBar{
+.progBar {
   border-radius: 0.2em;
-
-height:101%;
-background-color: #009900;
+  height:101%;
+  background-color: #009900;
 }
 
 @keyframes move {

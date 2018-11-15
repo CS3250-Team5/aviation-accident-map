@@ -1,10 +1,16 @@
 import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
+import * as firebase from "firebase/app";
+import "firebase/database";
+// eslint-disable-next-line
+import ids from "../reader.js";
 import "../style/map.css";
+import "../style/button.css";
+import keys from "../keys.js";
 
-import plane from "../images/ge_crash.png";
+import plane from "../images/new_crash.png";
 import awos from "../images/ge_Mt_AWOS.png";
-import mountain from "../images/ge_Mt_pass0.png";
+import mountain from "../images/new_Mt_pass.png";
 
 const FatalAccidents = ({ lat, lng, link }) => (
   <div className="tooltip">
@@ -13,60 +19,46 @@ const FatalAccidents = ({ lat, lng, link }) => (
       Accident Information: <br />
       Lat: {lat} <br />
       Lng: {lng} <br />
-      <a href={link} target="_blank">
+      <a href={link} target="_blank" rel="noopener noreferrer">
         {"NTSB Database Link"}
       </a>
+      <i />
     </span>
   </div>
 );
 
-// only fatalSix has the link sub State
+const MountainPasses = ({ lat, lng, pass }) => (
+  <div className="tooltip">
+    <img src={mountain} alt="mountain pass" />
+    <span className="tooltiptext">
+      Mountain Pass: <br />
+      {pass} <br />
+      Lat: {lat} <br />
+      Lng: {lng} <br />
+      <i />
+    </span>
+  </div>
+);
+
+const AWOS = ({ lat, lng, loc, freq }) => (
+  <div className="tooltip">
+    <img src={awos} alt="Mountain AWOS" />
+    <span className="tooltiptext">
+      Mountain AWOS site: <br />
+      {loc} <br />
+      Lat: {lat} <br />
+      Lng: {lng} <br />
+      Freq: {freq}
+      <i />
+    </span>
+  </div>
+);
+
 class Map extends Component {
   state = {
     fatalBox: false,
-    randomBox: false,
-    parse: 0,
-    fatalOne: {
-      lat: null,
-      lng: null
-    },
-    fatalTwo: {
-      lat: null,
-      lng: null
-    },
-    fatalThree: {
-      lat: null,
-      lng: null
-    },
-    fatalFour: {
-      lat: null,
-      lng: null
-    },
-    fatalFive: {
-      lat: null,
-      lng: null
-    },
-    fatalSix: {
-      lat: null,
-      lng: null,
-      link: null
-    },
-    fatalSeven: {
-      lat: null,
-      lng: null
-    },
-    fatalEight: {
-      lat: null,
-      lng: null
-    },
-    fatalNine: {
-      lat: null,
-      lng: null
-    },
-    fatalTen: {
-      lat: null,
-      lng: null
-    }
+    passBox: false,
+    awosBox: false
   };
 
   static defaultProps = {
@@ -74,145 +66,211 @@ class Map extends Component {
       lat: 39.0,
       lng: -105.15
     },
-    zoom: 7
+    zoom: 8
   };
 
-  handleRandom = () => {
-    const latMin = 38;
-    const latMax = 41;
-    const lngMin = -108;
-    const lngMax = -103;
-    var randLat = [];
-    var randLng = [];
-    var parser = 0;
+  createFatalPoints = () => {
+    let points = [];
+    var latP = [];
+    var lngP = [];
+    var eventID = [];
+    var libSize = 0;
+    var distKey = null;
 
-    for (var i = 0; i < 9; i++) {
-      var coord = latMin + Math.random() * (latMax - latMin);
-      randLat[i] = coord;
-    }
+    const rootRef = firebase
+      .database()
+      .ref()
+      .child("ROWS")
+      .child("ROW");
 
-    for (i = 0; i < 5; i++) {
-      coord = lngMin + Math.random() * (lngMax - lngMin);
-      randLng[i] = coord;
-    }
+    rootRef.on("value", snap => {
+      libSize = snap.numChildren();
+    });
 
-    if (this.state.randomBox === false) {
-      parser = 0;
-      this.setState({
-        parse: 0,
-        randomBox: true,
-        fatalOne: {
-          lat: randLat[parser],
-          lng: randLng[parser]
-        },
-        // eslint-disable-next-line
-        parse: parser++,
-        fatalTwo: {
-          lat: randLat[parser],
-          lng: randLng[parser]
-        },
-        // eslint-disable-next-line
-        parse: parser++,
-        fatalThree: {
-          lat: randLat[parser],
-          lng: randLng[parser]
-        },
-        // eslint-disable-next-line
-        parse: parser++,
-        fatalFour: {
-          lat: randLat[parser],
-          lng: randLng[parser]
-        },
-        // eslint-disable-next-line
-        parse: parser++,
-        fatalFive: {
-          lat: randLat[parser],
-          lng: randLng[parser]
-        }
+    for (var i = 0; i < libSize; i++) {
+      var longRef = rootRef.child(i).child("Longitude");
+      // eslint-disable-next-line
+      longRef.on("value", snap => {
+        lngP[i] = snap.val();
+      });
+      var latRef = rootRef.child(i).child("Latitude");
+      // eslint-disable-next-line
+      latRef.on("value", snap => {
+        latP[i] = snap.val();
+      });
+      var idRef = rootRef.child(i).child("EventId");
+      // eslint-disable-next-line
+      idRef.on("value", snap => {
+        eventID[i] =
+          "https://app.ntsb.gov/pdfgenerator/ReportGeneratorFile.ashx?EventID=" +
+          snap.val() +
+          "&AKey=1&RType=HTML&IType=FA";
       });
     }
 
-    if (this.state.randomBox === true) {
-      this.setState({
-        parser: 0,
-        randomBox: false,
-        fatalOne: {
-          lat: null,
-          lng: null
-        },
-        fatalTwo: {
-          lat: null,
-          lng: null
-        },
-        fatalThree: {
-          lat: null,
-          lng: null
-        },
-        fatalFour: {
-          lat: null,
-          lng: null
-        },
-        fatalFive: {
-          lat: null,
-          lng: null
-        }
+    if (this.state.fatalBox === true) {
+      for (i = 0; i < 100; i++) {
+        distKey = "Fatal: " + i;
+        points.push(
+          <FatalAccidents
+            key={distKey}
+            lat={latP[i]}
+            lng={lngP[i]}
+            link={eventID[i]}
+          />
+        );
+      }
+    }
+    return points;
+  };
+
+  createPasses = () => {
+    let passPoints = [];
+    var latP = [];
+    var lngP = [];
+    var pass = [];
+    var libSize = 0;
+    var distKey = null;
+
+    const rootRef = firebase
+      .database()
+      .ref()
+      .child("MountainPasses");
+
+    rootRef.on("value", snap => {
+      libSize = snap.numChildren();
+    });
+
+    for (var i = 1; i < libSize; i++) {
+      var longRef = rootRef.child(i).child("Longitude");
+      // eslint-disable-next-line
+      longRef.on("value", snap => {
+        lngP[i] = snap.val();
+      });
+      var latRef = rootRef.child(i).child("Latitude");
+      // eslint-disable-next-line
+      latRef.on("value", snap => {
+        latP[i] = snap.val();
+      });
+      var passRef = rootRef.child(i).child("Pass");
+      // eslint-disable-next-line
+      passRef.on("value", snap => {
+        pass[i] = snap.val();
       });
     }
+
+    if (this.state.passBox === true) {
+      for (i = 0; i < libSize; i++) {
+        distKey = "Pass: " + i;
+        passPoints.push(
+          <MountainPasses
+            key={distKey}
+            lat={latP[i]}
+            lng={lngP[i]}
+            pass={pass[i]}
+          />
+        );
+      }
+    }
+    return passPoints;
+  };
+
+  createAwos = () => {
+    let awosPoints = [];
+    var latP = [];
+    var lngP = [];
+    var awos = [];
+    var freq = [];
+    var libSize = 0;
+    var distKey = null;
+
+    const rootRef = firebase
+      .database()
+      .ref()
+      .child("AWOS");
+
+    rootRef.on("value", snap => {
+      libSize = snap.numChildren();
+    });
+
+    for (var i = 0; i < libSize; i++) {
+      var longRef = rootRef.child(i).child("Longitude");
+      // eslint-disable-next-line
+      longRef.on("value", snap => {
+        lngP[i] = snap.val();
+      });
+      var latRef = rootRef.child(i).child("Latitude");
+      // eslint-disable-next-line
+      latRef.on("value", snap => {
+        latP[i] = snap.val();
+      });
+      var awosRef = rootRef.child(i).child("Location");
+      // eslint-disable-next-line
+      awosRef.on("value", snap => {
+        awos[i] = snap.val();
+      });
+      var freqRef = rootRef.child(i).child("Frequency");
+      // eslint-disable-next-line
+      freqRef.on("value", snap => {
+        freq[i] = snap.val();
+      });
+    }
+
+    if (this.state.awosBox === true) {
+      for (i = 0; i < libSize; i++) {
+        distKey = "AWOS: " + i;
+        awosPoints.push(
+          <AWOS
+            key={distKey}
+            lat={latP[i]}
+            lng={lngP[i]}
+            loc={awos[i]}
+            freq={freq[i]}
+          />
+        );
+      }
+    }
+    return awosPoints;
   };
 
   handleAccidents = () => {
     if (this.state.fatalBox === false) {
       this.setState({
-        fatalBox: true,
-        fatalSix: {
-          lat: 37.822223,
-          lng: -106.906111,
-          link:
-            "https://app.ntsb.gov/pdfgenerator/ReportGeneratorFile.ashx?EventID=20160620X21154&AKey=1&RType=HTML&IType=FA"
-        },
-        fatalSeven: {
-          lat: 38.495,
-          lng: -102.29
-        },
-        fatalEight: {
-          lat: 39.1175,
-          lng: -104.718334
-        },
-        fatalNine: {
-          lat: 40.052222,
-          lng: -108.278611
-        },
-        fatalTen: {
-          lat: 38.830834,
-          lng: -104.718334
-        }
+        fatalBox: true
       });
     }
 
     if (this.state.fatalBox === true) {
       this.setState({
-        fatalBox: false,
-        fatalSix: {
-          lng: null,
-          lat: null,
-          link: null
-        },
-        fatalSeven: {
-          lng: null,
-          lat: null
-        },
-        fatalEight: {
-          lng: null,
-          lat: null
-        },
-        fatalNine: {
-          lng: null,
-          lat: null
-        },
-        fatalTen: {
-          lng: null,
-          lat: null
-        }
+        fatalBox: false
+      });
+    }
+  };
+
+  handlePasses = () => {
+    if (this.state.passBox === false) {
+      this.setState({
+        passBox: true
+      });
+    }
+
+    if (this.state.passBox === true) {
+      this.setState({
+        passBox: false
+      });
+    }
+  };
+
+  handleAwos = () => {
+    if (this.state.awosBox === false) {
+      this.setState({
+        awosBox: true
+      });
+    }
+
+    if (this.state.awosBox === true) {
+      this.setState({
+        awosBox: false
       });
     }
   };
@@ -221,16 +279,7 @@ class Map extends Component {
     return (
       // Important! Always set the container height explicitly
       <div className="backGround">
-        <center>
-          <span className="filterBoxes">
-            <input
-              onClick={this.handleRandom}
-              name="Random"
-              value="false"
-              type="checkbox"
-            />
-            <img src={plane} alt="plane" width="15" height="15" />Random
-          </span>
+        <center className="filterGroup">
           <span className="filterBoxes">
             <input
               onClick={this.handleAccidents}
@@ -238,70 +287,40 @@ class Map extends Component {
               value="true"
               type="checkbox"
             />
-            <img src={plane} alt="plane" width="15" height="15" />Show Fatal
-            Accidents
+            <img src={plane} alt="plane" width="25" height="25" />
+            Show Fatal Accidents
           </span>
           <span className="filterBoxes">
-            <input name="CDOT Mountain AWOS" type="checkbox" />
-            <img src={awos} alt="awos" width="15" height="15" />Show CDOT
-            Mountain AWOS
+            <input
+              onClick={this.handleAwos}
+              name="CDOT Mountain AWOS"
+              type="checkbox"
+            />
+            <img src={awos} alt="awos" width="15" height="15" />
+            Show CDOT Mountain AWOS
           </span>
           <span className="filterBoxes">
-            <input name="Mountain Passes" type="checkbox" />
-            <img src={mountain} alt="mountain" width="15" height="15" />Show
-            Mountain Passes
+            <input
+              onClick={this.handlePasses}
+              name="Mountain Passes"
+              type="checkbox"
+            />
+            <img src={mountain} alt="mountain" width="20" height="20" />
+            Show Mountain Passes
           </span>
         </center>
 
         <div className="mapStyle">
           <GoogleMapReact
             bootstrapURLKeys={{
-              key: process.env.REACT_APP_API_KEY
+              key: keys[0]
             }}
             defaultCenter={this.props.center}
             defaultZoom={this.props.zoom}
           >
-            <FatalAccidents
-              lat={this.state.fatalOne.lat}
-              lng={this.state.fatalOne.lng}
-            />
-            <FatalAccidents
-              lat={this.state.fatalTwo.lat}
-              lng={this.state.fatalTwo.lng}
-            />
-            <FatalAccidents
-              lat={this.state.fatalThree.lat}
-              lng={this.state.fatalThree.lng}
-            />
-            <FatalAccidents
-              lat={this.state.fatalFour.lat}
-              lng={this.state.fatalFour.lng}
-            />
-            <FatalAccidents
-              lat={this.state.fatalFive.lat}
-              lng={this.state.fatalFive.lng}
-            />
-            <FatalAccidents
-              lat={this.state.fatalSix.lat}
-              lng={this.state.fatalSix.lng}
-              link={this.state.fatalSix.link}
-            />
-            <FatalAccidents
-              lat={this.state.fatalSeven.lat}
-              lng={this.state.fatalSeven.lng}
-            />
-            <FatalAccidents
-              lat={this.state.fatalEight.lat}
-              lng={this.state.fatalEight.lng}
-            />
-            <FatalAccidents
-              lat={this.state.fatalNine.lat}
-              lng={this.state.fatalNine.lng}
-            />
-            <FatalAccidents
-              lat={this.state.fatalTen.lat}
-              lng={this.state.fatalTen.lng}
-            />
+            {this.createFatalPoints()}
+            {this.createPasses()}
+            {this.createAwos()}
           </GoogleMapReact>
         </div>
       </div>

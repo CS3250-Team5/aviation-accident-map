@@ -1,61 +1,56 @@
-.filterBoxes {
-    padding: 0 10px 0 0;
-}
-
 .mapStyle {
-    height: 50vh;
-    width: 60%;
-    margin: 0 auto;
-    padding: 50px 0 0 0;
-}
-
-.filterBoxes {
-    padding: 0 10px 0 0;
-}
-
-.mapStyle {
-    height: 50vh;
-    width: 60%;
-    margin: 0 auto;
-    padding: 50px 0 0 0;
+  height: 60vh;
+  width: 80%;
+  margin: 0 auto;
+  padding: 40px 0 0 0;
 }
 
 /* Tooltip container */
 .tooltip {
-    position: relative;
-    display: inline-block;
+    display:inline-block;
+    position:relative;
+    text-align:center;
 }
 
 .tooltip .tooltiptext {
-    font-size: 13px;
-    visibility: hidden;
-    width: 160px;
-    background-color: black;
-    color: white;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 120%;
-    left: -10%;
-    margin-left: -60px;
-    opacity: 0;
-    transition: opacity 1s;
-}
-
-.tooltip .tooltiptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -10px;
-    border-width: 10px;
-    border-style: solid;
-    border-color: black transparent transparent transparent;
+    min-width:200px;
+    top:-3px;
+    left:50%;
+    transform:translate(-50%, -100%);
+    padding:10px 20px;
+    color:#444444;
+    background-color:#EEEEEE;
+    font-weight:normal;
+    font-size:13px;
+    border-radius:8px;
+    position:absolute;
+    z-index:99999999;
+    box-sizing:border-box;
+    border:1px solid #000000;box-shadow:0 1px 8px rgba(0,0,0,0.5);
+    visibility:hidden; opacity:0; transition:opacity 0.8s;
 }
 
 .tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
+    visibility:visible; opacity:1;
+}
+
+.tooltip .tooltiptext i {
+    position:absolute;
+    top:100%;
+    left:50%;
+    margin-left:-12px;
+    width:24px;
+    height:12px;
+    overflow:hidden;
+}
+
+.tooltip .tooltiptext i::after {
+    content:'';
+    position:absolute;
+    width:12px;
+    height:12px;
+    left:50%;
+    transform:translate(-50%,-50%) rotate(45deg);
+    background-color:#EEEEEE;
+    border:1px solid #000000;box-shadow:0 1px 8px rgba(0,0,0,0.5);
 }
