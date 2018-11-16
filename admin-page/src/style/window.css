@@ -7,7 +7,7 @@ continer for inital welcome
   opacity: 1;
   position: fixed;
   height: 20em;
-  width: 30em;
+  width: 35em;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -74,6 +74,7 @@ continer for inital welcome
 
 .button0:hover {
   opacity: 1;
+  background: blue;
 }
 
 /*
@@ -81,6 +82,60 @@ continer for inital welcome
 Container for Step 1
 
 */
+#link {
+  background-color: #f44336;
+  color: white;
+  padding: 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 0.5em;
+  border-color: #ddd;
+  border-style: solid;
+  border-width: 0.1em;
+  width: 10.5em;
+  opacity: 0.8;
+  font-size: 1em;
+  -webkit-box-shadow: 3px 3px 3px 2px #000000;
+  box-shadow: 3px 3px 3px 2px #000000;
+  font-weight: 700;
+  font-style: italic;
+  outline: 0;
+}
+
+#link:hover,
+#link:active {
+  background-color: red;
+  opacity: 1;
+}
+
+#back {
+  position: relative;
+  background: #2222ff;
+  opacity: 0.6;
+  color: white;
+  float: left;
+  height: 2em;
+  margin-left: 10px;
+  margin-top: 10px;
+  width: 4em;
+  cursor: pointer;
+  border-radius: 0.5em;
+  border-color: #ddd;
+  border-style: solid;
+  border-width: 0.1em;
+  font-size: 1em;
+  -webkit-box-shadow: 3px 3px 3px 2px #000000;
+  box-shadow: 3px 3px 3px 2px #000000;
+  font-weight: 700;
+  font-style: italic;
+  outline: 0;
+  z-index: 100;
+}
+#back:hover {
+  opacity: 1;
+  background: blue;
+}
 
 .p1cont {
   position: absolute;
@@ -100,9 +155,8 @@ Container for Step 1
 
 .text1 {
   position: relative;
-  margin-top: 40px;
+  margin-top: 50px;
   margin-bottom: 10px;
-
   color: white;
   font-size: 3em;
   font-style: italic;
@@ -112,6 +166,7 @@ Container for Step 1
 }
 
 .text1h {
+  text-align: center;
   position: relative;
   margin-bottom: 10px;
   margin-top: 0px;
@@ -148,6 +203,7 @@ Container for Step 1
 
 .button1:hover {
   opacity: 1;
+  background: blue;
 }
 
 input[type="file"] {
@@ -159,18 +215,17 @@ input[type="file"] {
   display: none;
 }
 
-#label {
+#labelcont {
   position: relative;
-  background: #2222ff;
-  opacity: 0.6;
+  background: #f44336;
+  opacity: 0.8;
   color: white;
   height: 3em;
   width: 12em;
-  line-height: 50px;
   border-radius: 0.5em;
   border-color: #ddd;
   border-style: solid;
-  border-width: 0.1em;
+  border-width: thin;
   cursor: pointer;
   font-size: 1em;
   -webkit-box-shadow: 3px 3px 3px 2px #000000;
@@ -178,35 +233,24 @@ input[type="file"] {
   font-weight: 700;
   font-style: italic;
   outline: 0;
-  margin-right: 20px;
-}
-#label:hover {
-  opacity: 1;
 }
 
-/*.inputfile + label {
-  font-size: 1.25em;
-  font-weight: 700;
-  color: white;
-  background-color: black;
-  display: inline-block;
+#label {
+  position: absolute;
+  height: 100%;
+  left: 0;
+  width: 100%;
+  top: 0%;
+  word-break: break-word;
+  line-height: 40px;
   cursor: pointer;
 }
 
-.inputfile:focus + label,
-.inputfile + label:hover {
-  background-color: red;
+#labelcont:hover {
+  opacity: 1;
+  background: red;
 }
 
-.inputfile {
-	width: 0.1px;
-	height: 0.1px;
-	opacity: 0;
-	overflow: hidden;
-	position: absolute;
-	z-index: -1;
-}
-*/
 /*
 
 step 2
@@ -232,7 +276,8 @@ step 2
 .text2 {
   position: relative;
   margin-top: 40px;
-  margin-bottom: 10px;
+  margin-bottom: 25px;
+  margin-right: 15%;
   color: white;
   font-size: 3em;
   font-style: italic;
@@ -249,6 +294,7 @@ step 2
   font-style: italic;
   font-family: "Agency FB", Tahoma, Geneva, sans-serif;
   cursor: default;
+  margin-top: 0;
   text-shadow: 2.5px 2.5px #000000;
 }
 
@@ -273,6 +319,7 @@ step 2
 
 .button2:hover {
   opacity: 1;
+  background: blue;
 }
 
 /*
@@ -300,6 +347,7 @@ Step 3
   position: relative;
   margin-top: 40px;
   margin-bottom: 10px;
+  margin-right: 15%;
   color: white;
   font-size: 3em;
   font-style: italic;
@@ -310,6 +358,7 @@ Step 3
 .text3h {
   position: relative;
   margin-bottom: 10px;
+  margin-top: 5px;
   color: white;
   font-size: 2em;
   font-style: italic;
@@ -339,6 +388,7 @@ Step 3
 
 .button3:hover {
   opacity: 1;
+  background: blue;
 }
 
 /*
@@ -366,6 +416,7 @@ Step 4
   position: relative;
   margin-top: 40px;
   margin-bottom: 10px;
+  margin-right: 15%;
   color: white;
   font-size: 3em;
   font-style: italic;
@@ -406,6 +457,7 @@ Step 4
 
 .button4:hover {
   opacity: 1;
+  background: blue;
 }
 
 /*
@@ -447,7 +499,7 @@ Step 5
 
 .textf {
   position: relative;
-  margin-top: 10px;
+  margin-top: 40px;
   margin-bottom: 10px;
   color: white;
   font-size: 2em;
@@ -455,6 +507,8 @@ Step 5
   font-family: "Agency FB", Tahoma, Geneva, sans-serif;
   cursor: default;
   text-shadow: 3px 3px #000000;
+  width: 100%;
+  word-break: break-all;
 }
 
 .textfh {
@@ -493,9 +547,9 @@ Step 5
 
 .dropdown {
   vertical-align: middle;
-  height: 6%;
-  width: 20%;
-  font-size: 3vh;
+  size: 2;
+  width: 25%;
+  font-size: 50%;
   display: inline-block;
   margin-left: 3%;
 }
@@ -554,9 +608,8 @@ input[type="checkbox"] {
 }
 .progBar {
   border-radius: 0.2em;
-
   height: 101%;
-  background-color: #00ff00;
+  background-color: #009900;
 }
 
 @keyframes move {
@@ -588,6 +641,26 @@ input[type="checkbox"] {
   animation-name: fadeInLeft;
 }
 
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    display: block;
+    -webkit-transform: translate3d(0%, 0, 0);
+    transform: translate3d(0%, 0, 0);
+  }
+}
+
+.fadeInRight {
+  -webkit-animation-name: fadeInRight;
+  animation-name: fadeInRight;
+}
+
 @keyframes fadein {
   from {
     opacity: 0;
@@ -613,6 +686,24 @@ input[type="checkbox"] {
 .fadeOutLeft {
   -webkit-animation-name: fadeOutLeft;
   animation-name: fadeOutLeft;
+}
+
+@keyframes fadeOutRight {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    display: none;
+    -webkit-transform: translate3d(200%, 0, 0);
+    transform: translate3d(200%, 0, 0);
+  }
+}
+
+.fadeOutRight {
+  -webkit-animation-name: fadeOutRight;
+  animation-name: fadeOutRight;
 }
 
 @keyframes fadeout {

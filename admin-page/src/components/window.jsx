@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import "../style/window.css";
+import Papa from "papaparse";
 
 class Window extends Component {
+  constructor(props) {
+    // Call super class
+    super(props);
+    this.updateData = this.updateData.bind(this);
+  }
   state = {
     p0: "block",
     p1: "none",
@@ -20,11 +26,19 @@ class Window extends Component {
     downUpDis: true,
     dis: "not-allowed",
     progWidth: 0,
-    progDisp: "none"
+    progDisp: "none",
+    progWidth2: 0,
+    progDisp2: "none",
+    data: null,
+    selectedFile: null,
+    jsonResults: null,
+    jsonFiltered: [],
+    headers: [],
+    fullJson: [],
+    first: true
   };
 
   p0t1 = () => {
-    console.log(this.state.display);
     this.setState({
       an1: "fadeOutLeft 1.5s ease",
       an2: "fadeInLeft 2s ease",
@@ -32,28 +46,142 @@ class Window extends Component {
     });
   };
 
+  b1t0 = () => {
+    this.setState({
+      an1: "fadeInRight 1.5s ease",
+      an2: "fadeOutRight 2s ease",
+      p0: "block"
+    });
+  };
+
+  b2t1 = () => {
+    this.setState({
+      an2: "fadeInRight 1.5s ease",
+      an3: "fadeOutRight 2s ease",
+      p1: "block"
+    });
+  };
+
+  b3t2 = () => {
+    this.setState({
+      an3: "fadeInRight 1.5s ease",
+      an4: "fadeOutRight 2s ease",
+      p2: "block"
+    });
+  };
+
+  b4t3 = () => {
+    this.setState({
+      an4: "fadeInRight 1.5s ease",
+      an5: "fadeOutRight 2s ease",
+      p3: "block"
+    });
+  };
+
+  bft4 = () => {
+    this.setState({
+      an5: "fadeInRight 1.5s ease",
+      anf: "fadeOutRight 2s ease",
+      p4: "block"
+    });
+  };
+
   interval = () => {
     if (this.state.progWidth !== 100 && this.state.downUpDis === false) {
       this.setState({ progDisp: "block" });
 
-      this.interval = setInterval(() => {
+      this.intervals = setInterval(() => {
         if (this.state.progWidth !== 99) {
           this.setState({
             progWidth: this.state.progWidth + 1
           });
         }
-      }, 100);
+      }, 50);
     }
   };
 
+  interval2 = () => {
+    if (this.state.progWidth2 !== 100) {
+      this.setState({ progDisp2: "block" });
+      this.intervals = setInterval(() => {
+        if (this.state.progWidth2 !== 99) {
+          this.setState({
+            progWidth2: this.state.progWidth2 + 1
+          });
+        }
+      }, 50);
+    }
+  };
+
+  updateData(result) {
+    const data = result.data;
+    this.setState({ jsonResults: data });
+  }
+
   p1t2 = () => {
-    console.log(this.state.display);
-
     this.interval();
-
     if (this.state.downUpDis === true) {
       window.alert("*You must upload NTSB data first*");
+    } else {
+      var ext = this.state.selectedFile.name;
+      ext = ext.split(".");
+      ext = ext[1];
+
+      if (ext === "txt") {
+        Papa.parse(this.state.selectedFile, {
+          skipEmptyLines: true,
+          complete: this.updateData
+        });
+      }
     }
+    if (this.state.progWidth === 100) {
+      this.setState({ progWidth: 0 });
+      this.intervals = setInterval(() => {
+        if (this.state.progWidth !== 99) {
+          this.setState({
+            progWidth: this.state.progWidth + 1
+          });
+        }
+      }, 50);
+    }
+  };
+
+  searchingFor(term) {
+    return x => {
+      if (this.state.first === true) {
+        this.state.headers.push(x);
+        this.state.first = false;
+      }
+      if (
+        x[4].includes(term) &&
+        parseInt(x[7], 10) <= -105 &&
+        parseInt(x[7], 10) >= -108 &&
+        !x[10].includes("Non")
+      ) {
+        this.state.jsonFiltered.push(x);
+      }
+      return;
+    };
+  }
+
+  filter = () => {
+    var st = ", " + this.state.selectValue;
+    this.state.jsonResults
+      .filter(this.searchingFor(", " + this.state.selectValue))
+      .map(loc => {});
+  };
+
+  jasonify = () => {
+    var object = this.state.fullJson;
+
+    for (var a = 0; a < this.state.jsonFiltered.length; a++) {
+      var total = {};
+      for (var b = 0; b < this.state.jsonFiltered[a].length; b++) {
+        total[this.state.headers[0][b]] = this.state.jsonFiltered[a][b];
+      }
+      object.push(total);
+    }
+    this.state.fullJson = JSON.stringify(this.state.fullJson);
   };
 
   handleChange = e => {
@@ -61,20 +189,26 @@ class Window extends Component {
   };
 
   p2t3 = () => {
-    console.log(this.state.selectValue);
     if (this.state.selectValue == "CO") {
-      this.setState({
-        an3: "fadeOutLeft 1.5s  ease",
-        an4: "fadeInLeft 2s ease",
-        p3: "block"
-      });
+      this.filter();
+      this.jasonify();
+      if (this.state.progWidth2 === 100) {
+        this.setState({ progWidth2: 0 });
+        this.intervals = setInterval(() => {
+          if (this.state.progWidth2 !== 99) {
+            this.setState({
+              progWidth2: this.state.progWidth2 + 1
+            });
+          }
+        }, 50);
+      }
+      this.interval2();
     } else {
       window.alert("Psst* Try Colorado");
     }
   };
 
   p3t4 = () => {
-    console.log(this.state.display);
     this.setState({
       an4: "fadeOutLeft 1.5s  ease",
       an5: "fadeInLeft 2s ease",
@@ -83,17 +217,11 @@ class Window extends Component {
   };
 
   p4tf = () => {
-    console.log(this.state.display);
     this.setState({
       an5: "fadeOutLeft 1.5s  ease",
       anf: "fadeInLeft 2s ease",
       pf: "block"
     });
-  };
-
-  download = event => {
-    this.setState({ downUpDis: false, dis: "pointer" });
-    window.alert("Data downloaded from NTSB");
   };
 
   uploadStuff = event => {
@@ -103,14 +231,14 @@ class Window extends Component {
       this.setState({
         uploadName: event.target.files[0].name,
         downUpDis: false,
-        dis: "pointer"
+        dis: "pointer",
+        selectedFile: event.target.files[0]
       });
       window.alert("Local file chosen");
     }
   };
 
   render() {
-    console.log(this.state.progWidth);
     if (this.state.progWidth === 99) {
       this.setState({
         an2: "fadeOutLeft 1.5s ease",
@@ -118,8 +246,20 @@ class Window extends Component {
         p2: "block",
         progWidth: 100
       });
-      clearInterval(this.interval);
+      clearInterval(this.intervals);
     }
+
+    if (this.state.progWidth2 === 99) {
+      this.setState({
+        an3: "fadeOutLeft 1.5s  ease",
+        an4: "fadeInLeft 2s ease",
+        p3: "block",
+        progWidth2: 100
+      });
+      clearInterval(this.intervals);
+      console.log(this.state.fullJson);
+    }
+
     return (
       <React.Fragment>
         <div className="allpannels">
@@ -141,14 +281,22 @@ class Window extends Component {
             style={{ display: this.state.p1, animation: this.state.an2 }}
           >
             <div className="pannel1">
+              <button id="back" onClick={this.b1t0}>
+                Back
+              </button>
               <h3 className="text1">Step 1 :</h3>
-              <p className="text1h">Download Data from NTSB</p>
+              <p className="text1h">Upload Data from NTSB</p>
               <div
                 className="progCont"
                 style={{ display: this.state.progDisp }}
               >
                 <label
-                  style={{ color: "white", left: "47%", position: "absolute" }}
+                  style={{
+                    color: "white",
+                    left: "47%",
+                    position: "absolute",
+                    textShadow: "1px 1px #000000"
+                  }}
                 >
                   {this.state.progWidth}%
                 </label>
@@ -157,29 +305,41 @@ class Window extends Component {
                   style={{ width: String(this.state.progWidth + "%") }}
                 />
               </div>
-              <div style={{ display: "flex", justifyContent: "center" }}>
-                <button className="button1" onClick={this.download}>
-                  Download from NTSB
-                </button>
-                <p style={{ color: "white", marginRight: "20px" }}>Or</p>
+              <div
+                style={{
+                  position: "relative",
+                  display: "flex",
+                  justifyContent: "space-around"
+                }}
+              >
+                <a
+                  href="https://www.ntsb.gov/_layouts/ntsb.aviation/index.aspx"
+                  target="_blank"
+                  id="link"
+                >
+                  Link to NTSB data
+                </a>
 
-                <label id="label" htmlFor="myuniqueid">
-                  {this.state.uploadName}
-                  <input
-                    type="file"
-                    id="myuniqueid"
-                    onChange={this.uploadStuff}
-                  />
-                </label>
+                <div id="labelcont">
+                  <label id="label" htmlFor="myuniqueid">
+                    {this.state.uploadName}
+                    <input
+                      type="file"
+                      id="myuniqueid"
+                      onChange={this.uploadStuff}
+                    />
+                  </label>
+                </div>
               </div>
               <div>
                 <button
                   className="button1"
                   onClick={this.p1t2}
                   style={{
-                    marginTop: "18px",
+                    marginTop: "10px",
                     cursor: this.state.dis,
-                    width: "13em"
+                    width: "15em",
+                    height: "3em"
                   }}
                 >
                   Continue & upload data
@@ -193,7 +353,30 @@ class Window extends Component {
             style={{ display: this.state.p2, animation: this.state.an3 }}
           >
             <div className="pannel2">
+              <button id="back" onClick={this.b2t1}>
+                Back
+              </button>
+
               <h3 className="text2">Step 2 :</h3>
+              <div
+                className="progCont"
+                style={{ display: this.state.progDisp2 }}
+              >
+                <label
+                  style={{
+                    color: "white",
+                    left: "47%",
+                    position: "absolute",
+                    textShadow: "1px 1px #000000"
+                  }}
+                >
+                  {this.state.progWidth2}%
+                </label>
+                <div
+                  className="progBar"
+                  style={{ width: String(this.state.progWidth2 + "%") }}
+                />
+              </div>
               <p className="text2h">
                 Choose State:
                 <select
@@ -256,7 +439,7 @@ class Window extends Component {
                 </select>{" "}
               </p>
               <button className="button2" onClick={this.p2t3}>
-                Next
+                Filter by state
               </button>
             </div>
           </div>
@@ -266,8 +449,15 @@ class Window extends Component {
             style={{ display: this.state.p3, animation: this.state.an4 }}
           >
             <div className="pannel3">
+              <button id="back" onClick={this.b3t2}>
+                Back
+              </button>
               <h3 className="text3">Step 3 :</h3>
-              <p className="text3h">Filtering Results...</p>
+              <p className="text3h">
+                Filtered by state, longitide between(-108,-105), and fatal
+                accidents
+              </p>
+
               <button className="button3" onClick={this.p3t4}>
                 Next
               </button>
@@ -279,6 +469,9 @@ class Window extends Component {
             style={{ display: this.state.p4, animation: this.state.an5 }}
           >
             <div className="pannel4">
+              <button id="back" onClick={this.b4t3}>
+                Back
+              </button>
               <h3 className="text4">Step 4 :</h3>
               <p className="text4h">Upload Data</p>
               <button className="button4" onClick={this.p4tf}>
@@ -292,6 +485,10 @@ class Window extends Component {
             style={{ display: this.state.pf, animation: this.state.anf }}
           >
             <div className="pannelf">
+              <button id="back" onClick={this.bft4}>
+                Back
+              </button>
+              <br />
               <h3 className="textf">!(Congradulations your data is updated)</h3>
               <div className="circle">
                 <p className="textfh">Done!</p>
