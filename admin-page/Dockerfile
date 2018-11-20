@@ -12,7 +12,7 @@ ENV PATH /usr/src/app/node_modules/.bin:$PATH
 COPY package.json /usr/src/app/package.json
 RUN npm install --production --silent
 RUN npm install react-scripts@1.1.1 -g --silent
-RUN npm install --save papaparse
+RUN npm install --save papaparse --silent
 
 # start app
 CMD ["npm", "start"]
