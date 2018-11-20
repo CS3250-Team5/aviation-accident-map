@@ -4,16 +4,19 @@ This repository contains code for two web pages, located in the admin-page folde
 ## Setup
 - Clone repository
 - In the terminal/command prompt, navigate to the admin-page folder of the project
-- Run `npm install`
+- Run `npm install --production`
+- Run `npm install --save papaparse`
 - In the terminal/command prompt, navigate to the user-page folder of the project
-- Run `npm install`
+- Run `npm install --production`
 - Run `npm install --save google-map-react`
 - Run `npm install --save firebase`
 
 ## Tools Used
 - Create-React-App boilerplate
-- Google-map-react dependencies
-- Firebase database
+- NodeJS
+- Google-map-react dependency
+- Papaparse dependency
+- Firebase (Database and hosting)
 - CSS Tooltips
 
 ## Spinning Up a Development Server
