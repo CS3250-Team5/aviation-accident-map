@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
 import * as firebase from "firebase/app";
 import "firebase/database";
-// eslint-disable-next-line
-import ids from "../reader.js";
 import "../style/map.css";
 import "../style/button.css";
 import keys from "../keys.js";
@@ -11,6 +9,8 @@ import keys from "../keys.js";
 import plane from "../images/new_crash.png";
 import awos from "../images/ge_Mt_AWOS.png";
 import mountain from "../images/new_Mt_pass.png";
+
+var staticData = null;
 
 const FatalAccidents = ({ lat, lng, link }) => (
   <div className="tooltip">
@@ -54,6 +54,25 @@ const AWOS = ({ lat, lng, loc, freq }) => (
   </div>
 );
 
+function initializeDatabase() {
+  /*
+  const tempDatabase = {
+    databaseURL: "https://test-project-cfcd0.firebaseio.com"
+  };
+  firebase.initializeApp(tempDatabase, "tempDatabase");
+  */
+  const firstDatabase = {
+    databaseURL: "https://state-aviation-admin.firebaseio.com"
+  };
+  firebase.initializeApp(firstDatabase);
+
+  const secondDatabase = {
+    databaseURL: "https://state-aviation-m-1538090440532.firebaseio.com"
+  };
+  staticData = firebase.initializeApp(secondDatabase, "secondDatabase");
+}
+initializeDatabase();
+
 class Map extends Component {
   state = {
     fatalBox: false,
@@ -80,8 +99,7 @@ class Map extends Component {
     const rootRef = firebase
       .database()
       .ref()
-      .child("ROWS")
-      .child("ROW");
+      .child("Fatal");
 
     rootRef.on("value", snap => {
       libSize = snap.numChildren();
@@ -133,7 +151,7 @@ class Map extends Component {
     var distKey = null;
 
     const rootRef = firebase
-      .database()
+      .database(staticData)
       .ref()
       .child("MountainPasses");
 
@@ -185,7 +203,7 @@ class Map extends Component {
     var distKey = null;
 
     const rootRef = firebase
-      .database()
+      .database(staticData)
       .ref()
       .child("AWOS");
 
