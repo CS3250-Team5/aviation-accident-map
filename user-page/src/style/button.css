@@ -4,7 +4,9 @@
 }
 
 .image {
+    position: relative;
     padding-right: 5px;
+    top: 3.5px;
 }
 
 .button {
