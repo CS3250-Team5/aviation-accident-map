@@ -1,8 +1,9 @@
-.filterBoxes {
-  padding: 0px 10px 0 0;
+.filterGroup {
+    padding-top: 40px;
+    font-size: 18px;
 }
 
-.filterGroup {
-  padding-top: 40px;
-  font-size: 18px;
+.button {
+  padding: 5px 5px 5px 5px;
+  margin-right: 10px;
 }
