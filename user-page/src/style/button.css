@@ -10,6 +10,7 @@
 }
 
 .button {
+  border-radius: 10px;
   padding: 10px 25px;
   margin-right: 10px;
   color: black;
@@ -19,15 +20,38 @@
   font-size: 15px;
 }
 
+.button.one:hover {
+    background-color: #ffe6e6;
+}
+
+.button.one:active {
+    background-color: #ff9980
+}
+
 .button.one {
     background-color: #FFF;
     border: 5px solid red;
 }
 
+.button.two:hover {
+    background-color: #ffffe6;
+}
+
+.button.two:active {
+    background-color: #ffff80
+}
 
 .button.two {
     background-color: #FFF;
     border: 5px solid yellow;
+}
+
+.button.three:hover {
+    background-color: #ebfaeb;
+}
+
+.button.three:active {
+    background-color: #99e699
 }
 
 .button.three {
