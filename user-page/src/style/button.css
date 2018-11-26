@@ -10,6 +10,8 @@
 }
 
 .button {
+  font-family: "Agency FB", Tahoma, Geneva, sans-serif;
+  font-style: italic;
   display: block;
   border-radius: 10px;
   padding: 10px 25px;
@@ -36,6 +38,7 @@
 .button.one {
     background-color: #FFF;
     border: 5px solid red;
+    font-size: 100%;
 }
 
 .button.two:hover {
@@ -51,6 +54,7 @@
 .button.two {
     background-color: #FFF;
     border: 5px solid yellow;
+    font-size: 100%;
 }
 
 .button.three:hover {
@@ -66,4 +70,5 @@
 .button.three {
     background-color: #FFF;
     border: 5px solid green;
+    font-size: 100%;
 }

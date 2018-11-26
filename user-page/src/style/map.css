@@ -20,8 +20,9 @@
     padding:10px 20px;
     color:#444444;
     background-color:#EEEEEE;
-    font-weight:normal;
-    font-size:13px;
+    font-family: "Agency FB", Tahoma, Geneva, sans-serif;
+    font-weight:bolder;
+    font-size:18px;
     border-radius:8px;
     position:absolute;
     z-index:99999999;

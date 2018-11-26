@@ -302,21 +302,21 @@ class Map extends Component {
               onClick={this.handleAccidents}
               name="Fatal Accidents"
             >
-            <img src={plane} className="image" alt="plane" width="20" height="20" />
+            <img src={plane} className="image" alt="plane" width="21" height="21" />
             Show Fatal Accidents
         </button>
           <button className="button two"
               onClick={this.handleAwos}
               name="CDOT Mountain AWOS"
             >
-            <img src={awos} className="image" alt="awos" width="20" height="20" />
+            <img src={awos} className="image" alt="awos" width="21" height="21" />
             Show CDOT Mountain AWOS
         </button>
           <button className="button three"
               onClick={this.handlePasses}
               name="Mountain Passes"
             >
-            <img src={mountain} className="image" alt="mountain" width="20" height="20" />
+            <img src={mountain} className="image" alt="mountain" width="21" height="21" />
             Show Mountain Passes
         </button>
         </center>
