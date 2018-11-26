@@ -127,7 +127,7 @@ class Map extends Component {
     }
 
     if (this.state.fatalBox === true) {
-      for (i = 0; i < 100; i++) {
+      for (i = 0; i < libSize; i++) {
         distKey = "Fatal: " + i;
         points.push(
           <FatalAccidents
