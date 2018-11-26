@@ -258,7 +258,7 @@ class Window extends Component {
         progWidth2: 100
       });
       clearInterval(this.intervals);
-      console.log(this.state.fullJson);
+      console.log(this.state.jsonFiltered);
     }
 
     return (
