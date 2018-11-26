@@ -7,7 +7,6 @@ firebase.json
 
 # json files
 package-lock.json
-package.json
 
 # keys
 /src/keys.js
