@@ -7,6 +7,7 @@ firebase.json
 
 # json files
 package-lock.json
+package.json
 
 # dependencies
 /node_modules
