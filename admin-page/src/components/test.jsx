@@ -26,18 +26,19 @@ class Window extends Component {
   }
   state = {
     p0: "block",
-    p1: "none",
+    p1: "block",
     p2: "none",
     p3: "none",
     p4: "none",
     pf: "none",
-    an1: "fadein 2s ease",
-    an2: "",
+    an1: "fadeOutLeft 1.5s ease",
+    an2: "fadeInLeft 2s ease",
     an3: "",
     an4: "",
     an5: "",
     anf: "",
     uploadName: "Upload local file",
+    uploadDataStep: false,
     selectValue: "",
     downUpDis: true,
     dis: "not-allowed",
@@ -62,14 +63,6 @@ class Window extends Component {
       .ref()
       .push(filteredPoints);
       */
-  };
-
-  p0t1 = () => {
-    this.setState({
-      an1: "fadeOutLeft 1.5s ease",
-      an2: "fadeInLeft 2s ease",
-      p1: "block"
-    });
   };
 
   b1t0 = () => {
@@ -112,40 +105,12 @@ class Window extends Component {
     });
   };
 
-  interval = () => {
-    if (this.state.progWidth !== 100 && this.state.downUpDis === false) {
-      this.setState({ progDisp: "block" });
-
-      this.intervals = setInterval(() => {
-        if (this.state.progWidth !== 99) {
-          this.setState({
-            progWidth: this.state.progWidth + 1
-          });
-        }
-      }, 50);
-    }
-  };
-
-  interval2 = () => {
-    if (this.state.progWidth2 !== 100) {
-      this.setState({ progDisp2: "block" });
-      this.intervals = setInterval(() => {
-        if (this.state.progWidth2 !== 99) {
-          this.setState({
-            progWidth2: this.state.progWidth2 + 1
-          });
-        }
-      }, 50);
-    }
-  };
-
   updateData(result) {
     const data = result.data;
     this.setState({ jsonResults: data });
   }
 
   p1t2 = () => {
-    this.interval();
     if (this.state.downUpDis === true) {
       window.alert("*You must upload NTSB data first*");
     } else {
@@ -160,16 +125,7 @@ class Window extends Component {
         });
       }
     }
-    if (this.state.progWidth === 100) {
-      this.setState({ progWidth: 0 });
-      this.intervals = setInterval(() => {
-        if (this.state.progWidth !== 99) {
-          this.setState({
-            progWidth: this.state.progWidth + 1
-          });
-        }
-      }, 50);
-    }
+    this.setState({ progWidth: 99 });
   };
 
   searchingFor(term) {
@@ -182,6 +138,7 @@ class Window extends Component {
         x[4].includes(term) &&
         parseInt(x[7], 10) <= -105 &&
         parseInt(x[7], 10) >= -108 &&
+        x[4].includes("CO") &&
         x[19].includes("91") &&
         !x[10].includes("Non")
       ) {
@@ -217,23 +174,14 @@ class Window extends Component {
   };
 
   p2t3 = () => {
-    if (this.state.selectValue === "CO") {
-      this.filter();
-      this.jasonify();
-      if (this.state.progWidth2 === 100) {
-        this.setState({ progWidth2: 0 });
-        this.intervals = setInterval(() => {
-          if (this.state.progWidth2 !== 99) {
-            this.setState({
-              progWidth2: this.state.progWidth2 + 1
-            });
-          }
-        }, 50);
-      }
-      this.interval2();
-    } else {
-      window.alert("Psst* Try Colorado");
-    }
+    this.filter();
+    this.jasonify();
+    this.setState({
+      progWidth2: 99,
+      an4: "fadeOutLeft 1.5s  ease",
+      an5: "fadeInLeft 2s ease",
+      p4: "block"
+    });
   };
 
   p3t4 = () => {
@@ -248,7 +196,8 @@ class Window extends Component {
     this.setState({
       an5: "fadeOutLeft 1.5s  ease",
       anf: "fadeInLeft 2s ease",
-      pf: "block"
+      pf: "block",
+      uploadDataStep: true
     });
   };
 
@@ -262,7 +211,6 @@ class Window extends Component {
         dis: "pointer",
         selectedFile: event.target.files[0]
       });
-      window.alert("Local file chosen");
     }
   };
 
@@ -274,7 +222,6 @@ class Window extends Component {
         p2: "block",
         progWidth: 100
       });
-      clearInterval(this.intervals);
     }
 
     if (this.state.progWidth2 === 99) {
@@ -284,26 +231,15 @@ class Window extends Component {
         p3: "block",
         progWidth2: 100
       });
-      clearInterval(this.intervals);
+    }
+
+    if (this.state.uploadDataStep === true) {
       console.log(this.state.jsonFiltered);
     }
 
     return (
       <React.Fragment>
         <div className="allpannels">
-          <div
-            className="p0cont"
-            style={{ display: this.state.p0, animation: this.state.an1 }}
-          >
-            <div className="pannel0">
-              <h3 className="text0">Welcome Admin</h3>
-              <p className="text0h">Get Started!</p>
-              <button className="button0" onClick={this.p0t1}>
-                Update Accident Map
-              </button>
-            </div>
-          </div>
-
           <div
             className="p1cont"
             style={{ display: this.state.p1, animation: this.state.an2 }}
@@ -406,89 +342,9 @@ class Window extends Component {
                   style={{ width: String(this.state.progWidth2 + "%") }}
                 />
               </div>
-              <p className="text2h">
-                Choose State:
-                <select
-                  value={this.state.selectValue}
-                  onChange={this.handleChange}
-                  className="dropdown"
-                >
-                  <option value="" />
-                  <option value="AL">Alabama</option>
-                  <option value="AK">Alaska</option>
-                  <option value="AZ">Arizona</option>
-                  <option value="AR">Arkansas</option>
-                  <option value="CA">California</option>
-                  <option value="CO">Colorado</option>
-                  <option value="CT">Connecticut</option>
-                  <option value="DE">Delaware</option>
-                  <option value="DC">District Of Columbia</option>
-                  <option value="FL">Florida</option>
-                  <option value="GA">Georgia</option>
-                  <option value="HI">Hawaii</option>
-                  <option value="ID">Idaho</option>
-                  <option value="IL">Illinois</option>
-                  <option value="IN">Indiana</option>
-                  <option value="IA">Iowa</option>
-                  <option value="KS">Kansas</option>
-                  <option value="KY">Kentucky</option>
-                  <option value="LA">Louisiana</option>
-                  <option value="ME">Maine</option>
-                  <option value="MD">Maryland</option>
-                  <option value="MA">Massachusetts</option>
-                  <option value="MI">Michigan</option>
-                  <option value="MN">Minnesota</option>
-                  <option value="MS">Mississippi</option>
-                  <option value="MO">Missouri</option>
-                  <option value="MT">Montana</option>
-                  <option value="NE">Nebraska</option>
-                  <option value="NV">Nevada</option>
-                  <option value="NH">New Hampshire</option>
-                  <option value="NJ">New Jersey</option>
-                  <option value="NM">New Mexico</option>
-                  <option value="NY">New York</option>
-                  <option value="NC">North Carolina</option>
-                  <option value="ND">North Dakota</option>
-                  <option value="OH">Ohio</option>
-                  <option value="OK">Oklahoma</option>
-                  <option value="OR">Oregon</option>
-                  <option value="PA">Pennsylvania</option>
-                  <option value="RI">Rhode Island</option>
-                  <option value="SC">South Carolina</option>
-                  <option value="SD">South Dakota</option>
-                  <option value="TN">Tennessee</option>
-                  <option value="TX">Texas</option>
-                  <option value="UT">Utah</option>
-                  <option value="VT">Vermont</option>
-                  <option value="VA">Virginia</option>
-                  <option value="WA">Washington</option>
-                  <option value="WV">West Virginia</option>
-                  <option value="WI">Wisconsin</option>
-                  <option value="WY">Wyoming</option>
-                </select>{" "}
-              </p>
+              <p className="text2h">Choose State:</p>
               <button className="button2" onClick={this.p2t3}>
                 Filter by state
-              </button>
-            </div>
-          </div>
-
-          <div
-            className="p3cont"
-            style={{ display: this.state.p3, animation: this.state.an4 }}
-          >
-            <div className="pannel3">
-              <button id="back" onClick={this.b3t2}>
-                Back
-              </button>
-              <h3 className="text3">Step 3 :</h3>
-              <p className="text3h">
-                Filtered by state, longitide between(-108,-105), and fatal
-                accidents
-              </p>
-
-              <button className="button3" onClick={this.p3t4}>
-                Next
               </button>
             </div>
           </div>
@@ -518,10 +374,7 @@ class Window extends Component {
                 Back
               </button>
               <br />
-              <h3 className="textf">!(Congradulations your data is updated)</h3>
-              <div className="circle">
-                <p className="textfh">Done!</p>
-              </div>
+              <h3 className="textf">Congradulations your data is updated</h3>
             </div>
           </div>
         </div>

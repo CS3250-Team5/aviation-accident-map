@@ -7,6 +7,7 @@ This repository contains code for two web pages, located in the admin-page folde
 - In the terminal/command prompt, navigate to the admin-page folder of the project
 - Run `npm install --production`
 - Run `npm install --save papaparse`
+- Run `npm install --save firebase`
 - In the terminal/command prompt, navigate to the user-page folder of the project
 - Run `npm install --production`
 - Run `npm install --save google-map-react`

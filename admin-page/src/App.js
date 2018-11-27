@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import Window from "./components/window.jsx";
+//import Window from "./components/window.jsx";
+import Window from "./components/test.jsx";
+
 import "./style/App.css";
 
 class App extends Component {
