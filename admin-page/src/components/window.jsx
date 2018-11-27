@@ -150,12 +150,13 @@ class Window extends Component {
     return x => {
       if (this.state.first === true) {
         this.state.headers.push(x);
-        this.state.first = false;
+        this.setState({first: false});
       }
       if (
         x[4].includes(term) &&
         parseInt(x[7], 10) <= -105 &&
         parseInt(x[7], 10) >= -108 &&
+        x[19].includes("91") &&
         !x[10].includes("Non")
       ) {
         this.state.jsonFiltered.push(x);
@@ -165,9 +166,9 @@ class Window extends Component {
   }
 
   filter = () => {
-    var st = ", " + this.state.selectValue;
     this.state.jsonResults
       .filter(this.searchingFor(", " + this.state.selectValue))
+      // eslint-disable-next-line
       .map(loc => {});
   };
 
@@ -181,7 +182,8 @@ class Window extends Component {
       }
       object.push(total);
     }
-    this.state.fullJson = JSON.stringify(this.state.fullJson);
+    var temp = JSON.stringify(this.state.fullJson);
+    this.setState({fullJson: temp})
   };
 
   handleChange = e => {
@@ -189,7 +191,7 @@ class Window extends Component {
   };
 
   p2t3 = () => {
-    if (this.state.selectValue == "CO") {
+    if (this.state.selectValue === "CO") {
       this.filter();
       this.jasonify();
       if (this.state.progWidth2 === 100) {
@@ -257,7 +259,7 @@ class Window extends Component {
         progWidth2: 100
       });
       clearInterval(this.intervals);
-      console.log(this.state.fullJson);
+      console.log(this.state.jsonFiltered);
     }
 
     return (
@@ -316,6 +318,7 @@ class Window extends Component {
                   href="https://www.ntsb.gov/_layouts/ntsb.aviation/index.aspx"
                   target="_blank"
                   id="link"
+                  rel="noopener noreferrer"
                 >
                   Link to NTSB data
                 </a>

@@ -3,6 +3,7 @@ This repository contains code for two web pages, located in the admin-page folde
 
 ## Setup
 - Clone repository
+- Project uses npm as the package manager.  Install NodeJS if not already installed
 - In the terminal/command prompt, navigate to the admin-page folder of the project
 - Run `npm install --production`
 - Run `npm install --save papaparse`

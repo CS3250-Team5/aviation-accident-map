@@ -6,9 +6,9 @@ import "../style/map.css";
 import "../style/button.css";
 import keys from "../keys.js";
 
-import plane from "../images/new_crash.png";
-import awos from "../images/ge_Mt_AWOS.png";
-import mountain from "../images/new_Mt_pass.png";
+import plane from "../img/new_crash.png";
+import awos from "../img/ge_Mt_AWOS.png";
+import mountain from "../img/new_Mt_pass.png";
 
 var staticData = null;
 
@@ -127,7 +127,7 @@ class Map extends Component {
     }
 
     if (this.state.fatalBox === true) {
-      for (i = 0; i < 100; i++) {
+      for (i = 0; i < libSize; i++) {
         distKey = "Fatal: " + i;
         points.push(
           <FatalAccidents
