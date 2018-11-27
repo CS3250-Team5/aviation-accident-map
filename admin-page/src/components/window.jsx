@@ -156,6 +156,7 @@ class Window extends Component {
         x[4].includes(term) &&
         parseInt(x[7], 10) <= -105 &&
         parseInt(x[7], 10) >= -108 &&
+        x[19].includes("91") &&
         !x[10].includes("Non")
       ) {
         this.state.jsonFiltered.push(x);
