@@ -57,13 +57,17 @@ class Window extends Component {
   };
 
   writeFatalData = () => {
-    //var filteredPoints = this.jsonFiltered;
-    /*
-    firebase
+    var filteredPoints = this.state.sentToDatabase;
+
+    const rootRef = firebase
       .database()
       .ref()
-      .push(filteredPoints);
-      */
+      .child("Fatal");
+
+    for (var i = 0; i < 4; i++) {
+      let item = filteredPoints.Fatal[i];
+      rootRef.push(item);
+    }
   };
 
   b1t0 = () => {
@@ -202,17 +206,6 @@ class Window extends Component {
     }
 
     jsonLine += "] }";
-
-    /*
-    jsonLine =
-      '{ "Fatal" : [ { "AccidentNumber" : ' +
-      JSON.stringify(eventID) +
-      ', "Country" : 12, "EventDate" : 12 } ] }';
-    jsonObj = JSON.parse(jsonLine);
-    jsonObj = {
-      Fatal: [{ AccidentNumber: accidentNumber, Country: 12, EventDate: 12 }]
-    };
-    */
     jsonObj = JSON.parse(jsonLine);
     this.setState({ sentToDatabase: jsonObj });
   };
@@ -247,6 +240,7 @@ class Window extends Component {
   };
 
   p4tf = () => {
+    this.writeFatalData();
     this.setState({
       an5: "fadeOutLeft 1.5s  ease",
       anf: "fadeInLeft 2s ease",
@@ -290,6 +284,7 @@ class Window extends Component {
     if (this.state.uploadDataStep === true) {
       console.log(this.state.jsonFiltered);
       console.log(this.state.sentToDatabase);
+      //console.log(this.state.sentToDatabase.Fatal[0]);
     }
 
     return (
