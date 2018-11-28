@@ -298,34 +298,27 @@ class Map extends Component {
       // Important! Always set the container height explicitly
       <div className="backGround">
         <center className="filterGroup">
-          <span className="filterBoxes">
-            <input
+          <button className="button one"
               onClick={this.handleAccidents}
               name="Fatal Accidents"
-              value="true"
-              type="checkbox"
-            />
-            <img src={plane} alt="plane" width="25" height="25" />
+            >
+            <img src={plane} className="image" alt="plane" width="21" height="21" />
             Show Fatal Accidents
-          </span>
-          <span className="filterBoxes">
-            <input
+        </button>
+          <button className="button two"
               onClick={this.handleAwos}
               name="CDOT Mountain AWOS"
-              type="checkbox"
-            />
-            <img src={awos} alt="awos" width="15" height="15" />
+            >
+            <img src={awos} className="image" alt="awos" width="21" height="21" />
             Show CDOT Mountain AWOS
-          </span>
-          <span className="filterBoxes">
-            <input
+        </button>
+          <button className="button three"
               onClick={this.handlePasses}
               name="Mountain Passes"
-              type="checkbox"
-            />
-            <img src={mountain} alt="mountain" width="20" height="20" />
+            >
+            <img src={mountain} className="image" alt="mountain" width="21" height="21" />
             Show Mountain Passes
-          </span>
+        </button>
         </center>
 
         <div className="mapStyle">
