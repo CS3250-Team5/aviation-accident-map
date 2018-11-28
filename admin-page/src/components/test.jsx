@@ -50,6 +50,7 @@ class Window extends Component {
     selectedFile: null,
     jsonResults: null,
     jsonFiltered: [],
+    sentToDatabase: null,
     headers: [],
     fullJson: [],
     first: true
@@ -149,10 +150,71 @@ class Window extends Component {
   }
 
   filter = () => {
+    var jsonLine = '{ "Fatal" : [';
+    var jsonObj = null;
+    var accidentNumber = null;
+    var country = null;
+    var eventDate = null;
+    var eventID = null;
+    var investigationType = null;
+    var latitude = null;
+    var location = null;
+    var longitude = null;
+
     this.state.jsonResults
       .filter(this.searchingFor(", " + this.state.selectValue))
       // eslint-disable-next-line
       .map(loc => {});
+
+    for (var i = 0; i < this.state.jsonFiltered.length; i++) {
+      accidentNumber = JSON.stringify(this.state.jsonFiltered[i][2]);
+      country = JSON.stringify(this.state.jsonFiltered[i][5]);
+      eventDate = JSON.stringify(this.state.jsonFiltered[i][30]);
+      eventID = JSON.stringify(this.state.jsonFiltered[i][0]);
+      investigationType = JSON.stringify(this.state.jsonFiltered[i][1]);
+      latitude = JSON.stringify(this.state.jsonFiltered[i][6]);
+      location = JSON.stringify(this.state.jsonFiltered[i][4]);
+      longitude = JSON.stringify(this.state.jsonFiltered[i][7]);
+
+      jsonLine +=
+        '{ "AccidentNumber" : ' +
+        accidentNumber +
+        ', "Country" : ' +
+        country +
+        ', "EventDate" : ' +
+        eventDate +
+        ', "EventID" : ' +
+        eventID +
+        ', "InvestigationType" : ' +
+        investigationType +
+        ', "Latitude" : ' +
+        latitude +
+        ', "Location" : ' +
+        location +
+        ', "Longitude" : ' +
+        longitude;
+
+      if (i + 1 < this.state.jsonFiltered.length) {
+        jsonLine += " }, ";
+      } else {
+        jsonLine += " } ";
+      }
+    }
+
+    jsonLine += "] }";
+
+    /*
+    jsonLine =
+      '{ "Fatal" : [ { "AccidentNumber" : ' +
+      JSON.stringify(eventID) +
+      ', "Country" : 12, "EventDate" : 12 } ] }';
+    jsonObj = JSON.parse(jsonLine);
+    jsonObj = {
+      Fatal: [{ AccidentNumber: accidentNumber, Country: 12, EventDate: 12 }]
+    };
+    */
+    jsonObj = JSON.parse(jsonLine);
+    this.setState({ sentToDatabase: jsonObj });
   };
 
   jasonify = () => {
@@ -178,14 +240,6 @@ class Window extends Component {
     this.jasonify();
     this.setState({
       progWidth2: 99,
-      an4: "fadeOutLeft 1.5s  ease",
-      an5: "fadeInLeft 2s ease",
-      p4: "block"
-    });
-  };
-
-  p3t4 = () => {
-    this.setState({
       an4: "fadeOutLeft 1.5s  ease",
       an5: "fadeInLeft 2s ease",
       p4: "block"
@@ -235,6 +289,7 @@ class Window extends Component {
 
     if (this.state.uploadDataStep === true) {
       console.log(this.state.jsonFiltered);
+      console.log(this.state.sentToDatabase);
     }
 
     return (
@@ -261,12 +316,6 @@ class Window extends Component {
                     position: "absolute",
                     textShadow: "1px 1px #000000"
                   }}
-                >
-                  {this.state.progWidth}%
-                </label>
-                <div
-                  className="progBar"
-                  style={{ width: String(this.state.progWidth + "%") }}
                 />
               </div>
               <div
@@ -334,12 +383,6 @@ class Window extends Component {
                     position: "absolute",
                     textShadow: "1px 1px #000000"
                   }}
-                >
-                  {this.state.progWidth2}%
-                </label>
-                <div
-                  className="progBar"
-                  style={{ width: String(this.state.progWidth2 + "%") }}
                 />
               </div>
               <p className="text2h">Choose State:</p>
@@ -374,7 +417,7 @@ class Window extends Component {
                 Back
               </button>
               <br />
-              <h3 className="textf">Congradulations your data is updated</h3>
+              <h3 className="textf">Points in log now</h3>
             </div>
           </div>
         </div>
