@@ -125,7 +125,7 @@ class Map extends Component {
         latRef.on("value", snap => {
           latP[i] = snap.val();
         });
-        var idRef = rootRef.child(objectKeys[i]).child("EventId");
+        var idRef = rootRef.child(objectKeys[i]).child("EventID");
         // eslint-disable-next-line
         idRef.on("value", snap => {
           eventID[i] =

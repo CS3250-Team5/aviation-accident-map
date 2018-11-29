@@ -49,19 +49,25 @@ class Window extends Component {
     selectedFile: null,
     jsonResults: null,
     jsonFiltered: [],
+    sentToDatabase: null,
     headers: [],
     fullJson: [],
     first: true
   };
 
   writeFatalData = () => {
-    //var filteredPoints = this.jsonFiltered;
-    /*
-    firebase
+    var filteredPoints = this.state.sentToDatabase;
+    var totalEntries = filteredPoints.Fatal.length;
+
+    const rootRef = firebase
       .database()
       .ref()
-      .push(filteredPoints);
-      */
+      .child("Fatal");
+
+    for (var i = 0; i < totalEntries; i++) {
+      let item = filteredPoints.Fatal[i];
+      rootRef.push(item);
+    }
   };
 
   p0t1 = () => {
@@ -192,10 +198,58 @@ class Window extends Component {
   }
 
   filter = () => {
+    var jsonLine = '{ "Fatal" : [';
+    var jsonObj = null;
+    var accidentNumber = null;
+    var country = null;
+    var eventDate = null;
+    var eventID = null;
+    var investigationType = null;
+    var latitude = null;
+    var location = null;
+    var longitude = null;
+
     this.state.jsonResults
       .filter(this.searchingFor(", " + this.state.selectValue))
       // eslint-disable-next-line
       .map(loc => {});
+
+    for (var i = 0; i < this.state.jsonFiltered.length; i++) {
+      accidentNumber = JSON.stringify(this.state.jsonFiltered[i][2]);
+      country = JSON.stringify(this.state.jsonFiltered[i][5]);
+      eventDate = JSON.stringify(this.state.jsonFiltered[i][30]);
+      eventID = JSON.stringify(this.state.jsonFiltered[i][0]);
+      investigationType = JSON.stringify(this.state.jsonFiltered[i][1]);
+      latitude = JSON.stringify(this.state.jsonFiltered[i][6]);
+      location = JSON.stringify(this.state.jsonFiltered[i][4]);
+      longitude = JSON.stringify(this.state.jsonFiltered[i][7]);
+      jsonLine +=
+        '{ "AccidentNumber" : ' +
+        accidentNumber +
+        ', "Country" : ' +
+        country +
+        ', "EventDate" : ' +
+        eventDate +
+        ', "EventID" : ' +
+        eventID +
+        ', "InvestigationType" : ' +
+        investigationType +
+        ', "Latitude" : ' +
+        latitude +
+        ', "Location" : ' +
+        location +
+        ', "Longitude" : ' +
+        longitude;
+      if (i + 1 < this.state.jsonFiltered.length) {
+        jsonLine += " }, ";
+      } else {
+        jsonLine += " } ";
+      }
+    }
+
+    jsonLine += "] }";
+    jsonObj = JSON.parse(jsonLine);
+    this.setState({ sentToDatabase: jsonObj });
   };
 
   jasonify = () => {
@@ -245,6 +299,7 @@ class Window extends Component {
   };
 
   p4tf = () => {
+    this.writeFatalData();
     this.setState({
       an5: "fadeOutLeft 1.5s  ease",
       anf: "fadeInLeft 2s ease",
@@ -285,7 +340,6 @@ class Window extends Component {
         progWidth2: 100
       });
       clearInterval(this.intervals);
-      console.log(this.state.jsonFiltered);
     }
 
     return (
