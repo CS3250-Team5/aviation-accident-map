@@ -58,13 +58,14 @@ class Window extends Component {
 
   writeFatalData = () => {
     var filteredPoints = this.state.sentToDatabase;
+    var totalEntries = filteredPoints.Fatal.length;
 
     const rootRef = firebase
       .database()
       .ref()
       .child("Fatal");
 
-    for (var i = 0; i < 4; i++) {
+    for (var i = 0; i < totalEntries; i++) {
       let item = filteredPoints.Fatal[i];
       rootRef.push(item);
     }
@@ -279,12 +280,6 @@ class Window extends Component {
         p3: "block",
         progWidth2: 100
       });
-    }
-
-    if (this.state.uploadDataStep === true) {
-      console.log(this.state.jsonFiltered);
-      console.log(this.state.sentToDatabase);
-      //console.log(this.state.sentToDatabase.Fatal[0]);
     }
 
     return (
