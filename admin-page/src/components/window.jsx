@@ -36,6 +36,7 @@ class Window extends Component {
     jsonFiltered: [],
     headers: [],
     fullJson: [],
+    processedJson: [],
     first: true
   };
 
@@ -159,7 +160,8 @@ class Window extends Component {
         parseInt(x[7], 10) <= -105 &&
         parseInt(x[7], 10) >= -108 &&
         x[19].includes("91") &&
-        !x[10].includes("Non")
+        !x[10].includes("Non") &&
+        !this.state.jsonFiltered.includes(x)
       ) {
         this.state.jsonFiltered.push(x);
       }
@@ -216,7 +218,8 @@ class Window extends Component {
     this.setState({
       an4: "fadeOutLeft 1.5s  ease",
       an5: "fadeInLeft 2s ease",
-      p4: "block"
+      p4: "block",
+      fullJson: []
     });
   };
 
