@@ -35,6 +35,7 @@ class Window extends Component {
     jsonFiltered: [],
     headers: [],
     fullJson: [],
+    processedJson: [],
     first: true
   };
 
@@ -150,14 +151,15 @@ class Window extends Component {
     return x => {
       if (this.state.first === true) {
         this.state.headers.push(x);
-        this.setState({first: false});
+        this.setState({ first: false });
       }
       if (
         x[4].includes(term) &&
         parseInt(x[7], 10) <= -105 &&
         parseInt(x[7], 10) >= -108 &&
         x[19].includes("91") &&
-        !x[10].includes("Non")
+        !x[10].includes("Non") &&
+        !this.state.jsonFiltered.includes(x)
       ) {
         this.state.jsonFiltered.push(x);
       }
@@ -183,7 +185,7 @@ class Window extends Component {
       object.push(total);
     }
     var temp = JSON.stringify(this.state.fullJson);
-    this.setState({fullJson: temp})
+    this.setState({ fullJson: temp });
   };
 
   handleChange = e => {
@@ -214,7 +216,8 @@ class Window extends Component {
     this.setState({
       an4: "fadeOutLeft 1.5s  ease",
       an5: "fadeInLeft 2s ease",
-      p4: "block"
+      p4: "block",
+      fullJson: []
     });
   };
 
@@ -259,7 +262,6 @@ class Window extends Component {
         progWidth2: 100
       });
       clearInterval(this.intervals);
-      console.log(this.state.jsonFiltered);
     }
 
     return (
