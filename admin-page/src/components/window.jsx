@@ -22,6 +22,7 @@ class Window extends Component {
     an5: "",
     anf: "",
     uploadName: "Upload local file",
+    validType: false,
     selectValue: "",
     downUpDis: true,
     dis: "not-allowed",
@@ -120,8 +121,8 @@ class Window extends Component {
 
   p1t2 = () => {
     this.interval();
-    if (this.state.downUpDis === true) {
-      window.alert("*You must upload NTSB data first*");
+    if (this.state.downUpDis === true || this.state.validType === false) {
+      window.alert("*Please upload valid data file!*");
     } else {
       var ext = this.state.selectedFile.name;
       ext = ext.split(".");
@@ -133,16 +134,17 @@ class Window extends Component {
           complete: this.updateData
         });
       }
-    }
-    if (this.state.progWidth === 100) {
-      this.setState({ progWidth: 0 });
-      this.intervals = setInterval(() => {
-        if (this.state.progWidth !== 99) {
-          this.setState({
-            progWidth: this.state.progWidth + 1
-          });
-        }
-      }, 50);
+
+      if (this.state.progWidth === 100) {
+        this.setState({ progWidth: 0 });
+        this.intervals = setInterval(() => {
+          if (this.state.progWidth !== 99) {
+            this.setState({
+              progWidth: this.state.progWidth + 1
+            });
+          }
+        }, 50);
+      }
     }
   };
 
@@ -150,7 +152,7 @@ class Window extends Component {
     return x => {
       if (this.state.first === true) {
         this.state.headers.push(x);
-        this.setState({first: false});
+        this.setState({ first: false });
       }
       if (
         x[4].includes(term) &&
@@ -183,7 +185,7 @@ class Window extends Component {
       object.push(total);
     }
     var temp = JSON.stringify(this.state.fullJson);
-    this.setState({fullJson: temp})
+    this.setState({ fullJson: temp });
   };
 
   handleChange = e => {
@@ -227,16 +229,20 @@ class Window extends Component {
   };
 
   uploadStuff = event => {
-    if (!event.target.files[0]) {
+    var extension = event.target.files[0].name.split(".");
+    extension = extension[1];
+
+    if (!event.target.files[0] || extension !== "txt") {
+      window.alert("*Invalid file chosen!*");
       return;
     } else {
       this.setState({
         uploadName: event.target.files[0].name,
-        downUpDis: false,
         dis: "pointer",
+        downUpDis: false,
+        validType: true,
         selectedFile: event.target.files[0]
       });
-      window.alert("Local file chosen");
     }
   };
 
@@ -259,7 +265,6 @@ class Window extends Component {
         progWidth2: 100
       });
       clearInterval(this.intervals);
-      console.log(this.state.jsonFiltered);
     }
 
     return (
