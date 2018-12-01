@@ -78,7 +78,6 @@ class Map extends Component {
     fatalBox: false,
     passBox: false,
     awosBox: false,
-    temporaryForNow: null
   };
 
   static defaultProps = {
@@ -111,8 +110,8 @@ class Map extends Component {
       for (var i = 0; i < libSize; i++) {
         // eslint-disable-next-line
         rootRef.on("value", snap => {
-          var testing = snap.val();
-          objectKeys = Object.keys(testing);
+          var dataSet = snap.val();
+          objectKeys = Object.keys(dataSet);
         });
 
         var longRef = rootRef.child(objectKeys[i]).child("Longitude");
