@@ -4,6 +4,8 @@ import * as firebase from "firebase/app";
 import "firebase/database";
 import "../style/window.css";
 
+var libSize = 0;
+
 function initializeDatabase() {
   /*
   const tempDatabase = {
@@ -55,9 +57,25 @@ class Window extends Component {
     first: true
   };
 
+  readFatalData = () => {
+    var objectKeys = [];
+
+    const rootRef = firebase
+      .database()
+      .ref()
+      .child("Fatal");
+
+    rootRef.on("value", snap => {
+      libSize = snap.numChildren();
+      console.log(libSize + " inside .on()");
+    });
+    console.log(libSize + " outside .on()");
+  };
+
   writeFatalData = () => {
     var filteredPoints = this.state.sentToDatabase;
     var totalEntries = filteredPoints.Fatal.length;
+    console.log(libSize + " in writeFataData()");
 
     const rootRef = firebase
       .database()
@@ -71,6 +89,7 @@ class Window extends Component {
   };
 
   p0t1 = () => {
+    this.readFatalData();
     this.setState({
       an1: "fadeOutLeft 1.5s ease",
       an2: "fadeInLeft 2s ease",
@@ -299,6 +318,7 @@ class Window extends Component {
   };
 
   p4tf = () => {
+    this.readFatalData();
     this.writeFatalData();
     this.setState({
       an5: "fadeOutLeft 1.5s  ease",
