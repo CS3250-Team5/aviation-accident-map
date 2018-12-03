@@ -692,15 +692,15 @@ class Window extends Component {
             className="pfcont"
             style={{ display: this.state.pf, animation: this.state.anf }}
           >
-            <div className="pannelf">
+            <div className="pannel4">
               <button id="back" onClick={this.backButton5}>
                 Back
               </button>
+              <h3 className="text4">Congratulations!</h3>
               <br />
-              <h3 className="textf">!(Congradulations your data is updated)</h3>
-              <div className="circle">
-                <p className="textfh">Done!</p>
-              </div>
+              <p className="text4h">
+                The fatal points <br /> have been uploaded!
+              </p>
             </div>
           </div>
         </div>
