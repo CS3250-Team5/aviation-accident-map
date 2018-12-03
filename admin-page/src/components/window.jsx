@@ -113,58 +113,6 @@ class Window extends Component {
     }
   };
 
-  welcomePanel = () => {
-    this.readFatalData();
-    this.setState({
-      an1: "fadeOutLeft 1.5s ease",
-      an2: "fadeInLeft 2s ease",
-      p1: "block"
-    });
-  };
-
-  backButton = () => {
-    this.setState({
-      an1: "fadeInRight 1.5s ease",
-      an2: "fadeOutRight 2s ease",
-      p0: "block"
-    });
-  };
-
-  backButton2 = () => {
-    validData = true;
-    this.resetClicker();
-    this.setState({
-      an2: "fadeInRight 1.5s ease",
-      an3: "fadeOutRight 2s ease",
-      p1: "block"
-    });
-  };
-
-  backButton3 = () => {
-    this.resetClicker();
-    this.setState({
-      an3: "fadeInRight 1.5s ease",
-      an4: "fadeOutRight 2s ease",
-      p2: "block"
-    });
-  };
-
-  backButton4 = () => {
-    this.setState({
-      an4: "fadeInRight 1.5s ease",
-      an5: "fadeOutRight 2s ease",
-      p3: "block"
-    });
-  };
-
-  backButton5 = () => {
-    this.setState({
-      an5: "fadeInRight 1.5s ease",
-      anf: "fadeOutRight 2s ease",
-      p4: "block"
-    });
-  };
-
   resetClicker = () => {
     clickedStep1 = false;
     clickedStep2 = false;
@@ -201,38 +149,6 @@ class Window extends Component {
     const data = result.data;
     this.setState({ jsonResults: data });
   }
-
-  stepOnePanel = () => {
-    if (!clickedStep1) {
-      this.progressBar();
-      if (this.state.downUpDis === true || this.state.validType === false) {
-        window.alert("*Please upload valid data file!*");
-      } else {
-        var ext = this.state.selectedFile.name;
-        ext = ext.split(".");
-        ext = ext[1];
-
-        if (ext === "txt") {
-          Papa.parse(this.state.selectedFile, {
-            skipEmptyLines: true,
-            complete: this.updateData
-          });
-        }
-
-        if (this.state.progWidth === 100) {
-          this.setState({ progWidth: 0 });
-          this.intervals = setInterval(() => {
-            if (this.state.progWidth !== 99) {
-              this.setState({
-                progWidth: this.state.progWidth + 1
-              });
-            }
-          }, 50);
-        }
-      }
-    }
-    clickedStep1 = true;
-  };
 
   searchingFor(term) {
     return x => {
@@ -335,6 +251,107 @@ class Window extends Component {
     this.setState({ selectValue: e.target.value });
   };
 
+  stepThreePanelChecked = () => {
+    var checkedPanel = [];
+    if (validData) {
+      checkedPanel.push(
+        <div className="pannel3" key="validData">
+          <button id="back" onClick={this.backButton3}>
+            Back
+          </button>
+          <h3 className="text3">Step 3 :</h3>
+          <p className="text3h">
+            Filtered by state, longitide between(-108,-105), and fatal accidents
+          </p>
+          <button className="button3" onClick={this.stepThreePanel}>
+            Next
+          </button>
+        </div>
+      );
+    } else {
+      checkedPanel.push(
+        <div className="pannel3" key="invalidData">
+          <button id="back" onClick={this.backButton3}>
+            Back
+          </button>
+          <h3 className="text3">Error :</h3>
+          <br />
+          <p className="text3h">Unreadable file</p>
+          <p className="text3h">Please provide a valid file</p>
+        </div>
+      );
+    }
+
+    return checkedPanel;
+  };
+
+  uploadStuff = event => {
+    var extension = event.target.files[0].name.split(".");
+    extension = extension[1];
+
+    if (!event.target.files[0] || extension !== "txt") {
+      window.alert("*Invalid file chosen!*");
+      return;
+    } else {
+      this.setState({
+        uploadName: event.target.files[0].name,
+        dis: "pointer",
+        downUpDis: false,
+        validType: true,
+        selectedFile: event.target.files[0]
+      });
+    }
+  };
+
+  welcomePanel = () => {
+    this.readFatalData();
+    this.setState({
+      an1: "fadeOutLeft 1.5s ease",
+      an2: "fadeInLeft 2s ease",
+      p1: "block"
+    });
+  };
+
+  instructionsPanel = () => {
+    this.setState({
+      an2: "fadeOutLeft 1.5s ease",
+      an3: "fadeInLeft 2s ease",
+      p1: "block"
+    });
+  };
+
+  stepOnePanel = () => {
+    if (!clickedStep1) {
+      this.progressBar();
+      if (this.state.downUpDis === true || this.state.validType === false) {
+        window.alert("*Please upload valid data file!*");
+      } else {
+        var ext = this.state.selectedFile.name;
+        ext = ext.split(".");
+        ext = ext[1];
+
+        if (ext === "txt") {
+          Papa.parse(this.state.selectedFile, {
+            skipEmptyLines: true,
+            complete: this.updateData
+          });
+        }
+
+        if (this.state.progWidth === 100) {
+          this.setState({ progWidth: 0 });
+          this.intervals = setInterval(() => {
+            if (this.state.progWidth !== 99) {
+              this.setState({
+                progWidth: this.state.progWidth + 1
+              });
+            }
+          }, 50);
+        }
+      }
+    }
+    clickedStep1 = true;
+  };
+
   stepTwoPanel = () => {
     if (!clickedStep2) {
       clickedStep2 = true;
@@ -360,40 +377,6 @@ class Window extends Component {
     }
   };
 
-  stepThreePanelChecked = () => {
-    var checkedPanel = [];
-    if (validData) {
-      checkedPanel.push(
-        <div className="pannel3" key="validData">
-          <button id="back" onClick={this.backButton3}>
-            Back
-          </button>
-          <h3 className="text3">Step 3 :</h3>
-          <p className="text3h">
-            Filtered by state, longitide between(-108,-105), and fatal accidents
-          </p>
-          <button className="button3" onClick={this.stepThreePanel}>
-            Next
-          </button>
-        </div>
-      );
-    } else {
-      checkedPanel.push(
-        <div className="pannel3" key="validData">
-          <button id="back" onClick={this.backButton3}>
-            Back
-          </button>
-          <h3 className="text3">Error :</h3>
-          <br />
-          <p className="text3h">Unreadable file</p>
-          <p className="text3h">Please provide a valid file</p>
-        </div>
-      );
-    }
-
-    return checkedPanel;
-  };
-
   stepThreePanel = () => {
     this.setState({
       an4: "fadeOutLeft 1.5s  ease",
@@ -413,22 +396,55 @@ class Window extends Component {
     });
   };
 
-  uploadStuff = event => {
-    var extension = event.target.files[0].name.split(".");
-    extension = extension[1];
+  backButton6 = () => {
+    this.setState({
+      an6: "fadeInRight 1.5s ease",
+      an7: "fadeOutRight 2s ease",
+      p4: "block"
+    });
+  };
 
-    if (!event.target.files[0] || extension !== "txt") {
-      window.alert("*Invalid file chosen!*");
-      return;
-    } else {
-      this.setState({
-        uploadName: event.target.files[0].name,
-        dis: "pointer",
-        downUpDis: false,
-        validType: true,
-        selectedFile: event.target.files[0]
-      });
-    }
+  backButton = () => {
+    this.setState({
+      an1: "fadeInRight 1.5s ease",
+      an2: "fadeOutRight 2s ease",
+      p0: "block"
+    });
+  };
+
+  backButton2 = () => {
+    validData = true;
+    this.resetClicker();
+    this.setState({
+      an2: "fadeInRight 1.5s ease",
+      an3: "fadeOutRight 2s ease",
+      p1: "block"
+    });
+  };
+
+  backButton3 = () => {
+    this.resetClicker();
+    this.setState({
+      an3: "fadeInRight 1.5s ease",
+      an4: "fadeOutRight 2s ease",
+      p2: "block"
+    });
+  };
+
+  backButton4 = () => {
+    this.setState({
+      an4: "fadeInRight 1.5s ease",
+      an5: "fadeOutRight 2s ease",
+      p3: "block"
+    });
+  };
+
+  backButton5 = () => {
+    this.setState({
+      an5: "fadeInRight 1.5s ease",
+      anf: "fadeOutRight 2s ease",
+      p4: "block"
+    });
   };
 
   render() {
@@ -455,6 +471,19 @@ class Window extends Component {
     return (
       <React.Fragment>
         <div className="allpannels">
+          <div
+            className="p0cont"
+            style={{ display: this.state.p0, animation: this.state.an1 }}
+          >
+            <div className="pannel0">
+              <h3 className="text0">Welcome Admin</h3>
+              <p className="text0h">Get Started!</p>
+              <button className="button0" onClick={this.welcomePanel}>
+                Update Accident Map
+              </button>
+            </div>
+          </div>
+
           <div
             className="p0cont"
             style={{ display: this.state.p0, animation: this.state.an1 }}
