@@ -54,7 +54,6 @@ class Window extends Component {
   };
 
   readFatalData = () => {
-
     const rootRef = firebase
       .database()
       .ref()
@@ -64,14 +63,13 @@ class Window extends Component {
       libSize = snap.numChildren();
     });
 
-    rootRef.on("value", snap=> {
-        var dataSet = snap.val();
-        if(dataSet === null){
-            objectKeys = 0;
-        }
-        else{
-            objectKeys = Object.keys(dataSet);
-        }
+    rootRef.on("value", snap => {
+      var dataSet = snap.val();
+      if (dataSet === null) {
+        objectKeys = 0;
+      } else {
+        objectKeys = Object.keys(dataSet);
+      }
     });
   };
 
@@ -81,32 +79,33 @@ class Window extends Component {
     var isFound = false;
 
     const rootRef = firebase
-    .database()
-    .ref()
-    .child("Fatal");
+      .database()
+      .ref()
+      .child("Fatal");
 
-    for(var i = 0; 0 < libSize--; i++){
-        var accNum = rootRef.child(objectKeys[i]).child("AccidentNumber");
-        accNum.on("value", snap => {
-            accNumbers[i] = snap.val();
-        })
+    for (var i = 0; 0 < libSize--; i++) {
+      var accNum = rootRef.child(objectKeys[i]).child("AccidentNumber");
+      // eslint-disable-next-line
+      accNum.on("value", snap => {
+        accNumbers[i] = snap.val();
+      });
     }
 
-    for(var x = 0; x < totalEntries; x++) {
-        isFound = false;
-        for(var y = 0; (y < objectKeys.length) && !isFound; y++) {
-            if(filteredPoints.Fatal[x].AccidentNumber === accNumbers[y]){
-                isFound = true;
-                break;
-            }
+    for (var x = 0; x < totalEntries; x++) {
+      isFound = false;
+      for (var y = 0; y < objectKeys.length && !isFound; y++) {
+        if (filteredPoints.Fatal[x].AccidentNumber === accNumbers[y]) {
+          isFound = true;
+          break;
         }
+      }
 
-        if(isFound === false){
-            //push non duplicate data to database
-            let item = filteredPoints.Fatal[x];
-            console.log(item);
-            rootRef.push(item);
-        }
+      if (isFound === false) {
+        //push non duplicate data to database
+        let item = filteredPoints.Fatal[x];
+        console.log(item);
+        rootRef.push(item);
+      }
     }
   };
 
