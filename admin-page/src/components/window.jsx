@@ -9,12 +9,6 @@ var objectKeys = [];
 var accNumbers = [];
 
 function initializeDatabase() {
-  /*
-  const tempDatabase = {
-    databaseURL: "https://test-project-cfcd0.firebaseio.com"
-  };
-  firebase.initializeApp(tempDatabase, "tempDatabase");
-  */
   const fatalDatabase = {
     databaseURL: "https://state-aviation-admin.firebaseio.com"
   };
@@ -70,7 +64,6 @@ class Window extends Component {
       libSize = snap.numChildren();
     });
 
-
     rootRef.on("value", snap=> {
         var dataSet = snap.val();
         if(dataSet === null){
@@ -79,9 +72,7 @@ class Window extends Component {
         else{
             objectKeys = Object.keys(dataSet);
         }
-    })
-    // console.log(objectKeys + " outside .on()");
-
+    });
   };
 
   writeFatalData = () => {
@@ -103,10 +94,10 @@ class Window extends Component {
     console.log(accNumbers);
 
     for(var x = 0; x < totalEntries; x++) {
-        //console.log("Outer For Loop");
         isFound = false;
+
         for(var y = 0; (y < objectKeys.length) && !isFound; y++) {
-            //console.log("Inner For Loop");
+
             if(filteredPoints.Fatal[x].AccidentNumber === accNumbers[y]){
                 console.log("FP: " + filteredPoints.Fatal[x].AccidentNumber + "AC: " + accNumbers[y]);
                 isFound = true;
@@ -114,7 +105,7 @@ class Window extends Component {
             }
         }
         if(isFound === false){
-            //push to the databaseURL
+            //push non duplicate data to database
             let item = filteredPoints.Fatal[x];
             console.log(item);
             rootRef.push(item);
