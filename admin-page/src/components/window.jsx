@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import "../style/window.css";
 import Papa from "papaparse";
 
+var validData = true;
+var clickedStep1 = false;
+var clickedStep2 = false;
+
 class Window extends Component {
   constructor(props) {
     // Call super class
@@ -57,6 +61,8 @@ class Window extends Component {
   };
 
   backButton2 = () => {
+    validData = true;
+    this.resetClicker();
     this.setState({
       an2: "fadeInRight 1.5s ease",
       an3: "fadeOutRight 2s ease",
@@ -65,6 +71,7 @@ class Window extends Component {
   };
 
   backButton3 = () => {
+    this.resetClicker();
     this.setState({
       an3: "fadeInRight 1.5s ease",
       an4: "fadeOutRight 2s ease",
@@ -86,6 +93,11 @@ class Window extends Component {
       anf: "fadeOutRight 2s ease",
       p4: "block"
     });
+  };
+
+  resetClicker = () => {
+    clickedStep1 = false;
+    clickedStep2 = false;
   };
 
   progressBar = () => {
@@ -121,32 +133,35 @@ class Window extends Component {
   }
 
   stepOnePanel = () => {
-    this.progressBar();
-    if (this.state.downUpDis === true || this.state.validType === false) {
-      window.alert("*Please upload valid data file!*");
-    } else {
-      var ext = this.state.selectedFile.name;
-      ext = ext.split(".");
-      ext = ext[1];
+    if (!clickedStep1) {
+      this.progressBar();
+      if (this.state.downUpDis === true || this.state.validType === false) {
+        window.alert("*Please upload valid data file!*");
+      } else {
+        var ext = this.state.selectedFile.name;
+        ext = ext.split(".");
+        ext = ext[1];
 
-      if (ext === "txt") {
-        Papa.parse(this.state.selectedFile, {
-          skipEmptyLines: true,
-          complete: this.updateData
-        });
-      }
+        if (ext === "txt") {
+          Papa.parse(this.state.selectedFile, {
+            skipEmptyLines: true,
+            complete: this.updateData
+          });
+        }
 
-      if (this.state.progWidth === 100) {
-        this.setState({ progWidth: 0 });
-        this.intervals = setInterval(() => {
-          if (this.state.progWidth !== 99) {
-            this.setState({
-              progWidth: this.state.progWidth + 1
-            });
-          }
-        }, 50);
+        if (this.state.progWidth === 100) {
+          this.setState({ progWidth: 0 });
+          this.intervals = setInterval(() => {
+            if (this.state.progWidth !== 99) {
+              this.setState({
+                progWidth: this.state.progWidth + 1
+              });
+            }
+          }, 50);
+        }
       }
     }
+    clickedStep1 = true;
   };
 
   searchingFor(term) {
@@ -155,15 +170,19 @@ class Window extends Component {
         this.state.headers.push(x);
         this.setState({ first: false });
       }
-      if (
-        x[4].includes(term) &&
-        parseInt(x[7], 10) <= -105 &&
-        parseInt(x[7], 10) >= -108 &&
-        x[19].includes("91") &&
-        !x[10].includes("Non") &&
-        !this.state.jsonFiltered.includes(x)
-      ) {
-        this.state.jsonFiltered.push(x);
+      try {
+        if (
+          x[4].includes(term) &&
+          parseInt(x[7], 10) <= -105 &&
+          parseInt(x[7], 10) >= -108 &&
+          x[19].includes("91") &&
+          !x[10].includes("Non") &&
+          !this.state.jsonFiltered.includes(x)
+        ) {
+          this.state.jsonFiltered.push(x);
+        }
+      } catch (error) {
+        validData = false;
       }
       return;
     };
@@ -199,23 +218,60 @@ class Window extends Component {
   };
 
   stepTwoPanel = () => {
-    if (this.state.selectValue === "CO") {
-      this.filter();
-      this.jasonify();
-      if (this.state.progWidth2 === 100) {
-        this.setState({ progWidth2: 0 });
-        this.intervals = setInterval(() => {
-          if (this.state.progWidth2 !== 99) {
-            this.setState({
-              progWidth2: this.state.progWidth2 + 1
-            });
-          }
-        }, 50);
+    if (!clickedStep2) {
+      if (this.state.selectValue === "CO") {
+        this.filter();
+        this.jasonify();
+        if (this.state.progWidth2 === 100) {
+          this.setState({ progWidth2: 0 });
+          this.intervals = setInterval(() => {
+            if (this.state.progWidth2 !== 99) {
+              this.setState({
+                progWidth2: this.state.progWidth2 + 1
+              });
+            }
+          }, 50);
+        }
+        this.progressBar2();
+      } else {
+        window.alert("Psst* Try Colorado");
       }
-      this.progressBar2();
-    } else {
-      window.alert("Psst* Try Colorado");
     }
+    clickedStep2 = true;
+  };
+
+  stepThreePanelChecked = () => {
+    var checkedPanel = [];
+    if (validData) {
+      checkedPanel.push(
+        <div className="pannel3" key="validData">
+          <button id="back" onClick={this.backButton3}>
+            Back
+          </button>
+          <h3 className="text3">Step 3 :</h3>
+          <p className="text3h">
+            Filtered by state, longitide between(-108,-105), and fatal accidents
+          </p>
+          <button className="button3" onClick={this.stepThreePanel}>
+            Next
+          </button>
+        </div>
+      );
+    } else {
+      checkedPanel.push(
+        <div className="pannel3" key="validData">
+          <button id="back" onClick={this.backButton3}>
+            Back
+          </button>
+          <h3 className="text3">Error :</h3>
+          <br />
+          <p className="text3h">Unreadable file</p>
+          <p className="text3h">Please provide a valid file</p>
+        </div>
+      );
+    }
+
+    return checkedPanel;
   };
 
   stepThreePanel = () => {
@@ -372,7 +428,6 @@ class Window extends Component {
               <button id="back" onClick={this.backButton2}>
                 Back
               </button>
-
               <h3 className="text2">Step 2 :</h3>
               <div
                 className="progCont"
@@ -464,20 +519,7 @@ class Window extends Component {
             className="p3cont"
             style={{ display: this.state.p3, animation: this.state.an4 }}
           >
-            <div className="pannel3">
-              <button id="back" onClick={this.backButton3}>
-                Back
-              </button>
-              <h3 className="text3">Step 3 :</h3>
-              <p className="text3h">
-                Filtered by state, longitide between(-108,-105), and fatal
-                accidents
-              </p>
-
-              <button className="button3" onClick={this.stepThreePanel}>
-                Next
-              </button>
-            </div>
+            {this.stepThreePanelChecked()}
           </div>
 
           <div
