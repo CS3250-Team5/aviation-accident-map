@@ -1,6 +1,20 @@
 import React, { Component } from "react";
-import "../style/window.css";
 import Papa from "papaparse";
+import * as firebase from "firebase/app";
+import "firebase/database";
+import "../style/window.css";
+
+var libSize = 0;
+var objectKeys = [];
+var accNumbers = [];
+
+function initializeDatabase() {
+  const fatalDatabase = {
+    databaseURL: "https://state-aviation-admin.firebaseio.com"
+  };
+  firebase.initializeApp(fatalDatabase);
+}
+initializeDatabase();
 
 var validData = true;
 var clickedStep1 = false;
@@ -38,13 +52,70 @@ class Window extends Component {
     selectedFile: null,
     jsonResults: null,
     jsonFiltered: [],
+    sentToDatabase: null,
     headers: [],
     fullJson: [],
     processedJson: [],
     first: true
   };
 
+  readFatalData = () => {
+    const rootRef = firebase
+      .database()
+      .ref()
+      .child("Fatal");
+
+    rootRef.on("value", snap => {
+      libSize = snap.numChildren();
+    });
+
+    rootRef.on("value", snap => {
+      var dataSet = snap.val();
+      if (dataSet === null) {
+        objectKeys = 0;
+      } else {
+        objectKeys = Object.keys(dataSet);
+      }
+    });
+  };
+
+  writeFatalData = () => {
+    var filteredPoints = this.state.sentToDatabase;
+    var totalEntries = filteredPoints.Fatal.length;
+    var isFound = false;
+
+    const rootRef = firebase
+      .database()
+      .ref()
+      .child("Fatal");
+
+    for (var i = 0; 0 < libSize--; i++) {
+      var accNum = rootRef.child(objectKeys[i]).child("AccidentNumber");
+      // eslint-disable-next-line
+      accNum.on("value", snap => {
+        accNumbers[i] = snap.val();
+      });
+    }
+
+    for (var x = 0; x < totalEntries; x++) {
+      isFound = false;
+      for (var y = 0; y < objectKeys.length && !isFound; y++) {
+        if (filteredPoints.Fatal[x].AccidentNumber === accNumbers[y]) {
+          isFound = true;
+          break;
+        }
+      }
+
+      if (isFound === false) {
+        //push non duplicate data to database
+        let item = filteredPoints.Fatal[x];
+        rootRef.push(item);
+      }
+    }
+  };
+
   welcomePanel = () => {
+    this.readFatalData();
     this.setState({
       an1: "fadeOutLeft 1.5s ease",
       an2: "fadeInLeft 2s ease",
@@ -189,10 +260,58 @@ class Window extends Component {
   }
 
   filter = () => {
+    var jsonLine = '{ "Fatal" : [';
+    var jsonObj = null;
+    var accidentNumber = null;
+    var country = null;
+    var eventDate = null;
+    var eventID = null;
+    var investigationType = null;
+    var latitude = null;
+    var location = null;
+    var longitude = null;
+
     this.state.jsonResults
       .filter(this.searchingFor(", " + this.state.selectValue))
       // eslint-disable-next-line
       .map(loc => {});
+
+    for (var i = 0; i < this.state.jsonFiltered.length; i++) {
+      accidentNumber = JSON.stringify(this.state.jsonFiltered[i][2]);
+      country = JSON.stringify(this.state.jsonFiltered[i][5]);
+      eventDate = JSON.stringify(this.state.jsonFiltered[i][30]);
+      eventID = JSON.stringify(this.state.jsonFiltered[i][0]);
+      investigationType = JSON.stringify(this.state.jsonFiltered[i][1]);
+      latitude = JSON.stringify(this.state.jsonFiltered[i][6]);
+      location = JSON.stringify(this.state.jsonFiltered[i][4]);
+      longitude = JSON.stringify(this.state.jsonFiltered[i][7]);
+      jsonLine +=
+        '{ "AccidentNumber" : ' +
+        accidentNumber +
+        ', "Country" : ' +
+        country +
+        ', "EventDate" : ' +
+        eventDate +
+        ', "EventID" : ' +
+        eventID +
+        ', "InvestigationType" : ' +
+        investigationType +
+        ', "Latitude" : ' +
+        latitude +
+        ', "Location" : ' +
+        location +
+        ', "Longitude" : ' +
+        longitude;
+      if (i + 1 < this.state.jsonFiltered.length) {
+        jsonLine += " }, ";
+      } else {
+        jsonLine += " } ";
+      }
+    }
+
+    jsonLine += "] }";
+    jsonObj = JSON.parse(jsonLine);
+    this.setState({ sentToDatabase: jsonObj });
   };
 
   jasonify = () => {
@@ -284,7 +403,8 @@ class Window extends Component {
   };
 
   stepFourPanel = () => {
-    console.log(this.state.jsonFiltered);
+    this.readFatalData();
+    this.writeFatalData();
     this.setState({
       an5: "fadeOutLeft 1.5s  ease",
       anf: "fadeInLeft 2s ease",

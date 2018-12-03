@@ -77,7 +77,7 @@ class Map extends Component {
   state = {
     fatalBox: false,
     passBox: false,
-    awosBox: false
+    awosBox: false,
   };
 
   static defaultProps = {
@@ -93,6 +93,7 @@ class Map extends Component {
     var latP = [];
     var lngP = [];
     var eventID = [];
+    var objectKeys = [];
     var libSize = 0;
     var distKey = null;
 
@@ -105,25 +106,33 @@ class Map extends Component {
       libSize = snap.numChildren();
     });
 
-    for (var i = 0; i < libSize; i++) {
-      var longRef = rootRef.child(i).child("Longitude");
-      // eslint-disable-next-line
-      longRef.on("value", snap => {
-        lngP[i] = snap.val();
-      });
-      var latRef = rootRef.child(i).child("Latitude");
-      // eslint-disable-next-line
-      latRef.on("value", snap => {
-        latP[i] = snap.val();
-      });
-      var idRef = rootRef.child(i).child("EventId");
-      // eslint-disable-next-line
-      idRef.on("value", snap => {
-        eventID[i] =
-          "https://app.ntsb.gov/pdfgenerator/ReportGeneratorFile.ashx?EventID=" +
-          snap.val() +
-          "&AKey=1&RType=HTML&IType=FA";
-      });
+    if (libSize > -1) {
+      for (var i = 0; i < libSize; i++) {
+        // eslint-disable-next-line
+        rootRef.on("value", snap => {
+          var dataSet = snap.val();
+          objectKeys = Object.keys(dataSet);
+        });
+
+        var longRef = rootRef.child(objectKeys[i]).child("Longitude");
+        // eslint-disable-next-line
+        longRef.on("value", snap => {
+          lngP[i] = snap.val();
+        });
+        var latRef = rootRef.child(objectKeys[i]).child("Latitude");
+        // eslint-disable-next-line
+        latRef.on("value", snap => {
+          latP[i] = snap.val();
+        });
+        var idRef = rootRef.child(objectKeys[i]).child("EventID");
+        // eslint-disable-next-line
+        idRef.on("value", snap => {
+          eventID[i] =
+            "https://app.ntsb.gov/pdfgenerator/ReportGeneratorFile.ashx?EventID=" +
+            snap.val() +
+            "&AKey=1&RType=HTML&IType=FA";
+        });
+      }
     }
 
     if (this.state.fatalBox === true) {
