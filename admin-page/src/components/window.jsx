@@ -91,19 +91,16 @@ class Window extends Component {
             accNumbers[i] = snap.val();
         })
     }
-    console.log(accNumbers);
 
     for(var x = 0; x < totalEntries; x++) {
         isFound = false;
-
         for(var y = 0; (y < objectKeys.length) && !isFound; y++) {
-
             if(filteredPoints.Fatal[x].AccidentNumber === accNumbers[y]){
-                console.log("FP: " + filteredPoints.Fatal[x].AccidentNumber + "AC: " + accNumbers[y]);
                 isFound = true;
                 break;
             }
         }
+
         if(isFound === false){
             //push non duplicate data to database
             let item = filteredPoints.Fatal[x];
