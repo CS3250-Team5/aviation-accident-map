@@ -77,7 +77,7 @@ class Map extends Component {
   state = {
     fatalBox: false,
     passBox: false,
-    awosBox: false,
+    awosBox: false
   };
 
   static defaultProps = {
@@ -106,7 +106,7 @@ class Map extends Component {
       libSize = snap.numChildren();
     });
 
-    if (libSize > -1) {
+    try {
       for (var i = 0; i < libSize; i++) {
         // eslint-disable-next-line
         rootRef.on("value", snap => {
@@ -117,22 +117,24 @@ class Map extends Component {
         var longRef = rootRef.child(objectKeys[i]).child("Longitude");
         // eslint-disable-next-line
         longRef.on("value", snap => {
-          lngP[i] = snap.val();
+          lngP[i] = snap.val().trim();
         });
         var latRef = rootRef.child(objectKeys[i]).child("Latitude");
         // eslint-disable-next-line
         latRef.on("value", snap => {
-          latP[i] = snap.val();
+          latP[i] = snap.val().trim();
         });
         var idRef = rootRef.child(objectKeys[i]).child("EventID");
         // eslint-disable-next-line
         idRef.on("value", snap => {
           eventID[i] =
             "https://app.ntsb.gov/pdfgenerator/ReportGeneratorFile.ashx?EventID=" +
-            snap.val() +
+            snap.val().trim() +
             "&AKey=1&RType=HTML&IType=FA";
         });
       }
+    } catch (error) {
+      return;
     }
 
     if (this.state.fatalBox === true) {
@@ -307,27 +309,48 @@ class Map extends Component {
       // Important! Always set the container height explicitly
       <div className="backGround">
         <center className="filterGroup">
-          <button className="button one"
-              onClick={this.handleAccidents}
-              name="Fatal Accidents"
-            >
-            <img src={plane} className="image" alt="plane" width="21" height="21" />
+          <button
+            className="button one"
+            onClick={this.handleAccidents}
+            name="Fatal Accidents"
+          >
+            <img
+              src={plane}
+              className="image"
+              alt="plane"
+              width="21"
+              height="21"
+            />
             Show Fatal Accidents
-        </button>
-          <button className="button two"
-              onClick={this.handleAwos}
-              name="CDOT Mountain AWOS"
-            >
-            <img src={awos} className="image" alt="awos" width="21" height="21" />
+          </button>
+          <button
+            className="button two"
+            onClick={this.handleAwos}
+            name="CDOT Mountain AWOS"
+          >
+            <img
+              src={awos}
+              className="image"
+              alt="awos"
+              width="21"
+              height="21"
+            />
             Show CDOT Mountain AWOS
-        </button>
-          <button className="button three"
-              onClick={this.handlePasses}
-              name="Mountain Passes"
-            >
-            <img src={mountain} className="image" alt="mountain" width="21" height="21" />
+          </button>
+          <button
+            className="button three"
+            onClick={this.handlePasses}
+            name="Mountain Passes"
+          >
+            <img
+              src={mountain}
+              className="image"
+              alt="mountain"
+              width="21"
+              height="21"
+            />
             Show Mountain Passes
-        </button>
+          </button>
         </center>
 
         <div className="mapStyle">
