@@ -16,7 +16,7 @@ function initializeDatabase() {
   firebase.initializeApp(tempDatabase, "tempDatabase");
   */
   const fatalDatabase = {
-    databaseURL: "https://test-project-cfcd0.firebaseio.com"
+    databaseURL: "https://state-aviation-admin.firebaseio.com"
   };
   firebase.initializeApp(fatalDatabase);
 }
