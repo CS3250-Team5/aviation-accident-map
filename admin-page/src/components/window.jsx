@@ -548,6 +548,7 @@ class Window extends Component {
                     <input
                       type="file"
                       id="myuniqueid"
+                      accept=".txt, .xml, .csv"
                       onChange={this.uploadStuff}
                     />
                   </label>
