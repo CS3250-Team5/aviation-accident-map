@@ -7,6 +7,9 @@ import "../style/window.css";
 var libSize = 0;
 var objectKeys = [];
 var accNumbers = [];
+var validData = true;
+var clickedStep1 = false;
+var clickedStep2 = false;
 
 function initializeDatabase() {
   const fatalDatabase = {
@@ -15,10 +18,6 @@ function initializeDatabase() {
   firebase.initializeApp(fatalDatabase);
 }
 initializeDatabase();
-
-var validData = true;
-var clickedStep1 = false;
-var clickedStep2 = false;
 
 class Window extends Component {
   constructor(props) {
@@ -338,6 +337,8 @@ class Window extends Component {
 
   stepTwoPanel = () => {
     if (!clickedStep2) {
+      clickedStep2 = true;
+
       if (this.state.selectValue === "CO") {
         this.filter();
         this.jasonify();
@@ -354,9 +355,9 @@ class Window extends Component {
         this.progressBar2();
       } else {
         window.alert("Psst* Try Colorado");
+        clickedStep2 = false;
       }
     }
-    clickedStep2 = true;
   };
 
   stepThreePanelChecked = () => {
