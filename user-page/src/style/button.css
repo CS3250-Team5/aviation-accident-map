@@ -1,8 +1,92 @@
-.filterBoxes {
-  padding: 0px 10px 0 0;
+.filterGroup {
+    padding-top: 40px;
 }
 
-.filterGroup {
-  padding-top: 40px;
-  font-size: 18px;
+@media screen and (max-device-width: 375px) {
+    .filterGroup {
+        padding-top: 20px;
+    }
+}
+
+.image {
+    position: relative;
+    padding-right: 5px;
+    top: 3.5px;
+}
+
+@media screen and (max-device-width: 518px) {
+    .button {
+        max-width: 30%;
+    }
+    .button.one {
+        font-size: 100%;
+    }
+    .button.two {
+        font-size: 100%;
+    }
+    .button.three {
+        font-size: 100%;
+    }
+}
+
+.button {
+    font-size: 112.5%;
+    font-family: "Agency FB", Tahoma, Geneva, sans-serif;
+    font-style: italic;
+    font-weight: bolder;
+    display: block;
+    border-radius: 10px;
+    padding: 10px 25px;
+    margin-right: 10px;
+    margin-bottom: 9px;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    box-shadow: 0px 8px #999999;
+}
+
+.button.one:hover {
+    background-color: #ffe6e6;
+}
+
+.button.one:active {
+    background-color: #ff9980;
+    box-shadow: 0 4px #666666;
+    transform: translateY(4px);
+}
+
+.button.one {
+    background-color: #FFF;
+    border: 5px solid red;
+}
+
+.button.two:hover {
+    background-color: #ffffe6;
+}
+
+.button.two:active {
+    background-color: #ffff80;
+    box-shadow: 0 4px #666666;
+    transform: translateY(4px);
+}
+
+.button.two {
+    background-color: #FFF;
+    border: 5px solid #e6e600;
+}
+
+.button.three:hover {
+    background-color: #ebfaeb;
+}
+
+.button.three:active {
+    background-color: #99e699;
+    box-shadow: 0 4px #666666;
+    transform: translateY(4px);
+}
+
+.button.three {
+    background-color: #FFF;
+    border: 5px solid #29a329;
 }

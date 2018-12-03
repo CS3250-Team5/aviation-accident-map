@@ -6,9 +6,9 @@ class Banner extends Component {
   render() {
     return (
       <div className="banner">
-        <div className="logo">
+        <div>
           <a href="http://coloradopilots.org/">
-            <img src={Logo} height="25%" width="30%" alt="Logo" />
+            <img className="logo" src={Logo} alt="Logo" />
           </a>
         </div>
       </div>
