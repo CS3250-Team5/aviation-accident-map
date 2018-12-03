@@ -40,7 +40,7 @@ class Window extends Component {
     first: true
   };
 
-  p0t1 = () => {
+  welcomePanel = () => {
     this.setState({
       an1: "fadeOutLeft 1.5s ease",
       an2: "fadeInLeft 2s ease",
@@ -48,7 +48,7 @@ class Window extends Component {
     });
   };
 
-  b1t0 = () => {
+  backButton = () => {
     this.setState({
       an1: "fadeInRight 1.5s ease",
       an2: "fadeOutRight 2s ease",
@@ -56,7 +56,7 @@ class Window extends Component {
     });
   };
 
-  b2t1 = () => {
+  backButton2 = () => {
     this.setState({
       an2: "fadeInRight 1.5s ease",
       an3: "fadeOutRight 2s ease",
@@ -64,7 +64,7 @@ class Window extends Component {
     });
   };
 
-  b3t2 = () => {
+  backButton3 = () => {
     this.setState({
       an3: "fadeInRight 1.5s ease",
       an4: "fadeOutRight 2s ease",
@@ -72,7 +72,7 @@ class Window extends Component {
     });
   };
 
-  b4t3 = () => {
+  backButton4 = () => {
     this.setState({
       an4: "fadeInRight 1.5s ease",
       an5: "fadeOutRight 2s ease",
@@ -80,7 +80,7 @@ class Window extends Component {
     });
   };
 
-  bft4 = () => {
+  backButton5 = () => {
     this.setState({
       an5: "fadeInRight 1.5s ease",
       anf: "fadeOutRight 2s ease",
@@ -88,7 +88,7 @@ class Window extends Component {
     });
   };
 
-  interval = () => {
+  progressBar = () => {
     if (this.state.progWidth !== 100 && this.state.downUpDis === false) {
       this.setState({ progDisp: "block" });
 
@@ -102,7 +102,7 @@ class Window extends Component {
     }
   };
 
-  interval2 = () => {
+  progressBar2 = () => {
     if (this.state.progWidth2 !== 100) {
       this.setState({ progDisp2: "block" });
       this.intervals = setInterval(() => {
@@ -120,8 +120,8 @@ class Window extends Component {
     this.setState({ jsonResults: data });
   }
 
-  p1t2 = () => {
-    this.interval();
+  stepOnePanel = () => {
+    this.progressBar();
     if (this.state.downUpDis === true || this.state.validType === false) {
       window.alert("*Please upload valid data file!*");
     } else {
@@ -184,7 +184,11 @@ class Window extends Component {
       for (var b = 0; b < this.state.jsonFiltered[a].length; b++) {
         total[this.state.headers[0][b]] = this.state.jsonFiltered[a][b];
       }
-      object.push(total);
+      try {
+        object.push(total);
+      } catch (error) {
+        return;
+      }
     }
     var temp = JSON.stringify(this.state.fullJson);
     this.setState({ fullJson: temp });
@@ -194,7 +198,7 @@ class Window extends Component {
     this.setState({ selectValue: e.target.value });
   };
 
-  p2t3 = () => {
+  stepTwoPanel = () => {
     if (this.state.selectValue === "CO") {
       this.filter();
       this.jasonify();
@@ -208,13 +212,13 @@ class Window extends Component {
           }
         }, 50);
       }
-      this.interval2();
+      this.progressBar2();
     } else {
       window.alert("Psst* Try Colorado");
     }
   };
 
-  p3t4 = () => {
+  stepThreePanel = () => {
     this.setState({
       an4: "fadeOutLeft 1.5s  ease",
       an5: "fadeInLeft 2s ease",
@@ -223,7 +227,8 @@ class Window extends Component {
     });
   };
 
-  p4tf = () => {
+  stepFourPanel = () => {
+    console.log(this.state.jsonFiltered);
     this.setState({
       an5: "fadeOutLeft 1.5s  ease",
       anf: "fadeInLeft 2s ease",
@@ -280,7 +285,7 @@ class Window extends Component {
             <div className="pannel0">
               <h3 className="text0">Welcome Admin</h3>
               <p className="text0h">Get Started!</p>
-              <button className="button0" onClick={this.p0t1}>
+              <button className="button0" onClick={this.welcomePanel}>
                 Update Accident Map
               </button>
             </div>
@@ -291,7 +296,7 @@ class Window extends Component {
             style={{ display: this.state.p1, animation: this.state.an2 }}
           >
             <div className="pannel1">
-              <button id="back" onClick={this.b1t0}>
+              <button id="back" onClick={this.backButton}>
                 Back
               </button>
               <h3 className="text1">Step 1 :</h3>
@@ -345,7 +350,7 @@ class Window extends Component {
               <div>
                 <button
                   className="button1"
-                  onClick={this.p1t2}
+                  onClick={this.stepOnePanel}
                   style={{
                     marginTop: "10px",
                     cursor: this.state.dis,
@@ -364,7 +369,7 @@ class Window extends Component {
             style={{ display: this.state.p2, animation: this.state.an3 }}
           >
             <div className="pannel2">
-              <button id="back" onClick={this.b2t1}>
+              <button id="back" onClick={this.backButton2}>
                 Back
               </button>
 
@@ -449,7 +454,7 @@ class Window extends Component {
                   <option value="WY">Wyoming</option>
                 </select>{" "}
               </p>
-              <button className="button2" onClick={this.p2t3}>
+              <button className="button2" onClick={this.stepTwoPanel}>
                 Filter by state
               </button>
             </div>
@@ -460,7 +465,7 @@ class Window extends Component {
             style={{ display: this.state.p3, animation: this.state.an4 }}
           >
             <div className="pannel3">
-              <button id="back" onClick={this.b3t2}>
+              <button id="back" onClick={this.backButton3}>
                 Back
               </button>
               <h3 className="text3">Step 3 :</h3>
@@ -469,7 +474,7 @@ class Window extends Component {
                 accidents
               </p>
 
-              <button className="button3" onClick={this.p3t4}>
+              <button className="button3" onClick={this.stepThreePanel}>
                 Next
               </button>
             </div>
@@ -480,12 +485,12 @@ class Window extends Component {
             style={{ display: this.state.p4, animation: this.state.an5 }}
           >
             <div className="pannel4">
-              <button id="back" onClick={this.b4t3}>
+              <button id="back" onClick={this.backButton4}>
                 Back
               </button>
               <h3 className="text4">Step 4 :</h3>
               <p className="text4h">Upload Data</p>
-              <button className="button4" onClick={this.p4tf}>
+              <button className="button4" onClick={this.stepFourPanel}>
                 Finish
               </button>
             </div>
@@ -496,7 +501,7 @@ class Window extends Component {
             style={{ display: this.state.pf, animation: this.state.anf }}
           >
             <div className="pannelf">
-              <button id="back" onClick={this.bft4}>
+              <button id="back" onClick={this.backButton5}>
                 Back
               </button>
               <br />
