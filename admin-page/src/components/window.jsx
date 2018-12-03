@@ -5,6 +5,8 @@ import "firebase/database";
 import "../style/window.css";
 
 var libSize = 0;
+var objectKeys = [];
+var accNumbers = [];
 
 function initializeDatabase() {
   /*
@@ -14,7 +16,7 @@ function initializeDatabase() {
   firebase.initializeApp(tempDatabase, "tempDatabase");
   */
   const fatalDatabase = {
-    databaseURL: "https://state-aviation-admin.firebaseio.com"
+    databaseURL: "https://test-project-cfcd0.firebaseio.com"
   };
   firebase.initializeApp(fatalDatabase);
 }
@@ -58,7 +60,6 @@ class Window extends Component {
   };
 
   readFatalData = () => {
-    var objectKeys = [];
 
     const rootRef = firebase
       .database()
@@ -67,24 +68,57 @@ class Window extends Component {
 
     rootRef.on("value", snap => {
       libSize = snap.numChildren();
-      console.log(libSize + " inside .on()");
     });
-    console.log(libSize + " outside .on()");
+
+
+    rootRef.on("value", snap=> {
+        var dataSet = snap.val();
+        if(dataSet === null){
+            objectKeys = 0;
+        }
+        else{
+            objectKeys = Object.keys(dataSet);
+        }
+    })
+    // console.log(objectKeys + " outside .on()");
+
   };
 
   writeFatalData = () => {
     var filteredPoints = this.state.sentToDatabase;
     var totalEntries = filteredPoints.Fatal.length;
-    console.log(libSize + " in writeFataData()");
+    var isFound = false;
 
     const rootRef = firebase
-      .database()
-      .ref()
-      .child("Fatal");
+    .database()
+    .ref()
+    .child("Fatal");
 
-    for (var i = 0; i < totalEntries; i++) {
-      let item = filteredPoints.Fatal[i];
-      rootRef.push(item);
+    for(var i = 0; 0 < libSize--; i++){
+        var accNum = rootRef.child(objectKeys[i]).child("AccidentNumber");
+        accNum.on("value", snap => {
+            accNumbers[i] = snap.val();
+        })
+    }
+    console.log(accNumbers);
+
+    for(var x = 0; x < totalEntries; x++) {
+        //console.log("Outer For Loop");
+        isFound = false;
+        for(var y = 0; (y < objectKeys.length) && !isFound; y++) {
+            //console.log("Inner For Loop");
+            if(filteredPoints.Fatal[x].AccidentNumber === accNumbers[y]){
+                console.log("FP: " + filteredPoints.Fatal[x].AccidentNumber + "AC: " + accNumbers[y]);
+                isFound = true;
+                break;
+            }
+        }
+        if(isFound === false){
+            //push to the databaseURL
+            let item = filteredPoints.Fatal[x];
+            console.log(item);
+            rootRef.push(item);
+        }
     }
   };
 
