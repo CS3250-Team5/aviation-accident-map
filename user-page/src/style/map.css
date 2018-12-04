@@ -5,6 +5,12 @@
   padding: 40px 0 0 0;
 }
 
+.about {
+    font-family: "Agency FB", Tahoma, Geneva, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    opacity: 0.5;
+}
 /* Tooltip container */
 .tooltip {
     display:inline-block;
@@ -54,4 +60,8 @@
     transform:translate(-50%,-50%) rotate(45deg);
     background-color:#EEEEEE;
     border:1px solid #000000;box-shadow:0 1px 8px rgba(0,0,0,0.5);
+}
+
+.tooltip.aboutStyle {
+    padding-top: 15px;
 }
