@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "../style/map.css";
+import "../style/about.css";
 
 class About extends Component {
   render() {
@@ -7,7 +7,7 @@ class About extends Component {
       <div className="tooltip aboutStyle">
         <center>
           <span className="about">About</span>
-          <span className="tooltiptext">
+          <span className="tooltipAboutText">
             <span>This page created by: </span>
             <a
               href="https://github.com/CS3250-Team5"
@@ -17,6 +17,7 @@ class About extends Component {
               Team 5<br />
             </a>
             <span>
+              <br />
               Members: <br />
             </span>
             <a
