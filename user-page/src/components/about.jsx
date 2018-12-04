@@ -16,6 +16,9 @@ class About extends Component {
             >
               Team 5<br />
             </a>
+            <span>
+              Members : <br />
+            </span>
             <a
               href="https://github.com/beavelar"
               target="_blank"
