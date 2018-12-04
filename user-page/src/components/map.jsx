@@ -55,12 +55,6 @@ const AWOS = ({ lat, lng, loc, freq }) => (
 );
 
 function initializeDatabase() {
-  /*
-  const tempDatabase = {
-    databaseURL: "https://test-project-cfcd0.firebaseio.com"
-  };
-  firebase.initializeApp(tempDatabase, "tempDatabase");
-  */
   const firstDatabase = {
     databaseURL: "https://state-aviation-admin.firebaseio.com"
   };
