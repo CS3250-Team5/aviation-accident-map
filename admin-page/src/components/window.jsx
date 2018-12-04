@@ -7,6 +7,9 @@ import "../style/window.css";
 var libSize = 0;
 var objectKeys = [];
 var accNumbers = [];
+var validData = true;
+var clickedStep1 = false;
+var clickedStep2 = false;
 
 function initializeDatabase() {
   const fatalDatabase = {
@@ -15,10 +18,6 @@ function initializeDatabase() {
   firebase.initializeApp(fatalDatabase);
 }
 initializeDatabase();
-
-var validData = true;
-var clickedStep1 = false;
-var clickedStep2 = false;
 
 class Window extends Component {
   constructor(props) {
@@ -114,58 +113,6 @@ class Window extends Component {
     }
   };
 
-  welcomePanel = () => {
-    this.readFatalData();
-    this.setState({
-      an1: "fadeOutLeft 1.5s ease",
-      an2: "fadeInLeft 2s ease",
-      p1: "block"
-    });
-  };
-
-  backButton = () => {
-    this.setState({
-      an1: "fadeInRight 1.5s ease",
-      an2: "fadeOutRight 2s ease",
-      p0: "block"
-    });
-  };
-
-  backButton2 = () => {
-    validData = true;
-    this.resetClicker();
-    this.setState({
-      an2: "fadeInRight 1.5s ease",
-      an3: "fadeOutRight 2s ease",
-      p1: "block"
-    });
-  };
-
-  backButton3 = () => {
-    this.resetClicker();
-    this.setState({
-      an3: "fadeInRight 1.5s ease",
-      an4: "fadeOutRight 2s ease",
-      p2: "block"
-    });
-  };
-
-  backButton4 = () => {
-    this.setState({
-      an4: "fadeInRight 1.5s ease",
-      an5: "fadeOutRight 2s ease",
-      p3: "block"
-    });
-  };
-
-  backButton5 = () => {
-    this.setState({
-      an5: "fadeInRight 1.5s ease",
-      anf: "fadeOutRight 2s ease",
-      p4: "block"
-    });
-  };
-
   resetClicker = () => {
     clickedStep1 = false;
     clickedStep2 = false;
@@ -202,38 +149,6 @@ class Window extends Component {
     const data = result.data;
     this.setState({ jsonResults: data });
   }
-
-  stepOnePanel = () => {
-    if (!clickedStep1) {
-      this.progressBar();
-      if (this.state.downUpDis === true || this.state.validType === false) {
-        window.alert("*Please upload valid data file!*");
-      } else {
-        var ext = this.state.selectedFile.name;
-        ext = ext.split(".");
-        ext = ext[1];
-
-        if (ext === "txt") {
-          Papa.parse(this.state.selectedFile, {
-            skipEmptyLines: true,
-            complete: this.updateData
-          });
-        }
-
-        if (this.state.progWidth === 100) {
-          this.setState({ progWidth: 0 });
-          this.intervals = setInterval(() => {
-            if (this.state.progWidth !== 99) {
-              this.setState({
-                progWidth: this.state.progWidth + 1
-              });
-            }
-          }, 50);
-        }
-      }
-    }
-    clickedStep1 = true;
-  };
 
   searchingFor(term) {
     return x => {
@@ -336,29 +251,6 @@ class Window extends Component {
     this.setState({ selectValue: e.target.value });
   };
 
-  stepTwoPanel = () => {
-    if (!clickedStep2) {
-      if (this.state.selectValue === "CO") {
-        this.filter();
-        this.jasonify();
-        if (this.state.progWidth2 === 100) {
-          this.setState({ progWidth2: 0 });
-          this.intervals = setInterval(() => {
-            if (this.state.progWidth2 !== 99) {
-              this.setState({
-                progWidth2: this.state.progWidth2 + 1
-              });
-            }
-          }, 50);
-        }
-        this.progressBar2();
-      } else {
-        window.alert("Psst* Try Colorado");
-      }
-    }
-    clickedStep2 = true;
-  };
-
   stepThreePanelChecked = () => {
     var checkedPanel = [];
     if (validData) {
@@ -378,7 +270,7 @@ class Window extends Component {
       );
     } else {
       checkedPanel.push(
-        <div className="pannel3" key="validData">
+        <div className="pannel3" key="invalidData">
           <button id="back" onClick={this.backButton3}>
             Back
           </button>
@@ -391,6 +283,98 @@ class Window extends Component {
     }
 
     return checkedPanel;
+  };
+
+  uploadStuff = event => {
+    var extension = event.target.files[0].name.split(".");
+    extension = extension[1];
+
+    if (!event.target.files[0] || extension !== "txt") {
+      window.alert("*Invalid file chosen!*");
+      return;
+    } else {
+      this.setState({
+        uploadName: event.target.files[0].name,
+        dis: "pointer",
+        downUpDis: false,
+        validType: true,
+        selectedFile: event.target.files[0]
+      });
+    }
+  };
+
+  welcomePanel = () => {
+    this.readFatalData();
+    this.setState({
+      an1: "fadeOutLeft 1.5s ease",
+      an2: "fadeInLeft 2s ease",
+      p1: "block"
+    });
+  };
+
+  instructionsPanel = () => {
+    this.setState({
+      an2: "fadeOutLeft 1.5s ease",
+      an3: "fadeInLeft 2s ease",
+      p1: "block"
+    });
+  };
+
+  stepOnePanel = () => {
+    if (!clickedStep1) {
+      this.progressBar();
+      if (this.state.downUpDis === true || this.state.validType === false) {
+        window.alert("*Please upload valid data file!*");
+      } else {
+        var ext = this.state.selectedFile.name;
+        ext = ext.split(".");
+        ext = ext[1];
+
+        if (ext === "txt") {
+          Papa.parse(this.state.selectedFile, {
+            skipEmptyLines: true,
+            complete: this.updateData
+          });
+        }
+
+        if (this.state.progWidth === 100) {
+          this.setState({ progWidth: 0 });
+          this.intervals = setInterval(() => {
+            if (this.state.progWidth !== 99) {
+              this.setState({
+                progWidth: this.state.progWidth + 1
+              });
+            }
+          }, 50);
+        }
+      }
+    }
+    clickedStep1 = true;
+  };
+
+  stepTwoPanel = () => {
+    if (!clickedStep2) {
+      clickedStep2 = true;
+
+      if (this.state.selectValue === "CO") {
+        this.filter();
+        this.jasonify();
+        if (this.state.progWidth2 === 100) {
+          this.setState({ progWidth2: 0 });
+          this.intervals = setInterval(() => {
+            if (this.state.progWidth2 !== 99) {
+              this.setState({
+                progWidth2: this.state.progWidth2 + 1
+              });
+            }
+          }, 50);
+        }
+        this.progressBar2();
+      } else {
+        window.alert("Psst* Try Colorado");
+        clickedStep2 = false;
+      }
+    }
   };
 
   stepThreePanel = () => {
@@ -412,22 +396,55 @@ class Window extends Component {
     });
   };
 
-  uploadStuff = event => {
-    var extension = event.target.files[0].name.split(".");
-    extension = extension[1];
+  backButton6 = () => {
+    this.setState({
+      an6: "fadeInRight 1.5s ease",
+      an7: "fadeOutRight 2s ease",
+      p4: "block"
+    });
+  };
 
-    if (!event.target.files[0] || extension !== "txt") {
-      window.alert("*Invalid file chosen!*");
-      return;
-    } else {
-      this.setState({
-        uploadName: event.target.files[0].name,
-        dis: "pointer",
-        downUpDis: false,
-        validType: true,
-        selectedFile: event.target.files[0]
-      });
-    }
+  backButton = () => {
+    this.setState({
+      an1: "fadeInRight 1.5s ease",
+      an2: "fadeOutRight 2s ease",
+      p0: "block"
+    });
+  };
+
+  backButton2 = () => {
+    validData = true;
+    this.resetClicker();
+    this.setState({
+      an2: "fadeInRight 1.5s ease",
+      an3: "fadeOutRight 2s ease",
+      p1: "block"
+    });
+  };
+
+  backButton3 = () => {
+    this.resetClicker();
+    this.setState({
+      an3: "fadeInRight 1.5s ease",
+      an4: "fadeOutRight 2s ease",
+      p2: "block"
+    });
+  };
+
+  backButton4 = () => {
+    this.setState({
+      an4: "fadeInRight 1.5s ease",
+      an5: "fadeOutRight 2s ease",
+      p3: "block"
+    });
+  };
+
+  backButton5 = () => {
+    this.setState({
+      an5: "fadeInRight 1.5s ease",
+      anf: "fadeOutRight 2s ease",
+      p4: "block"
+    });
   };
 
   render() {
@@ -454,6 +471,19 @@ class Window extends Component {
     return (
       <React.Fragment>
         <div className="allpannels">
+          <div
+            className="p0cont"
+            style={{ display: this.state.p0, animation: this.state.an1 }}
+          >
+            <div className="pannel0">
+              <h3 className="text0">Welcome Admin</h3>
+              <p className="text0h">Get Started!</p>
+              <button className="button0" onClick={this.welcomePanel}>
+                Update Accident Map
+              </button>
+            </div>
+          </div>
+
           <div
             className="p0cont"
             style={{ display: this.state.p0, animation: this.state.an1 }}
@@ -518,6 +548,7 @@ class Window extends Component {
                     <input
                       type="file"
                       id="myuniqueid"
+                      accept=".txt, .xml, .csv"
                       onChange={this.uploadStuff}
                     />
                   </label>
@@ -662,15 +693,15 @@ class Window extends Component {
             className="pfcont"
             style={{ display: this.state.pf, animation: this.state.anf }}
           >
-            <div className="pannelf">
+            <div className="pannel4">
               <button id="back" onClick={this.backButton5}>
                 Back
               </button>
+              <h3 className="text4">Congratulations!</h3>
               <br />
-              <h3 className="textf">!(Congradulations your data is updated)</h3>
-              <div className="circle">
-                <p className="textfh">Done!</p>
-              </div>
+              <p className="text4h">
+                The fatal points <br /> have been uploaded!
+              </p>
             </div>
           </div>
         </div>
