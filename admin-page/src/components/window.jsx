@@ -375,7 +375,7 @@ class Window extends Component {
         }
         this.progressBar2();
       } else {
-        window.alert("Psst* Try Colorado");
+        window.alert("*Available for Colorado only*");
         clickedStep2 = false;
       }
     }
