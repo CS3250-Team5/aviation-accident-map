@@ -13,6 +13,7 @@ COPY package.json /usr/src/app/package.json
 RUN npm install --production --silent
 RUN npm install react-scripts@1.1.1 -g --silent
 RUN npm install --save papaparse --silent
+RUN npm install --save firebase --silent
 
 # start app
 CMD ["npm", "start"]
