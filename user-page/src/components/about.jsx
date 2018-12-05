@@ -6,7 +6,7 @@ class About extends Component {
     return (
       <div className="tooltip aboutStyle">
         <center>
-          <span className="about">About</span>
+          <span className="about">About Us</span>
           <span className="tooltipAboutText">
             <span>This page created by: </span>
             <a
