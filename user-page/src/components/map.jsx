@@ -4,7 +4,6 @@ import * as firebase from "firebase/app";
 import "firebase/database";
 import "../style/map.css";
 import "../style/button.css";
-import keys from "../keys.js";
 
 import plane from "../img/new_crash.png";
 import awos from "../img/ge_Mt_AWOS.png";
@@ -300,7 +299,6 @@ class Map extends Component {
 
   render() {
     return (
-      // Important! Always set the container height explicitly
       <div className="backGround">
         <center className="filterGroup">
           <button
@@ -349,9 +347,11 @@ class Map extends Component {
 
         <div className="mapStyle">
           <GoogleMapReact
-            bootstrapURLKeys={{
-              key: keys[0]
-            }}
+            bootstrapURLKeys={
+              {
+                /* key: Enter google maps api key here */
+              }
+            }
             defaultCenter={this.props.center}
             defaultZoom={this.props.zoom}
           >
