@@ -264,7 +264,8 @@ class Window extends Component {
           </button>
           <h3 className="text3">Step 3 :</h3>
           <p className="text3h">
-            Filtered by state, longitide between(-108,-105), and fatal accidents
+            Filtered by state, longitide between(-108,-105), <br />
+            and fatal accidents
           </p>
           <button className="button3" onClick={this.stepThreePanel}>
             Next
