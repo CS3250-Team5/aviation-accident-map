@@ -345,9 +345,9 @@ step 2
 
 .text2 {
   position: relative;
-  margin-top: 40px;
+  margin-top: 45px;
   margin-bottom: 25px;
-  margin-right: 15%;
+  margin-right: 0%;
   color: white;
   font-size: 3em;
   font-style: italic;
@@ -484,9 +484,9 @@ Step 4
 
 .text4 {
   position: relative;
-  margin-top: 40px;
+  margin-top: 45px;
   margin-bottom: 10px;
-  margin-right: 15%;
+  margin-right: 0%;
   color: white;
   font-size: 3em;
   font-style: italic;
@@ -778,6 +778,34 @@ input[type="checkbox"] {
 .fadeInRight {
   -webkit-animation-name: fadeInRight;
   animation-name: fadeInRight;
+}
+
+@media screen and (max-width: 481px){
+.allpannels{
+  height:100vw;
+  width:91vw;
+}
+.textih{
+  font-size: 1.5em;
+}
+
+.buttoni{
+  width:85%;
+}
+
+.mob{
+  display: inline-block !important;
+}
+.text1{
+  margin-top: 42px;
+}
+.pannel1{
+  height:115%;
+}
+.babyover{
+  height:17em;
+  width:19em;
+}
 }
 
 @keyframes fadein {
