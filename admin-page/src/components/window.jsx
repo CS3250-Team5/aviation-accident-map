@@ -290,6 +290,10 @@ class Window extends Component {
   };
 
   uploadStuff = event => {
+    if(event.target.value.length ===0){
+      
+      return
+    }
     var extension = event.target.files[0].name.split(".");
     extension = extension[1];
 
@@ -329,7 +333,9 @@ class Window extends Component {
       this.progressBar();
       if (this.state.downUpDis === true || this.state.validType === false) {
         window.alert("*Please upload valid data file!*");
+        clickedStep1 = false;
       } else {
+        clickedStep1 = true;
         var ext = this.state.selectedFile.name;
         ext = ext.split(".");
         ext = ext[1];
@@ -353,7 +359,7 @@ class Window extends Component {
         }
       }
     }
-    clickedStep1 = true;
+    
   };
 
   stepTwoPanel = () => {
@@ -566,7 +572,7 @@ class Window extends Component {
                   style={{ width: String(this.state.progWidth + "%") }}
                 />
               </div>
-              <div
+              <div className ="mob"
                 style={{
                   position: "relative",
                   display: "flex",
