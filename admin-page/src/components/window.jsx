@@ -26,16 +26,16 @@ class Window extends Component {
     this.updateData = this.updateData.bind(this);
   }
   state = {
-    pi:"none",
+    pi: "none",
     p0: "block",
     p1: "none",
     p2: "none",
     p3: "none",
     p4: "none",
     pf: "none",
-    over:"none",
+    over: "none",
     an1: "fadein 2s ease",
-    ani:"",
+    ani: "",
     an2: "",
     an3: "",
     an4: "",
@@ -423,7 +423,6 @@ class Window extends Component {
     });
   };
 
-
   backButton2 = () => {
     validData = true;
     this.resetClicker();
@@ -468,15 +467,14 @@ class Window extends Component {
   };
   backButtonl = () => {
     this.setState({
-      over: "none",
+      over: "none"
     });
   };
 
-  overlay = () =>{
+  overlay = () => {
     this.setState({
-      over: "block",
+      over: "block"
     });
-
   };
 
   render() {
@@ -503,7 +501,6 @@ class Window extends Component {
     return (
       <React.Fragment>
         <div className="allpannels">
-
           <div
             className="p0cont"
             style={{ display: this.state.p0, animation: this.state.an1 }}
@@ -511,6 +508,7 @@ class Window extends Component {
             <div className="pannel0">
               <h3 className="text0">Welcome Admin</h3>
               <p className="text0h">Get Started!</p>
+              <br />
               <button className="button0" onClick={this.welcomePanel}>
                 Update Accident Map
               </button>
@@ -522,10 +520,16 @@ class Window extends Component {
             style={{ display: this.state.pi, animation: this.state.ani }}
           >
             <div className="panneli">
+              <br />
               <h3 className="texti">Purpose:</h3>
-              <p className="textih">In the following steps you will update NTSB data to a firebase server that will reflect on the NTSB accident map user page.
-              This web app filters through data and uploads the information pertaining to fatal accidents to a database.  Data will be from txt files downloaded by the user of this app from the NTSB.</p> 
-              
+              <p className="textih">
+                In the following steps you will upload NTSB data to a firebase
+                server that will reflect on the aviation accident map. This web
+                app filters through data and uploads the information pertaining
+                to fatal accidents to a database. Data will be from txt files
+                downloaded by the user of this app from the NTSB.
+              </p>
+
               <button className="buttoni" onClick={this.instructionsPanel}>
                 Continue
               </button>
@@ -583,7 +587,7 @@ class Window extends Component {
                     <input
                       type="file"
                       id="myuniqueid"
-                      accept=".txt, .xml, .csv"
+                      accept=".txt"
                       onChange={this.uploadStuff}
                     />
                   </label>
@@ -717,7 +721,9 @@ class Window extends Component {
                 Back
               </button>
               <h3 className="text4">Step 4 :</h3>
+              <br />
               <p className="text4h">Upload Data</p>
+              <br />
               <button className="button4" onClick={this.stepFourPanel}>
                 Finish
               </button>
@@ -733,59 +739,98 @@ class Window extends Component {
                 Back
               </button>
               <h3 className="text4">Congratulations!</h3>
-              
+              <br />
               <p className="text4h">
                 The fatal points <br /> have been uploaded!
               </p>
-             
+              <br />
               <a
-                  href="https://state-aviation-m-1538090440532.firebaseapp.com/"
-                  id="link2"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{marginRight:'5px', marginTop:'5px'}}
-                >NTSB fatal accident map</a>
+                href="https://state-aviation-m-1538090440532.firebaseapp.com/"
+                id="link2"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ marginRight: "5px", marginTop: "5px" }}
+              >
+                NTSB fatal accident map
+              </a>
 
-                <button id = "link2" style={{marginLeft:'5px', marginTop:'5px'}} onClick={this.overlay}>About us</button>
-
-                
+              <button
+                id="link2"
+                style={{ marginLeft: "5px", marginTop: "5px" }}
+                onClick={this.overlay}
+              >
+                About us
+              </button>
             </div>
-            
           </div>
-          
         </div>
-        <div className = "babyover" style={{display:this.state.over}}>
-          <p style={{marginTop:'15px',fontSize:'1.5em',marginBottom:'0px'}}>This admin page was created by team 5:</p>
-          <a href="https://github.com/CS3250-Team5"
-                  target="_blank"
-                  rel="noopener noreferrer">Team5</a>
-          <p style={{marginTop:'5px',fontSize:'1.5em',marginBottom:'0px'}}>Members:</p>
-          <a href="https://github.com/beavelar"
-                  target="_blank"
-                  rel="noopener noreferrer">Brian Avelar</a>
-          <br/>
-          <a href="https://github.com/devond5"
-                  target="_blank"
-                  rel="noopener noreferrer">Devon DeSpain</a>
-          <br/>
-          <a href="https://github.com/Monce32"
-                  target="_blank"
-                  rel="noopener noreferrer">Monce Romero</a>
-          <br/>
-          <a href="https://github.com/Fduranji"
-                  target="_blank"
-                  rel="noopener noreferrer">Francisco Duran</a>
-          <br/>
-          <a href="https://github.com/MuchoE"
-                  
-                  target="_blank"
-                  rel="noopener noreferrer">Angel Cecena</a>
-                  <br/>
-                  <button id="back" onClick={this.backButtonl}>Back</button>
+        <div className="babyover" style={{ display: this.state.over }}>
+          <p
+            style={{
+              marginTop: "15px",
+              fontSize: "1.5em",
+              marginBottom: "0px"
+            }}
+          >
+            This admin page was created by team 5:
+          </p>
+          <a
+            href="https://github.com/CS3250-Team5"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Team5
+          </a>
+          <p
+            style={{ marginTop: "5px", fontSize: "1.5em", marginBottom: "0px" }}
+          >
+            Members:
+          </p>
+          <a
+            href="https://github.com/beavelar"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Brian Avelar
+          </a>
+          <br />
+          <a
+            href="https://github.com/devond5"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Devon DeSpain
+          </a>
+          <br />
+          <a
+            href="https://github.com/Monce32"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Monce Romero
+          </a>
+          <br />
+          <a
+            href="https://github.com/Fduranji"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Francisco Duran
+          </a>
+          <br />
+          <a
+            href="https://github.com/MuchoE"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Angel Cecena
+          </a>
+          <br />
+          <button id="back" onClick={this.backButtonl}>
+            Back
+          </button>
         </div>
-        <div className = "overlay" style={{display:this.state.over}}>
-        </div>
-
+        <div className="overlay" style={{ display: this.state.over }} />
       </React.Fragment>
     );
   }
