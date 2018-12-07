@@ -10,6 +10,8 @@ var accNumbers = [];
 var validData = true;
 var clickedStep1 = false;
 var clickedStep2 = false;
+var inProgBar1 = false;
+var inProgBar2 = false;
 
 function initializeDatabase() {
   const fatalDatabase = {
@@ -116,12 +118,8 @@ class Window extends Component {
     }
   };
 
-  resetClicker = () => {
-    clickedStep1 = false;
-    clickedStep2 = false;
-  };
-
   progressBar = () => {
+    inProgBar1 = true;
     if (this.state.progWidth !== 100 && this.state.downUpDis === false) {
       this.setState({ progDisp: "block" });
 
@@ -136,6 +134,7 @@ class Window extends Component {
   };
 
   progressBar2 = () => {
+    inProgBar2 = true;
     if (this.state.progWidth2 !== 100) {
       this.setState({ progDisp2: "block" });
       this.intervals = setInterval(() => {
@@ -290,9 +289,8 @@ class Window extends Component {
   };
 
   uploadStuff = event => {
-    if(event.target.value.length ===0){
-      
-      return
+    if (event.target.value.length === 0) {
+      return;
     }
     var extension = event.target.files[0].name.split(".");
     extension = extension[1];
@@ -359,7 +357,6 @@ class Window extends Component {
         }
       }
     }
-    
   };
 
   stepTwoPanel = () => {
@@ -414,12 +411,15 @@ class Window extends Component {
     });
   };
 
+  // Back button to go to intro
   backButton = () => {
-    this.setState({
-      ani: "fadeInRight 1.5s ease",
-      an2: "fadeOutRight 2s ease",
-      pi: "block"
-    });
+    if (!inProgBar1) {
+      this.setState({
+        ani: "fadeInRight 1.5s ease",
+        an2: "fadeOutRight 2s ease",
+        pi: "block"
+      });
+    }
   };
 
   backButtoni = () => {
@@ -431,17 +431,21 @@ class Window extends Component {
   };
 
   backButton2 = () => {
-    validData = true;
-    this.resetClicker();
-    this.setState({
-      an2: "fadeInRight 1.5s ease",
-      an3: "fadeOutRight 2s ease",
-      p1: "block"
-    });
+    inProgBar1 = false;
+    clickedStep1 = false;
+    if (!inProgBar2) {
+      this.setState({
+        an2: "fadeInRight 1.5s ease",
+        an3: "fadeOutRight 2s ease",
+        p1: "block"
+      });
+    }
   };
 
   backButton3 = () => {
-    this.resetClicker();
+    validData = true;
+    inProgBar2 = false;
+    clickedStep2 = false;
     this.setState({
       an3: "fadeInRight 1.5s ease",
       an4: "fadeOutRight 2s ease",
@@ -572,7 +576,8 @@ class Window extends Component {
                   style={{ width: String(this.state.progWidth + "%") }}
                 />
               </div>
-              <div className ="mob"
+              <div
+                className="mob"
                 style={{
                   position: "relative",
                   display: "flex",
