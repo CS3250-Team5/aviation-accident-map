@@ -7,11 +7,6 @@ import "../style/window.css";
 var libSize = 0;
 var objectKeys = [];
 var accNumbers = [];
-var validData = true;
-var clickedStep1 = false;
-var clickedStep2 = false;
-var inProgBar1 = false;
-var inProgBar2 = false;
 
 function initializeDatabase() {
   const fatalDatabase = {
@@ -43,24 +38,29 @@ class Window extends Component {
     an4: "",
     an5: "",
     anf: "",
-    uploadName: "Upload local file",
-    validType: false,
     selectValue: "",
-    downUpDis: true,
+    uploadName: "Upload local file",
     dis: "not-allowed",
-    progWidth: 0,
     progDisp: "none",
-    progWidth2: 0,
     progDisp2: "none",
+    validType: false,
+    validData: true,
+    clickedStep1: false,
+    clickedStep2: false,
+    inProgBar1: false,
+    inProgBar2: false,
+    downUpDis: true,
+    first: true,
+    progWidth: 0,
+    progWidth2: 0,
     data: null,
     selectedFile: null,
     jsonResults: null,
-    jsonFiltered: [],
     sentToDatabase: null,
+    jsonFiltered: [],
     headers: [],
     fullJson: [],
-    processedJson: [],
-    first: true
+    processedJson: []
   };
 
   readFatalData = () => {
@@ -119,7 +119,6 @@ class Window extends Component {
   };
 
   progressBar = () => {
-    inProgBar1 = true;
     if (this.state.progWidth !== 100 && this.state.downUpDis === false) {
       this.setState({ progDisp: "block" });
 
@@ -131,10 +130,10 @@ class Window extends Component {
         }
       }, 50);
     }
+    this.setState({ inProgBar1: true });
   };
 
   progressBar2 = () => {
-    inProgBar2 = true;
     if (this.state.progWidth2 !== 100) {
       this.setState({ progDisp2: "block" });
       this.intervals = setInterval(() => {
@@ -145,6 +144,7 @@ class Window extends Component {
         }
       }, 50);
     }
+    this.setState({ inProgBar2: true });
   };
 
   updateData(result) {
@@ -170,7 +170,7 @@ class Window extends Component {
           this.state.jsonFiltered.push(x);
         }
       } catch (error) {
-        validData = false;
+        this.setState({ validData: false });
       }
       return;
     };
@@ -255,7 +255,7 @@ class Window extends Component {
 
   stepThreePanelChecked = () => {
     var checkedPanel = [];
-    if (validData) {
+    if (this.state.validData) {
       checkedPanel.push(
         <div className="pannel3" key="validData">
           <button id="back" onClick={this.backButton3}>
@@ -327,13 +327,12 @@ class Window extends Component {
   };
 
   stepOnePanel = () => {
-    if (!clickedStep1) {
+    if (!this.state.clickedStep1) {
       this.progressBar();
       if (this.state.downUpDis === true || this.state.validType === false) {
         window.alert("*Please upload valid data file!*");
-        clickedStep1 = false;
+        this.setState({ clickedStep1: false });
       } else {
-        clickedStep1 = true;
         var ext = this.state.selectedFile.name;
         ext = ext.split(".");
         ext = ext[1];
@@ -355,13 +354,14 @@ class Window extends Component {
             }
           }, 50);
         }
+        this.setState({ clickedStep1: true });
       }
     }
   };
 
   stepTwoPanel = () => {
-    if (!clickedStep2) {
-      clickedStep2 = true;
+    if (!this.state.clickedStep2) {
+      this.setState({ clickedStep2: true });
 
       if (this.state.selectValue === "CO") {
         this.filter();
@@ -379,7 +379,7 @@ class Window extends Component {
         this.progressBar2();
       } else {
         window.alert("*Available for Colorado only*");
-        clickedStep2 = false;
+        this.setState({ clickedStep2: false });
       }
     }
   };
@@ -411,9 +411,8 @@ class Window extends Component {
     });
   };
 
-  // Back button to go to intro
   backButton = () => {
-    if (!inProgBar1) {
+    if (!this.state.inProgBar1) {
       this.setState({
         ani: "fadeInRight 1.5s ease",
         an2: "fadeOutRight 2s ease",
@@ -431,25 +430,25 @@ class Window extends Component {
   };
 
   backButton2 = () => {
-    inProgBar1 = false;
-    clickedStep1 = false;
-    if (!inProgBar2) {
+    if (!this.state.inProgBar2) {
       this.setState({
         an2: "fadeInRight 1.5s ease",
         an3: "fadeOutRight 2s ease",
-        p1: "block"
+        p1: "block",
+        clickedStep1: false,
+        inProgBar1: false
       });
     }
   };
 
   backButton3 = () => {
-    validData = true;
-    inProgBar2 = false;
-    clickedStep2 = false;
     this.setState({
       an3: "fadeInRight 1.5s ease",
       an4: "fadeOutRight 2s ease",
-      p2: "block"
+      p2: "block",
+      validData: true,
+      clickedStep2: false,
+      inProgBar2: false
     });
   };
 
