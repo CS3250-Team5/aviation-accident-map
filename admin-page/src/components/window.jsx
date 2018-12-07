@@ -393,7 +393,9 @@ class Window extends Component {
       this.setState({
         step3Head: "Step 3 : ",
         step3Body:
-          "Filtered by state, type of accident, and between -108 and -105 longitude"
+          "Filtered by state, type of accident, and between -108 and -105 longitude",
+        step3Body2: "",
+        showButton: ""
       });
     } else {
       this.setState({
