@@ -5,6 +5,7 @@ import "firebase/database";
 import "../style/window.css";
 
 var libSize = 0;
+var validData = true;
 var accNumbers = [];
 
 function initializeDatabase() {
@@ -37,13 +38,16 @@ class Window extends Component {
     an4: "",
     an5: "",
     anf: "",
+    showButton: "",
+    step3Head: "",
+    step3Body: "",
+    step3Body2: "",
     selectValue: "",
     uploadName: "Upload local file",
     dis: "not-allowed",
     progDisp: "none",
     progDisp2: "none",
     validType: false,
-    validData: true,
     clickedStep1: false,
     clickedStep2: false,
     inProgBar1: false,
@@ -172,7 +176,7 @@ class Window extends Component {
           this.state.jsonFiltered.push(x);
         }
       } catch (error) {
-        this.setState({ validData: false });
+        validData = false;
       }
       return;
     };
@@ -257,7 +261,7 @@ class Window extends Component {
 
   stepThreePanelChecked = () => {
     var checkedPanel = [];
-    if (this.state.validData) {
+    if (validData) {
       checkedPanel.push(
         <div className="pannel3" key="validData">
           <button id="back" onClick={this.backButton3}>
@@ -364,7 +368,6 @@ class Window extends Component {
   stepTwoPanel = () => {
     if (!this.state.clickedStep2) {
       this.setState({ clickedStep2: true });
-
       if (this.state.selectValue === "CO") {
         this.filter();
         this.jasonify();
@@ -383,6 +386,22 @@ class Window extends Component {
         window.alert("*Available for Colorado only*");
         this.setState({ clickedStep2: false });
       }
+    }
+
+    console.log(validData);
+    if (validData) {
+      this.setState({
+        step3Head: "Step 3 : ",
+        step3Body:
+          "Filtered by state, type of accident, and between -108 and -105 longitude"
+      });
+    } else {
+      this.setState({
+        step3Head: "Error : ",
+        step3Body: "Unreadable file",
+        step3Body2: "Please upload a valid file",
+        showButton: "none"
+      });
     }
   };
 
@@ -444,11 +463,11 @@ class Window extends Component {
   };
 
   backButton3 = () => {
+    validData = true;
     this.setState({
       an3: "fadeInRight 1.5s ease",
       an4: "fadeOutRight 2s ease",
       p2: "block",
-      validData: true,
       clickedStep2: false,
       inProgBar2: false,
       progWidth2: 0
@@ -723,7 +742,21 @@ class Window extends Component {
             className="p3cont"
             style={{ display: this.state.p3, animation: this.state.an4 }}
           >
-            {this.stepThreePanelChecked()}
+            <div className="pannel3" key="validData">
+              <button id="back" onClick={this.backButton3}>
+                Back
+              </button>
+              <h3 className="text3">{this.state.step3Head}</h3> <br />
+              <p className="text3h">{this.state.step3Body}</p>
+              <p className="text3h">{this.state.step3Body2}</p>
+              <button
+                className="button3"
+                onClick={this.stepThreePanel}
+                style={{ display: this.state.showButton }}
+              >
+                Next
+              </button>
+            </div>
           </div>
 
           <div
