@@ -5,7 +5,6 @@ import "firebase/database";
 import "../style/window.css";
 
 var libSize = 0;
-var objectKeys = [];
 var accNumbers = [];
 
 function initializeDatabase() {
@@ -58,6 +57,7 @@ class Window extends Component {
     jsonResults: null,
     sentToDatabase: null,
     jsonFiltered: [],
+    objectKeys: [],
     headers: [],
     fullJson: [],
     processedJson: []
@@ -76,9 +76,9 @@ class Window extends Component {
     rootRef.on("value", snap => {
       var dataSet = snap.val();
       if (dataSet === null) {
-        objectKeys = 0;
+        this.setState({ objectKeys: 0 });
       } else {
-        objectKeys = Object.keys(dataSet);
+        this.setState({ objectKeys: Object.keys(dataSet) });
       }
     });
   };
@@ -94,7 +94,9 @@ class Window extends Component {
       .child("Fatal");
 
     for (var i = 0; 0 < libSize--; i++) {
-      var accNum = rootRef.child(objectKeys[i]).child("AccidentNumber");
+      var accNum = rootRef
+        .child(this.state.objectKeys[i])
+        .child("AccidentNumber");
       // eslint-disable-next-line
       accNum.on("value", snap => {
         accNumbers[i] = snap.val();
@@ -103,7 +105,7 @@ class Window extends Component {
 
     for (var x = 0; x < totalEntries; x++) {
       isFound = false;
-      for (var y = 0; y < objectKeys.length && !isFound; y++) {
+      for (var y = 0; y < this.state.objectKeys.length && !isFound; y++) {
         if (filteredPoints.Fatal[x].AccidentNumber === accNumbers[y]) {
           isFound = true;
           break;
@@ -394,7 +396,6 @@ class Window extends Component {
   };
 
   stepFourPanel = () => {
-    this.readFatalData();
     this.writeFatalData();
     this.setState({
       an5: "fadeOutLeft 1.5s  ease",
@@ -436,7 +437,8 @@ class Window extends Component {
         an3: "fadeOutRight 2s ease",
         p1: "block",
         clickedStep1: false,
-        inProgBar1: false
+        inProgBar1: false,
+        progWidth: 0
       });
     }
   };
@@ -448,7 +450,8 @@ class Window extends Component {
       p2: "block",
       validData: true,
       clickedStep2: false,
-      inProgBar2: false
+      inProgBar2: false,
+      progWidth2: 0
     });
   };
 
@@ -533,11 +536,11 @@ class Window extends Component {
               <br />
               <h3 className="texti">Purpose:</h3>
               <p className="textih">
-                In the following steps you will upload NTSB data to a firebase
-                server that will reflect on the aviation accident map. This web
-                app filters through data and uploads the information pertaining
-                to fatal accidents to a database. Data will be from txt files
-                downloaded by the user of this app from the NTSB.
+                This web app filters through data and uploads the information
+                pertaining to fatal accidents to a database. Data will be from
+                txt files downloaded by the user of this app from the NTSB. In
+                the following steps you will upload NTSB data to a firebase
+                server that will reflect on the aviation accident map.
               </p>
 
               <button className="buttoni" onClick={this.instructionsPanel}>
