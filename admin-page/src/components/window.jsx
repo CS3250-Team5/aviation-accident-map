@@ -456,6 +456,7 @@ class Window extends Component {
         an2: "fadeInRight 1.5s ease",
         an3: "fadeOutRight 2s ease",
         p1: "block",
+        progDisp: "none",
         clickedStep1: false,
         inProgBar1: false,
         progWidth: 0
@@ -469,6 +470,7 @@ class Window extends Component {
       an3: "fadeInRight 1.5s ease",
       an4: "fadeOutRight 2s ease",
       p2: "block",
+      progDisp2: "none",
       clickedStep2: false,
       inProgBar2: false,
       progWidth2: 0
