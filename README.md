@@ -31,14 +31,14 @@ This repository contains code for two web pages, located in the admin-page folde
 - `docker pull beavelar/admin-page`
 - `docker pull node`
 - After the images fully pulled, run the following commands
-- `docker run -it \
-   -v ${PWD}:/usr/src/app \
-   -v /usr/src/app/node_modules \
-   -p 3000:3000 \
-   --rm \`
+`docker run -it \
+-v ${PWD}:/usr/src/app \
+-v /usr/src/app/node_modules \
+-p 3000:3000 \
+--rm \`
 - `beavelar/user-page` or `beavelar/admin-page`, depending on what page you want to open up
 - Once the container is running, open up http://localhost:3000/ in your web browser to view the web page
-- To view the web pages simultaneously, change the port number in the docker commands and open up a web page of the local host with the other port number 
+- To view the web pages simultaneously, change the port number in the docker commands and open up a web page of the local host with the other port number
 
 ## Building and Running with Docker-Compose
 **Following steps are for building local docker images for the admin and user page, as well as spinning up a development server locally**
