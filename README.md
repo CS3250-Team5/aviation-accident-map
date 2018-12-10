@@ -30,7 +30,7 @@ This repository contains code for two web pages, located in the admin-page folde
 - `docker pull beavelar/user-page`
 - `docker pull beavelar/admin-page`
 - `docker pull node`
-- After the images fully pulled, run the following commands  
+- After the images fully pulled, run the following commands in the desired folder of the page you want to open up  
 ```
   docker run -it \  
   -v ${PWD}:/usr/src/app \  
