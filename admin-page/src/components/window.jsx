@@ -10,7 +10,7 @@ var accNumbers = [];
 
 function initializeDatabase() {
   const fatalDatabase = {
-    databaseURL: "https://state-aviation-admin.firebaseio.com"
+    databaseURL: "https://aviation-accident-map-admin.firebaseio.com"
   };
   firebase.initializeApp(fatalDatabase);
 }
@@ -388,7 +388,6 @@ class Window extends Component {
       }
     }
 
-    console.log(validData);
     if (validData) {
       this.setState({
         step3Head: "Step 3 : ",
@@ -794,7 +793,7 @@ class Window extends Component {
               </p>
               <br />
               <a
-                href="https://state-aviation-m-1538090440532.firebaseapp.com/"
+                href="https://aviation-accident-map-user.firebaseapp.com/"
                 id="link2"
                 target="_blank"
                 rel="noopener noreferrer"
