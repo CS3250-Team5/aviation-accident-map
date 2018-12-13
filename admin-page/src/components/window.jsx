@@ -5,15 +5,12 @@ import "firebase/database";
 import "../style/window.css";
 
 var libSize = 0;
-var objectKeys = [];
-var accNumbers = [];
 var validData = true;
-var clickedStep1 = false;
-var clickedStep2 = false;
+var accNumbers = [];
 
 function initializeDatabase() {
   const fatalDatabase = {
-    databaseURL: "https://state-aviation-admin.firebaseio.com"
+    databaseURL: "https://aviation-accident-map-admin.firebaseio.com"
   };
   firebase.initializeApp(fatalDatabase);
 }
@@ -41,24 +38,33 @@ class Window extends Component {
     an4: "",
     an5: "",
     anf: "",
-    uploadName: "Upload local file",
-    validType: false,
+    showButton: "",
+    step3Head: "",
+    step3Body: "",
+    step3Body2: "",
     selectValue: "",
-    downUpDis: true,
+    uploadName: "Upload local file",
     dis: "not-allowed",
-    progWidth: 0,
     progDisp: "none",
-    progWidth2: 0,
     progDisp2: "none",
+    validType: false,
+    clickedStep1: false,
+    clickedStep2: false,
+    inProgBar1: false,
+    inProgBar2: false,
+    downUpDis: true,
+    first: true,
+    progWidth: 0,
+    progWidth2: 0,
     data: null,
     selectedFile: null,
     jsonResults: null,
-    jsonFiltered: [],
     sentToDatabase: null,
+    jsonFiltered: [],
+    objectKeys: [],
     headers: [],
     fullJson: [],
-    processedJson: [],
-    first: true
+    processedJson: []
   };
 
   readFatalData = () => {
@@ -74,9 +80,9 @@ class Window extends Component {
     rootRef.on("value", snap => {
       var dataSet = snap.val();
       if (dataSet === null) {
-        objectKeys = 0;
+        this.setState({ objectKeys: 0 });
       } else {
-        objectKeys = Object.keys(dataSet);
+        this.setState({ objectKeys: Object.keys(dataSet) });
       }
     });
   };
@@ -92,7 +98,9 @@ class Window extends Component {
       .child("Fatal");
 
     for (var i = 0; 0 < libSize--; i++) {
-      var accNum = rootRef.child(objectKeys[i]).child("AccidentNumber");
+      var accNum = rootRef
+        .child(this.state.objectKeys[i])
+        .child("AccidentNumber");
       // eslint-disable-next-line
       accNum.on("value", snap => {
         accNumbers[i] = snap.val();
@@ -101,7 +109,7 @@ class Window extends Component {
 
     for (var x = 0; x < totalEntries; x++) {
       isFound = false;
-      for (var y = 0; y < objectKeys.length && !isFound; y++) {
+      for (var y = 0; y < this.state.objectKeys.length && !isFound; y++) {
         if (filteredPoints.Fatal[x].AccidentNumber === accNumbers[y]) {
           isFound = true;
           break;
@@ -116,11 +124,6 @@ class Window extends Component {
     }
   };
 
-  resetClicker = () => {
-    clickedStep1 = false;
-    clickedStep2 = false;
-  };
-
   progressBar = () => {
     if (this.state.progWidth !== 100 && this.state.downUpDis === false) {
       this.setState({ progDisp: "block" });
@@ -133,6 +136,7 @@ class Window extends Component {
         }
       }, 50);
     }
+    this.setState({ inProgBar1: true });
   };
 
   progressBar2 = () => {
@@ -146,6 +150,7 @@ class Window extends Component {
         }
       }, 50);
     }
+    this.setState({ inProgBar2: true });
   };
 
   updateData(result) {
@@ -290,9 +295,8 @@ class Window extends Component {
   };
 
   uploadStuff = event => {
-    if(event.target.value.length ===0){
-      
-      return
+    if (event.target.value.length === 0) {
+      return;
     }
     var extension = event.target.files[0].name.split(".");
     extension = extension[1];
@@ -329,13 +333,12 @@ class Window extends Component {
   };
 
   stepOnePanel = () => {
-    if (!clickedStep1) {
+    if (!this.state.clickedStep1) {
       this.progressBar();
       if (this.state.downUpDis === true || this.state.validType === false) {
         window.alert("*Please upload valid data file!*");
-        clickedStep1 = false;
+        this.setState({ clickedStep1: false });
       } else {
-        clickedStep1 = true;
         var ext = this.state.selectedFile.name;
         ext = ext.split(".");
         ext = ext[1];
@@ -357,15 +360,14 @@ class Window extends Component {
             }
           }, 50);
         }
+        this.setState({ clickedStep1: true });
       }
     }
-    
   };
 
   stepTwoPanel = () => {
-    if (!clickedStep2) {
-      clickedStep2 = true;
-
+    if (!this.state.clickedStep2) {
+      this.setState({ clickedStep2: true });
       if (this.state.selectValue === "CO") {
         this.filter();
         this.jasonify();
@@ -382,8 +384,25 @@ class Window extends Component {
         this.progressBar2();
       } else {
         window.alert("*Available for Colorado only*");
-        clickedStep2 = false;
+        this.setState({ clickedStep2: false });
       }
+    }
+
+    if (validData) {
+      this.setState({
+        step3Head: "Step 3 : ",
+        step3Body:
+          "Filtered by state, type of accident, and between -108 and -105 longitude",
+        step3Body2: "",
+        showButton: ""
+      });
+    } else {
+      this.setState({
+        step3Head: "Error : ",
+        step3Body: "Unreadable file",
+        step3Body2: "Please upload a valid file",
+        showButton: "none"
+      });
     }
   };
 
@@ -397,7 +416,6 @@ class Window extends Component {
   };
 
   stepFourPanel = () => {
-    this.readFatalData();
     this.writeFatalData();
     this.setState({
       an5: "fadeOutLeft 1.5s  ease",
@@ -415,11 +433,13 @@ class Window extends Component {
   };
 
   backButton = () => {
-    this.setState({
-      ani: "fadeInRight 1.5s ease",
-      an2: "fadeOutRight 2s ease",
-      pi: "block"
-    });
+    if (!this.state.inProgBar1) {
+      this.setState({
+        ani: "fadeInRight 1.5s ease",
+        an2: "fadeOutRight 2s ease",
+        pi: "block"
+      });
+    }
   };
 
   backButtoni = () => {
@@ -431,21 +451,29 @@ class Window extends Component {
   };
 
   backButton2 = () => {
-    validData = true;
-    this.resetClicker();
-    this.setState({
-      an2: "fadeInRight 1.5s ease",
-      an3: "fadeOutRight 2s ease",
-      p1: "block"
-    });
+    if (!this.state.inProgBar2) {
+      this.setState({
+        an2: "fadeInRight 1.5s ease",
+        an3: "fadeOutRight 2s ease",
+        p1: "block",
+        progDisp: "none",
+        clickedStep1: false,
+        inProgBar1: false,
+        progWidth: 0
+      });
+    }
   };
 
   backButton3 = () => {
-    this.resetClicker();
+    validData = true;
     this.setState({
       an3: "fadeInRight 1.5s ease",
       an4: "fadeOutRight 2s ease",
-      p2: "block"
+      p2: "block",
+      progDisp2: "none",
+      clickedStep2: false,
+      inProgBar2: false,
+      progWidth2: 0
     });
   };
 
@@ -530,11 +558,11 @@ class Window extends Component {
               <br />
               <h3 className="texti">Purpose:</h3>
               <p className="textih">
-                In the following steps you will upload NTSB data to a firebase
-                server that will reflect on the aviation accident map. This web
-                app filters through data and uploads the information pertaining
-                to fatal accidents to a database. Data will be from txt files
-                downloaded by the user of this app from the NTSB.
+                This web app filters through data and uploads the information
+                pertaining to fatal accidents to a database. Data will be from
+                txt files downloaded by the user of this app from the NTSB. In
+                the following steps you will upload NTSB data to a firebase
+                server that will reflect on the aviation accident map.
               </p>
 
               <button className="buttoni" onClick={this.instructionsPanel}>
@@ -572,7 +600,8 @@ class Window extends Component {
                   style={{ width: String(this.state.progWidth + "%") }}
                 />
               </div>
-              <div className ="mob"
+              <div
+                className="mob"
                 style={{
                   position: "relative",
                   display: "flex",
@@ -716,7 +745,21 @@ class Window extends Component {
             className="p3cont"
             style={{ display: this.state.p3, animation: this.state.an4 }}
           >
-            {this.stepThreePanelChecked()}
+            <div className="pannel3" key="validData">
+              <button id="back" onClick={this.backButton3}>
+                Back
+              </button>
+              <h3 className="text3">{this.state.step3Head}</h3> <br />
+              <p className="text3h">{this.state.step3Body}</p>
+              <p className="text3h">{this.state.step3Body2}</p>
+              <button
+                className="button3"
+                onClick={this.stepThreePanel}
+                style={{ display: this.state.showButton }}
+              >
+                Next
+              </button>
+            </div>
           </div>
 
           <div
@@ -752,7 +795,7 @@ class Window extends Component {
               </p>
               <br />
               <a
-                href="https://state-aviation-m-1538090440532.firebaseapp.com/"
+                href="https://aviation-accident-map-user.firebaseapp.com/"
                 id="link2"
                 target="_blank"
                 rel="noopener noreferrer"

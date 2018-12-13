@@ -55,12 +55,12 @@ const AWOS = ({ lat, lng, loc, freq }) => (
 
 function initializeDatabase() {
   const firstDatabase = {
-    databaseURL: "https://state-aviation-admin.firebaseio.com"
+    databaseURL: "https://aviation-accident-map-admin.firebaseio.com"
   };
   firebase.initializeApp(firstDatabase);
 
   const secondDatabase = {
-    databaseURL: "https://state-aviation-m-1538090440532.firebaseio.com"
+    databaseURL: "https://aviation-accident-map-user.firebaseio.com"
   };
   staticData = firebase.initializeApp(secondDatabase, "secondDatabase");
 }
